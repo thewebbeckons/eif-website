@@ -1,7 +1,25 @@
 {
-  "name": "nuxt-app",
-  "private": true,
-  "type": "module",
+  "name": "eif-website",
+  "version": "1.0.0",
+  "description": "World of Warcraft Guild Website",
+  "keywords": [
+    "WoW",
+    "World",
+    "of",
+    "Warcarft"
+  ],
+  "homepage": "https://github.com/thewebbeckons/eif-website#readme",
+  "bugs": {
+    "url": "https://github.com/thewebbeckons/eif-website/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thewebbeckons/eif-website.git"
+  },
+  "license": "MIT",
+  "author": "Jesse Beck",
+  "type": "commonjs",
+  "main": "index.js",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -9,13 +27,10 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
-  "devDependencies": {
-    "@nuxt/devtools": "latest",
-    "nuxt": "^3.8.2",
-    "vue": "^3.3.12",
-    "vue-router": "^4.2.5"
-  },
   "dependencies": {
-    "@nuxt/ui": "^2.11.1"
+    "@nuxt/ui": "^3.0.0",
+    "@vueuse/core": "^12.8.2",
+    "motion-v": "^0.11.3",
+    "nuxt": "^3.16.2"
   }
 }
