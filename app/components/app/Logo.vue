@@ -5,7 +5,8 @@
 <template>
   <div>
     <NuxtLink to="/">
-      <img src="/Logo_Black@2x.png" alt="Logo" height="40" class="h-12 w-full" />
+      <UColorModeImage light="/Logo_Black@2x.png" dark="/Logo_White@2x.png" alt="Logo" height="40"
+        class="h-12 w-full object-contain" />
     </NuxtLink>
   </div>
 </template>

@@ -1,14 +1,18 @@
-<script lang="ts" setup>
-
+<script setup lang="ts">
+const { data: posts } = await useAsyncData('posts', () => queryCollection('content').all())
 </script>
+
 <template>
-  <div class="py-24 sm:py-32 md:py-40 relative">
-    <section class="mx-auto px-4 sm:px-6 lg:px-8 gap-16 sm:gap-y-24 max-w-4xl flex flex-col text-center">
-      <div>
-        <h1 class="text-5xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-7xl mb-3">
-          What's New?
-        </h1>
-      </div>
-    </section>
-  </div>
+  <UPage>
+    <UPageHero title="News" />
+
+    <UPageBody>
+      <UContainer>
+        <UBlogPosts>
+          <UBlogPost v-for="(post, index) in posts" :key="index" v-bind="post" :to="post.path" :image="post.image"
+            :date="post.date" />
+        </UBlogPosts>
+      </UContainer>
+    </UPageBody>
+  </UPage>
 </template>

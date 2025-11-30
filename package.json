@@ -28,9 +28,19 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxt/ui": "^3.0.0",
+    "@nuxt/content": "^3.8.2",
+    "@nuxt/ui": "^4.2.1",
     "@vueuse/core": "^12.8.2",
+    "better-sqlite3": "^12.5.0",
     "motion-v": "^0.11.3",
-    "nuxt": "^3.16.2"
-  }
+    "nuxt": "^4.2.1",
+    "nuxt-studio": "^1.0.0-alpha.2",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@oxc-minify/binding-darwin-arm64": "^0.96.0",
+    "@oxc-parser/binding-darwin-arm64": "^0.96.0",
+    "@oxc-transform/binding-darwin-arm64": "^0.96.0"
+  },
+  "packageManager": "pnpm@10.11.0+sha512.6540583f41cc5f628eb3d9773ecee802f4f9ef9923cc45b69890fb47991d4b092964694ec3a4f738a420c918a333062c8b925d312f42e4f0c263eb603551f977"
 }
