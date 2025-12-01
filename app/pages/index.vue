@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import { Motion } from "motion-v";
+
+const { data: posts } = await useAsyncData('blog', () => queryCollection('content').all())
+</script>
 <template>
   <UContainer class="py-24 sm:py-32 md:py-20 relative">
     <div class="space-y-16 md:space-y-24 lg:space-y-14">
@@ -36,8 +41,3 @@
     </div>
   </UContainer>
 </template>
-<script setup lang="ts">
-import { Motion } from "motion-v";
-
-const { data: posts } = await useAsyncData('blog', () => queryCollection('content').all())
-</script>
