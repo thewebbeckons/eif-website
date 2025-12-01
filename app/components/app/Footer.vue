@@ -12,7 +12,7 @@
         <UButton color="primary" variant="link" to="/news">News</UButton>
         <UButton color="primary" variant="link" to="/streams">Streams</UButton>
         <UButton color="primary" variant="link" to="/roster">Roster</UButton>
-        <UButton color="primary" variant="soft" to="/join" class="cursor-pointer">
+        <UButton color="primary" variant="soft" @click="useJoinModal().open()" class="cursor-pointer">
           Join Us
         </UButton>
       </nav>

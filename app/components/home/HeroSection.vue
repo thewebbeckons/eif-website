@@ -16,9 +16,10 @@
                     seasoned raider or just looking for a chill group to hang out with. Come be part of our community
                     and
                     share in the adventure!</p>
-                <div class="flex flex-row gap-3">
-                    <UButton color="primary" variant="soft" to="/join">Join Us</UButton>
-                    <UButton color="primary" variant="link" to="/about">Learn More</UButton>
+                <div class="mt-10 flex items-center justify-center gap-x-6">
+                    <UButton size="xl" @click="useJoinModal().open()">Join Us</UButton>
+                    <UButton size="xl" variant="outline" to="/roster">View Roster <span aria-hidden="true">→</span>
+                    </UButton>
                 </div>
             </div>
         </div>

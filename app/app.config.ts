@@ -10,9 +10,7 @@ export default defineAppConfig({
       secondary: "cyan",
     },
     button: {
-      defaultVariants: {
-        variant: 'solid',
-      }
+      slots: {}
     },
     input: {
       defaultVariants: {

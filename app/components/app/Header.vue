@@ -1,13 +1,5 @@
 <script setup lang="ts">
-const colorMode = useColorMode()
-const isDark = computed({
-  get() {
-    return colorMode.value === 'dark'
-  },
-  set() {
-    colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-  }
-})
+
 </script>
 
 <template>
@@ -20,16 +12,9 @@ const isDark = computed({
         <UButton color="primary" variant="link" to="/streams">Streams</UButton>
         <UButton color="primary" variant="link" to="/roster">Roster</UButton>
         <!-- <UButton color="primary" variant="link" to="/events">Events</UButton> -->
-        <UButton color="primary" variant="soft" @click="console.log('Sign Up clicked')" class="cursor-pointer">
+        <UButton color="primary" variant="outline" @click="useJoinModal().open()" class="cursor-pointer">
           Join Us
         </UButton>
-        <ClientOnly>
-          <UButton :icon="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'" color="neutral"
-            variant="ghost" aria-label="Theme" @click="isDark = !isDark" />
-          <template #fallback>
-            <div class="w-8 h-8" />
-          </template>
-        </ClientOnly>
       </nav>
     </UContainer>
   </header>

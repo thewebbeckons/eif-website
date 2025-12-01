@@ -14,7 +14,9 @@ interface Member {
   name: string
   race: string
   class: string
+  thumbnail_url?: string
   mythic_plus_score?: number
+  mythic_plus_best_runs?: any
 }
 
 const members = ref<Member[]>([])
@@ -46,14 +48,15 @@ watch(guild, async (newGuild) => {
           region: 'us',
           realm: 'illidan',
           name: member.name,
-          fields: 'mythic_plus_scores_by_season:current'
+          fields: 'mythic_plus_scores_by_season:current,mythic_plus_best_runs'
         },
         key: `mp-score-${member.name}` // Unique key for caching
       })
 
       if (data.value?.mythic_plus_scores_by_season?.[0]?.scores?.all) {
         member.mythic_plus_score = Math.round(data.value.mythic_plus_scores_by_season[0].scores.all)
-
+        member.mythic_plus_best_runs = data.value.mythic_plus_best_runs
+        member.thumbnail_url = data.value.thumbnail_url
       }
     } catch (e) {
       console.error(`Failed to fetch score for ${member.name}`, e)
@@ -86,20 +89,11 @@ const raidProgression = computed(() => {
 const columns: TableColumn<Member>[] = [
   {
     accessorKey: 'name',
-    header: 'Name'
+    header: 'Name',
   },
   {
-    accessorKey: 'race',
-    header: 'Race'
-  },
-  {
-    accessorKey: 'class',
-    header: 'Class',
-    cell: ({ row }) => {
-      const className = row.getValue('class') as string
-      const color = getClassColor(className)
-      return h('span', { class: color }, className)
-    }
+    accessorKey: 'mythic_plus_best_runs',
+    header: 'Highest Scoring Runs'
   },
   {
     accessorKey: 'mythic_plus_score',
@@ -162,7 +156,37 @@ const getScoreColor = (score?: number) => {
     </div>
 
     <UCard variant="subtle" color="primary">
-      <UTable :data="sortedMembers" :columns="columns" :loading="status === 'pending' || loadingScores" />
+      <UTable :data="sortedMembers" :columns="columns" :loading="status === 'pending' || loadingScores">
+        <template #name-cell="{ row }">
+          <div class="flex items-center gap-3">
+            <UAvatar :src="row.original.thumbnail_url" size="lg" :alt="`${row.original.name} avatar`" />
+            <div>
+              <p class="font-medium text-highlighted">
+                {{ row.original.name }}
+              </p>
+              <p :class="getClassColor(row.original.class)">
+                {{ row.original.class }}
+              </p>
+            </div>
+          </div>
+        </template>
+        <template #mythic_plus_best_runs-cell="{ row }">
+          <div v-if="row.original.mythic_plus_best_runs" class="flex flex-row gap-2 items-center">
+            <div v-for="run in row.original.mythic_plus_best_runs" :key="run.id"
+              class="flex flex-col items-center relative">
+              <!-- <UAvatar class="rounded-md border-1 border-neutral grayscale" :src="run.background_image_url" size="lg"
+                :alt="`${row.original.name} avatar`" /> -->
+              <div class="flex flex-col items-center">
+                <img :src="run.background_image_url" alt=""
+                  class="object-cover h-10 w-10 brightness-70 border border-gray-500 rounded-sm" />
+                <p class=" absolute text-white font-bold">{{ run.mythic_level }}</p>
+                <p class="absolute text-neutral-300 font-medium bottom-0 text-[10px]">{{ run.short_name }}</p>
+              </div>
+            </div>
+          </div>
+          <span v-else>-</span>
+        </template>
+      </UTable>
     </UCard>
   </UContainer>
 </template>

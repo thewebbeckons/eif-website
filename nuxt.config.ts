@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
   compatibilityDate: "2025-02-15", 
-  content: {
-    
+  colorMode: {
+    preference: 'dark'
   }
 });
