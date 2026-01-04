@@ -3,8 +3,9 @@ export default defineNuxtConfig({
   modules: ["@nuxt/ui", "nuxt-studio", "@nuxt/content"],
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
-  compatibilityDate: "2025-02-15", 
+  compatibilityDate: "2025-02-15",
   colorMode: {
-    preference: 'dark'
+    preference: 'light',
+    fallback: 'light'
   }
 });
