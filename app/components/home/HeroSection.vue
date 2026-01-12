@@ -1,29 +1,15 @@
 <script setup lang="ts">
-import FloatingIcon from '~/components/home/FloatingIcon.vue'
+import HeroMeteors from '~/components/home/HeroMeteors.vue'
 import RaidDashboard from '~/components/home/RaidDashboard.vue'
 
 // Explicit imports ensure no auto-import ambiguity
 </script>
 <template>
-  <div class="relative overflow-hidden bg-white min-h-screen flex flex-col items-center pt-20 md:pt-32">
-    <!-- Left Cluster (Flanking the Text) -->
-    <FloatingIcon iconName="i-lucide-shield" colorClass="text-gray-200" top="20%" left="15%" :rotation="-10" :delay="'3s'" />
-    <FloatingIcon iconName="i-lucide-heart" colorClass="text-paladin-pink" top="28%" left="8%" :rotation="-25" :delay="'0s'" />
-    <FloatingIcon iconName="i-lucide-sword" colorClass="text-gray-900" top="38%" left="5%" :rotation="35" :delay="'1.2s'" />
-    <FloatingIcon iconName="i-lucide-scroll" colorClass="text-legendary-gold" top="48%" left="10%" :rotation="15" :delay="'1.5s'" />
-    <FloatingIcon iconName="i-lucide-cat" colorClass="text-druid-orange" top="58%" left="18%" :rotation="-15" :delay="'2.5s'" />
-    <FloatingIcon iconName="i-lucide-gamepad-2" colorClass="text-mage-blue" top="35%" left="22%" :rotation="5" :delay="'4s'" />
-    
-    <!-- Right Cluster (Flanking the Text) -->
-    <FloatingIcon iconName="i-lucide-trophy" colorClass="text-legendary-gold" top="22%" right="12%" :rotation="20" :delay="'3.5s'" />
-    <FloatingIcon iconName="i-lucide-sparkles" colorClass="text-mage-blue" top="30%" right="6%" :rotation="-10" :delay="'0.5s'" />
-    <FloatingIcon iconName="i-lucide-coins" colorClass="text-loot-purple" top="40%" right="5%" :rotation="-20" :delay="'1.8s'" />
-    <FloatingIcon iconName="i-lucide-paw-print" colorClass="text-druid-orange" top="50%" right="8%" :rotation="35" :delay="'2.2s'" />
-    <FloatingIcon iconName="i-lucide-flask-conical" colorClass="text-monk-green" top="60%" right="15%" :rotation="-15" :delay="'2.8s'" />
-    <FloatingIcon iconName="i-lucide-skull" colorClass="text-gray-400" top="45%" right="20%" :rotation="25" :delay="'4.5s'" />
+  <div class="relative overflow-hidden bg-white min-h-screen flex flex-col items-center">
+    <HeroMeteors />
 
     <!-- Main Content Container -->
-    <UContainer class="relative z-10 w-full max-w-6xl mx-auto px-4 flex flex-col items-center text-center">
+    <UContainer class="relative z-10 w-full max-w-6xl mx-auto px-4 pt-48 md:pt-56 lg:pt-64 flex flex-col items-center text-center">
       
       <!-- Top Section: Headline (No Mascots) -->
       <div class="relative w-full flex flex-col items-center justify-center mb-20">

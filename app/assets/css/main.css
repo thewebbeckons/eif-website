@@ -21,6 +21,7 @@
   
   --animate-float: float 6s ease-in-out infinite;
   --animate-glitch: glitch-shake 4s infinite;
+  --animate-meteor-effect: meteor 5s linear infinite;
   
   @keyframes float {
     0% { transform: translateY(0px); }
@@ -36,5 +37,19 @@
     8% { transform: translate(1px, -1px); }
     10% { transform: translate(0, 0); }
     100% { transform: translate(0, 0); }
+  }
+
+  @keyframes meteor {
+    0% {
+      transform: rotate(215deg) translateX(0);
+      opacity: 1;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(215deg) translateX(-500px);
+      opacity: 0;
+    }
   }
 }

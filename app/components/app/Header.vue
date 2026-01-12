@@ -9,7 +9,7 @@ const items = computed(() => [
 <template>
   <UHeader 
     :ui="{ 
-      root: 'mx-4 lg:mx-auto max-w-7xl mt-6 rounded-3xl border-2 border-black dark:border-white bg-white dark:bg-gray-900 shadow-[6px_6px_0_0_rgb(0,0,0)] z-50 sticky top-6', 
+      root: 'mx-4 lg:mx-auto max-w-7xl rounded-3xl border-2 border-black dark:border-white bg-white dark:bg-gray-900 shadow-[6px_6px_0_0_rgb(0,0,0)] z-50 fixed top-6 left-0 right-0', 
       container: 'px-6 py-2',
       center: 'hidden lg:flex'
     }"
@@ -23,11 +23,13 @@ const items = computed(() => [
     </template>
 
     <template #right>
-      <div class="flex items-center gap-2">
-        <UButton color="neutral" variant="ghost" to="/login" class="font-bold">Log In</UButton>
-        <UButton color="neutral" variant="solid" to="/signup" class="font-bold border-2 border-transparent hover:border-black active:translate-y-0.5 transition-all">Get Started</UButton>
+      <div class="flex items-center">
+        <UButton class="font-bold bg-paladin-pink text-white border-2 border-transparent hover:border-black hover:bg-paladin-pink/90 active:translate-y-0.5 transition-all">
+          Join Us
+        </UButton>
       </div>
     </template>
+
 
     <template #body>
       <UNavigationMenu :items="items" orientation="vertical" />
