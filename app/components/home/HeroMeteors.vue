@@ -25,9 +25,9 @@ const props = defineProps({
 })
 
 const iconPool: MeteorIcon[] = [
-  { iconName: 'i-lucide-shield', colorClass: 'text-gray-200' },
+  { iconName: 'i-lucide-shield', colorClass: 'text-gray-200 dark:text-stone-500' },
   { iconName: 'i-lucide-heart', colorClass: 'text-paladin-pink' },
-  { iconName: 'i-lucide-sword', colorClass: 'text-gray-900' },
+  { iconName: 'i-lucide-sword', colorClass: 'text-gray-900 dark:text-stone-300' },
   { iconName: 'i-lucide-scroll', colorClass: 'text-legendary-gold' },
   { iconName: 'i-lucide-cat', colorClass: 'text-druid-orange' },
   { iconName: 'i-lucide-gamepad-2', colorClass: 'text-mage-blue' },
@@ -36,7 +36,7 @@ const iconPool: MeteorIcon[] = [
   { iconName: 'i-lucide-coins', colorClass: 'text-loot-purple' },
   { iconName: 'i-lucide-paw-print', colorClass: 'text-druid-orange' },
   { iconName: 'i-lucide-flask-conical', colorClass: 'text-monk-green' },
-  { iconName: 'i-lucide-skull', colorClass: 'text-gray-400' },
+  { iconName: 'i-lucide-skull', colorClass: 'text-gray-400 dark:text-stone-500' },
 ]
 
 const sizeClasses = ['text-lg', 'text-xl', 'text-2xl']

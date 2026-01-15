@@ -42,7 +42,7 @@
     </div>
     
     <!-- Glow/Reflections -->
-    <div class="absolute -top-4 -right-4 w-10 h-10 bg-white/20 rounded-full blur-xl"></div>
+    <div class="absolute -top-4 -right-4 w-10 h-10 bg-white/20 dark:bg-stone-700/30 rounded-full blur-xl"></div>
   </div>
 </template>
 

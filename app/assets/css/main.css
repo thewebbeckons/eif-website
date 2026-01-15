@@ -1,6 +1,14 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
+body {
+  background-color: #FFFBEB;
+}
+
+.dark body {
+  background-color: #0c0a09;
+}
+
 @theme {
   --font-heading: "Inter Tight", "Plus Jakarta Sans", sans-serif;
   --font-body: "Inter", sans-serif;
@@ -9,6 +17,7 @@
   --color-mage-blue: #69CCF0;
   --color-druid-orange: #FF7D0A;
   --color-monk-green: #00FF96;
+  --color-rogue-yellow: #FFF569;
   --color-paladin-pink: #F58CBA;
   --color-loot-purple: #A335EE;
   --color-legendary-gold: #FF8000;

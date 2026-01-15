@@ -11,8 +11,8 @@
             </div>
           </div>
           <div class="p-4">
-            <h3 class="text-xl font-bold mb-2">Latest Research Breakthrough</h3>
-            <p class="text-gray-500 mb-4">Our team has recently made significant progress in the field of quantum
+            <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-stone-100">Latest Research Breakthrough</h3>
+            <p class="text-gray-500 dark:text-stone-400 mb-4">Our team has recently made significant progress in the field of quantum
               computing, achieving a major breakthrough that could revolutionize the industry.</p>
             <UButton size="sm" variant="soft" color="primary" class="mt-2">Read More</UButton>
           </div>
@@ -25,8 +25,8 @@
           <div class="flex flex-col sm:flex-row">
             <img :src="item.image" :alt="item.title" class="h-32 w-full sm:w-32 object-cover" />
             <div class="p-4">
-              <h4 class="font-bold">{{ item.title }}</h4>
-              <p class="text-sm text-gray-500 mt-1">{{ item.description }}</p>
+              <h4 class="font-bold text-gray-900 dark:text-stone-100">{{ item.title }}</h4>
+              <p class="text-sm text-gray-500 dark:text-stone-400 mt-1">{{ item.description }}</p>
               <UButton size="xs" variant="ghost" color="primary" class="mt-2">Read More</UButton>
             </div>
           </div>

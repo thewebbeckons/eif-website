@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <UFooter class="bg-gray-50 dark:bg-(--ui-bg-muted)">
+  <UFooter class="bg-stone-50 dark:bg-stone-950">
     <template #left>
       <AppLogo />
     </template>
@@ -23,7 +23,7 @@
     <template #bottom>
       <UContainer>
         <div class="flex flex-col sm:flex-row justify-between items-center w-full">
-          <p class="text-sm text-gray-500 dark:text-gray-400">
+          <p class="text-sm text-gray-500 dark:text-stone-400">
             &copy; {{ new Date().getFullYear() }} EIF. All rights reserved.
           </p>
           <div class="flex space-x-4 mt-4 sm:mt-0">

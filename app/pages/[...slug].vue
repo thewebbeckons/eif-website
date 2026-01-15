@@ -13,9 +13,9 @@ const { data: page } = await useAsyncData(route.path, () => {
     </template>
     <template v-else>
         <div class="empty-page">
-            <h1>Page Not Found</h1>
-            <p>Oops! The content you're looking for doesn't exist.</p>
-            <NuxtLink to="/">Go back home</NuxtLink>
+            <h1 class="text-gray-900 dark:text-stone-100">Page Not Found</h1>
+            <p class="text-gray-500 dark:text-stone-400">Oops! The content you're looking for doesn't exist.</p>
+            <NuxtLink class="text-primary" to="/">Go back home</NuxtLink>
         </div>
     </template>
 </template>
