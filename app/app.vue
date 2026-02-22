@@ -1,9 +1,15 @@
+<script setup lang="ts">
+import InteractiveBackground from '~/components/home/InteractiveBackground.vue'
+</script>
+
 <template>
   <UApp>
-    <AppHeader />
-    <NuxtPage />
-    <USeparator icon="i-lucide-heart" type="dashed" class="h-px" :ui="{ icon: 'text-primary dark:text-primary-500' }" />
-    <AppFooter />
-    <AppJoinModal />
+    <InteractiveBackground />
+    <div class="relative z-10 flex flex-col min-h-screen">
+      <AppHeader />
+      <NuxtPage />
+      <AppFooter />
+      <AppJoinModal />
+    </div>
   </UApp>
 </template>

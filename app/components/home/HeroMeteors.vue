@@ -43,7 +43,7 @@ const sizeClasses = ['text-lg', 'text-xl', 'text-2xl']
 
 const meteors = ref<Meteor[]>([])
 
-const getRandomItem = <T,>(items: T[]): T => items[Math.floor(Math.random() * items.length)]
+const getRandomItem = <T,>(items: T[]): T => items[Math.floor(Math.random() * items.length)]!
 
 const buildMeteors = () => {
   meteors.value = Array.from({ length: props.count }, (_, index) => {

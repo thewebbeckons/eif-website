@@ -1,11 +1,16 @@
+import { apiEndpoint, repositoryName } from "./slicemachine.config.json";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@nuxt/ui", "nuxt-studio", "@nuxt/content"],
+  modules: ["@nuxt/ui", "@nuxtjs/prismic"],
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
   compatibilityDate: "2025-02-15",
+
   colorMode: {
-    preference: 'light',
-    fallback: 'light'
+    preference: 'dark',
+    fallback: 'dark'
+  },
+  prismic: {
+    endpoint: apiEndpoint || repositoryName
   }
 });

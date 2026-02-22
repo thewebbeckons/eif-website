@@ -1,0 +1,76 @@
+{
+  "id": "guild_hero",
+  "type": "SharedSlice",
+  "name": "GuildHero",
+  "description": "A guild hero section showcasing guild information with description text, CTA button, and loot showcase",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "",
+      "version": "initial",
+      "description": "Default variation",
+      "imageUrl": "",
+      "primary": {
+        "heading": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Heading",
+            "single": "heading1,heading2,heading3"
+          }
+        },
+        "description": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Description",
+            "multi": "paragraph,strong,em"
+          }
+        },
+        "cta_button": {
+          "type": "Link",
+          "config": {
+            "label": "CTA Button",
+            "allowText": true,
+            "select": null
+          }
+        },
+        "loot_item_name": {
+          "type": "Text",
+          "config": {
+            "label": "Loot Item Name"
+          }
+        },
+        "looted_by": {
+          "type": "Text",
+          "config": {
+            "label": "Looted By"
+          }
+        },
+        "dps_meter": {
+          "type": "Group",
+          "config": {
+            "label": "DPS Meter",
+            "repeat": true,
+            "fields": {
+              "name": {
+                "type": "Text",
+                "config": {
+                  "label": "Name",
+                  "placeholder": ""
+                }
+              },
+              "dps": {
+                "type": "Text",
+                "config": {
+                  "label": "DPS",
+                  "placeholder": ""
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}
