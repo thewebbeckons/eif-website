@@ -16,6 +16,7 @@ export default defineAppConfig({
     },
     navigationMenu: {
       slots: {
+        list: 'gap-3',
         link: 'font-black !text-white uppercase border-2 border-transparent transition-all duration-150 ease-in-out hover:border-black hover:!bg-[var(--ui-primary)] hover:!text-black hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-0 active:translate-y-0 active:shadow-none before:hidden',
         childLink: 'font-black !text-white uppercase border-2 border-transparent transition-all duration-150 ease-in-out hover:border-black hover:!bg-[var(--ui-primary)] hover:!text-black hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-0 active:translate-y-0 active:shadow-none before:hidden'
       },

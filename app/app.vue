@@ -7,7 +7,9 @@ import InteractiveBackground from '~/components/home/InteractiveBackground.vue'
     <InteractiveBackground />
     <div class="relative z-10 flex flex-col min-h-screen">
       <AppHeader />
-      <NuxtPage />
+      <UMain>
+        <NuxtPage />
+      </UMain>
       <AppFooter />
       <AppJoinModal />
     </div>

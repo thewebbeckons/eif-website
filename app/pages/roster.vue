@@ -1,15 +1,6 @@
 <script lang="ts" setup>
 import type { TableColumn } from '@nuxt/ui'
 
-const { data: guild, status } = await useFetch<any>('https://raider.io/api/v1/guilds/profile', {
-  query: {
-    region: 'us',
-    realm: 'illidan',
-    name: 'exercise in futility',
-    fields: 'members,raid_progression'
-  }
-})
-
 interface Member {
   name: string
   race: string
@@ -19,57 +10,13 @@ interface Member {
   mythic_plus_best_runs?: any
 }
 
-const members = ref<Member[]>([])
-const loadingScores = ref(false)
+const { data: rosterData, status } = await useFetch<any>('/api/roster', {
+  lazy: true // optional: fetching on client side nicely
+})
 
-watch(guild, async (newGuild) => {
-  if (!newGuild?.members) {
-    members.value = []
-    return
-  }
-
-  const filteredMembers = newGuild.members
-    .filter((m: any) => m.rank < 5)
-    .map((m: any) => ({
-      name: m.character.name,
-      race: m.character.race,
-      class: m.character.class,
-      mythic_plus_score: 0 // Placeholder
-    }))
-
-  members.value = filteredMembers
-  loadingScores.value = true
-
-  // Fetch Mythic+ scores in parallel
-  const scorePromises = filteredMembers.map(async (member: Member) => {
-    try {
-      const { data } = await useFetch<any>('https://raider.io/api/v1/characters/profile', {
-        query: {
-          region: 'us',
-          realm: 'illidan',
-          name: member.name,
-          fields: 'mythic_plus_scores_by_season:current,mythic_plus_best_runs'
-        },
-        key: `mp-score-${member.name}` // Unique key for caching
-      })
-
-      if (data.value?.mythic_plus_scores_by_season?.[0]?.scores?.all) {
-        member.mythic_plus_score = Math.round(data.value.mythic_plus_scores_by_season[0].scores.all)
-        member.mythic_plus_best_runs = data.value.mythic_plus_best_runs
-        member.thumbnail_url = data.value.thumbnail_url
-      }
-    } catch (e) {
-      console.error(`Failed to fetch score for ${member.name}`, e)
-    }
-  })
-
-  await Promise.all(scorePromises)
-
-  // Filter out members with 0 score
-  members.value = members.value.filter(m => (m.mythic_plus_score || 0) > 0)
-
-  loadingScores.value = false
-}, { immediate: true })
+const guild = computed(() => rosterData.value?.guild || null)
+const members = computed<Member[]>(() => rosterData.value?.members || [])
+const loadingScores = computed(() => status.value === 'pending')
 
 const sortedMembers = computed(() => {
   return [...members.value].sort((a, b) => {

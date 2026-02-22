@@ -234,6 +234,67 @@ export type AllDocumentTypes =
   | NewsDocument;
 
 /**
+ * Primary content in *CallToAction → Default → Primary*
+ */
+export interface CallToActionSliceDefaultPrimary {
+  /**
+   * Heading field in *CallToAction → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Ready to deplete?
+   * - **API ID Path**: call_to_action.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Button field in *CallToAction → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: call_to_action.default.primary.button_link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  button_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+}
+
+/**
+ * Default variation for CallToAction Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default CallToAction variation
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type CallToActionSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<CallToActionSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *CallToAction*
+ */
+type CallToActionSliceVariation = CallToActionSliceDefault;
+
+/**
+ * CallToAction Shared Slice
+ *
+ * - **API ID**: `call_to_action`
+ * - **Description**: A prominent call-to-action section with a large heading and button
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type CallToActionSlice = prismic.SharedSlice<
+  "call_to_action",
+  CallToActionSliceVariation
+>;
+
+/**
  * Item in *GuildHero → Default → Primary → DPS Meter*
  */
 export interface GuildHeroSliceDefaultPrimaryDpsMeterItem {
@@ -362,6 +423,98 @@ export type GuildHeroSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *TheVibes → Default → Primary → Features*
+ */
+export interface TheVibesSliceDefaultPrimaryFeaturesItem {
+  /**
+   * Feature Text field in *TheVibes → Default → Primary → Features*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: e.g., COMMUNITY FIRST.
+   * - **API ID Path**: the_vibes.default.primary.features[].feature_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  feature_text: prismic.KeyTextField;
+}
+
+/**
+ * Primary content in *TheVibes → Default → Primary*
+ */
+export interface TheVibesSliceDefaultPrimary {
+  /**
+   * Tag field in *TheVibes → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: e.g., THE VIBES
+   * - **API ID Path**: the_vibes.default.primary.tag
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  tag: prismic.KeyTextField;
+
+  /**
+   * Heading field in *TheVibes → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Enter main heading
+   * - **API ID Path**: the_vibes.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Description field in *TheVibes → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Enter description text
+   * - **API ID Path**: the_vibes.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Features field in *TheVibes → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: the_vibes.default.primary.features[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  features: prismic.GroupField<
+    Simplify<TheVibesSliceDefaultPrimaryFeaturesItem>
+  >;
+}
+
+/**
+ * Default variation for TheVibes Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default variation
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type TheVibesSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<TheVibesSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *TheVibes*
+ */
+type TheVibesSliceVariation = TheVibesSliceDefault;
+
+/**
+ * TheVibes Shared Slice
+ *
+ * - **API ID**: `the_vibes`
+ * - **Description**: A hero section showcasing community vibes with tag, heading, description, and feature list
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type TheVibesSlice = prismic.SharedSlice<
+  "the_vibes",
+  TheVibesSliceVariation
+>;
+
+/**
  * Item in *WhyChooseUs → Default → Primary → Feature Cards*
  */
 export interface WhyChooseUsSliceDefaultPrimaryCardsItem {
@@ -384,26 +537,6 @@ export interface WhyChooseUsSliceDefaultPrimaryCardsItem {
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   description: prismic.RichTextField;
-
-  /**
-   * Badge Text (optional) field in *WhyChooseUs → Default → Primary → Feature Cards*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: e.g., +13, LIVE, ACHIEVED!
-   * - **API ID Path**: why_choose_us.default.primary.cards[].badge
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  badge: prismic.KeyTextField;
-
-  /**
-   * Card Image (optional) field in *WhyChooseUs → Default → Primary → Feature Cards*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: why_choose_us.default.primary.cards[].cardImage
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  cardImage: prismic.ImageField<never>;
 }
 
 /**
@@ -503,11 +636,20 @@ declare module "@prismicio/client" {
       NewsDocumentData,
       NewsDocumentDataSlicesSlice,
       AllDocumentTypes,
+      CallToActionSlice,
+      CallToActionSliceDefaultPrimary,
+      CallToActionSliceVariation,
+      CallToActionSliceDefault,
       GuildHeroSlice,
       GuildHeroSliceDefaultPrimaryDpsMeterItem,
       GuildHeroSliceDefaultPrimary,
       GuildHeroSliceVariation,
       GuildHeroSliceDefault,
+      TheVibesSlice,
+      TheVibesSliceDefaultPrimaryFeaturesItem,
+      TheVibesSliceDefaultPrimary,
+      TheVibesSliceVariation,
+      TheVibesSliceDefault,
       WhyChooseUsSlice,
       WhyChooseUsSliceDefaultPrimaryCardsItem,
       WhyChooseUsSliceDefaultPrimary,

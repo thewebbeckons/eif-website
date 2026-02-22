@@ -21,27 +21,19 @@ interface Element {
   icon: string
   rotation: number
   rv: number
+  revealDelay: number
 }
 
 const elements = ref<Element[]>([])
-let requestRef: number
+const iconsVisible = ref(false)
+let requestRef: number | null = null
+let initTimeout: ReturnType<typeof setTimeout> | number | null = null
+let revealTimeout: ReturnType<typeof setTimeout> | number | null = null
 let nextId = 0
+const BACKGROUND_BOOT_DELAY_MS = 280
+const BACKGROUND_REVEAL_DELAY_MS = 120
 
 onMounted(() => {
-  const initialIcons = Array.from({ length: 22 }).map(() => ({
-    id: nextId++,
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
-    vx: (Math.random() - 0.5) * 1.0,
-    vy: (Math.random() - 0.5) * 1.0,
-    size: 24 + Math.random() * 32,
-    color: COLORS[Math.floor(Math.random() * COLORS.length)] as string,
-    icon: ICONS[Math.floor(Math.random() * ICONS.length)] as string,
-    rotation: Math.random() * 360,
-    rv: (Math.random() - 0.5) * 1.2
-  }))
-  elements.value = initialIcons
-  
   const update = () => {
     elements.value = elements.value.map(el => {
       let nx = el.x + el.vx
@@ -55,12 +47,33 @@ onMounted(() => {
     
     requestRef = requestAnimationFrame(update)
   }
-  
-  requestRef = requestAnimationFrame(update)
+
+  initTimeout = setTimeout(() => {
+    elements.value = Array.from({ length: 22 }).map(() => ({
+      id: nextId++,
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      vx: (Math.random() - 0.5) * 1.0,
+      vy: (Math.random() - 0.5) * 1.0,
+      size: 24 + Math.random() * 32,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)] as string,
+      icon: ICONS[Math.floor(Math.random() * ICONS.length)] as string,
+      rotation: Math.random() * 360,
+      rv: (Math.random() - 0.5) * 1.2,
+      revealDelay: 80 + Math.random() * 700
+    }))
+
+    revealTimeout = setTimeout(() => {
+      iconsVisible.value = true
+      requestRef = requestAnimationFrame(update)
+    }, BACKGROUND_REVEAL_DELAY_MS)
+  }, BACKGROUND_BOOT_DELAY_MS)
 })
 
 onBeforeUnmount(() => {
-  cancelAnimationFrame(requestRef)
+  if (initTimeout) clearTimeout(initTimeout)
+  if (revealTimeout) clearTimeout(revealTimeout)
+  if (requestRef !== null) cancelAnimationFrame(requestRef)
 })
 </script>
 
@@ -70,8 +83,9 @@ onBeforeUnmount(() => {
     <div 
       v-for="el in elements" 
       :key="'el-' + el.id" 
-      class="absolute opacity-40 transition-opacity duration-500 blur-[0.5px]" 
-      :style="{ transform: `translate(${el.x}px, ${el.y}px) rotate(${el.rotation}deg)`, color: el.color, filter: `drop-shadow(0 0 8px ${el.color})` }"
+      class="absolute transition-opacity duration-1200ms ease-out blur-[0.5px] will-change-transform"
+      :class="iconsVisible ? 'opacity-40' : 'opacity-0'"
+      :style="{ transform: `translate(${el.x}px, ${el.y}px) rotate(${el.rotation}deg)`, color: el.color, filter: `drop-shadow(0 0 8px ${el.color})`, transitionDelay: `${el.revealDelay}ms` }"
     >
       <UIcon :name="el.icon" :style="{ width: el.size + 'px', height: el.size + 'px' }" />
     </div>

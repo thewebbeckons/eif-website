@@ -4,6 +4,10 @@ import { defineAsyncComponent } from "vue";
 import { defineSliceZoneComponents } from "@prismicio/vue";
 
 export const components = defineSliceZoneComponents({
+  call_to_action: defineAsyncComponent(
+    () => import("./CallToAction/index.vue"),
+  ),
   guild_hero: defineAsyncComponent(() => import("./GuildHero/index.vue")),
+  the_vibes: defineAsyncComponent(() => import("./TheVibes/index.vue")),
   why_choose_us: defineAsyncComponent(() => import("./WhyChooseUs/index.vue")),
 });

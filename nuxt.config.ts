@@ -12,5 +12,8 @@ export default defineNuxtConfig({
   },
   prismic: {
     endpoint: apiEndpoint || repositoryName
+  },
+  routeRules: {
+    '/api/roster': { swr: 600 }
   }
 });

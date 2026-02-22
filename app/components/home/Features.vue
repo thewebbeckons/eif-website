@@ -2,6 +2,38 @@
 import { ref } from 'vue'
 import BentoCard from '~/components/home/BentoCard.vue'
 
+type ExplodingCat = { id: number; x: number; y: number; emoji: string; tx: number; ty: number; r: number }
+const explodingCats = ref<ExplodingCat[]>([])
+let catIdCounter = 0
+const catEmojis = ['🐱', '🦁', '🐈', '😸', '😹', '😻', '😼', '😽', '🙀']
+
+const handleCatClick = (e: MouseEvent) => {
+  const count = 12 + Math.floor(Math.random() * 8)
+  const newCats: ExplodingCat[] = []
+  for (let i = 0; i < count; i++) {
+    const angle = Math.random() * Math.PI * 2
+    const distance = 50 + Math.random() * 150
+    const tx = Math.cos(angle) * distance
+    const ty = Math.sin(angle) * distance - 50
+    const r = (Math.random() - 0.5) * 360
+    newCats.push({
+      id: catIdCounter++,
+      x: e.clientX,
+      y: e.clientY,
+      emoji: catEmojis[Math.floor(Math.random() * catEmojis.length)] || '🐱',
+      tx,
+      ty,
+      r
+    })
+  }
+  
+  explodingCats.value.push(...newCats)
+
+  setTimeout(() => {
+    explodingCats.value = explodingCats.value.filter(cat => !newCats.some(c => c.id === cat.id))
+  }, 1000)
+}
+
 const recruitmentInput = ref("")
 const recruitmentFeedback = ref("")
 const loadingRecruit = ref(false)
@@ -130,7 +162,7 @@ const scoutRecruit = async (e: Event) => {
       </BentoCard>
 
       <!-- Cat Card -->
-      <BentoCard colorClass="bg-purple-500">
+      <BentoCard colorClass="bg-purple-500" className="cursor-pointer" @click="handleCatClick">
         <div class="grow flex items-center justify-center p-8 bg-purple-400/20">
           <div class="flex -space-x-6">
             <div v-for="(cat, i) in ['🐱', '🦁', '🐈']" :key="i" class="w-16 h-16 rounded-full border-4 border-black bg-white flex items-center justify-center text-3xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:-translate-y-2 transition-transform">{{ cat }}</div>
@@ -144,4 +176,34 @@ const scoutRecruit = async (e: Event) => {
 
     </div>
   </section>
+
+  <Teleport to="body">
+    <div 
+      v-for="cat in explodingCats" 
+      :key="cat.id"
+      class="fixed pointer-events-none z-50 text-4xl animate-[explode-cat_1s_cubic-bezier(0.25,1,0.5,1)_forwards] drop-shadow-md select-none"
+      :style="{
+        left: `${cat.x}px`,
+        top: `${cat.y}px`,
+        '--tx': `${cat.tx}px`,
+        '--ty': `${cat.ty}px`,
+        '--r': `${cat.r}deg`
+      }"
+    >
+      {{ cat.emoji }}
+    </div>
+  </Teleport>
 </template>
+
+<style scoped>
+@keyframes explode-cat {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.5) rotate(var(--r));
+  }
+}
+</style>

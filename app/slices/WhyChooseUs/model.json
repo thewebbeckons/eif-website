@@ -47,24 +47,12 @@
                   "single": "paragraph",
                   "placeholder": "Card description text"
                 }
-              },
-              "badge": {
-                "type": "Text",
-                "config": {
-                  "label": "Badge Text (optional)",
-                  "placeholder": "e.g., +13, LIVE, ACHIEVED!"
-                }
-              },
-              "cardImage": {
-                "type": "Image",
-                "config": {
-                  "label": "Card Image (optional)"
-                }
               }
             }
           }
         }
-      }
+      },
+      "items": {}
     }
   ]
 }
