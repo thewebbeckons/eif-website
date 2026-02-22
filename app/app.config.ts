@@ -5,7 +5,46 @@ export default defineAppConfig({
       neutral: "stone",
     },
     button: {
-      slots: {}
+      slots: {
+        base: 'rounded-full shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-x-0.5 hover:-translate-y-0.5 active:shadow-xs active:translate-x-0 active:translate-y-0 border-2 border-gray-900 dark:border-stone-300'
+      },
+      compoundVariants: [
+        {
+          color: 'primary',
+          variant: 'solid',
+          class: 'bg-paladin-pink text-gray-900 hover:bg-paladin-pink/90'
+        },
+        {
+          color: 'secondary',
+          variant: 'solid',
+          class: 'bg-loot-purple text-white hover:bg-loot-purple/90'
+        },
+        {
+          color: 'success',
+          variant: 'solid',
+          class: 'bg-monk-green text-gray-900 hover:bg-monk-green/90'
+        },
+        {
+          color: 'warning',
+          variant: 'solid',
+          class: 'bg-druid-orange text-gray-900 hover:bg-druid-orange/90'
+        },
+        {
+          color: 'info',
+          variant: 'solid',
+          class: 'bg-mage-blue text-gray-900 hover:bg-mage-blue/90'
+        },
+        {
+          color: 'neutral',
+          variant: 'solid',
+          class: 'bg-gray-900 text-white hover:bg-gray-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200'
+        },
+        {
+          color: 'neutral',
+          variant: 'outline',
+          class: 'bg-white/60 dark:bg-stone-900/60 backdrop-blur-sm'
+        }
+      ]
     },
     input: {
       defaultVariants: {
@@ -14,7 +53,7 @@ export default defineAppConfig({
     },
     blogPost: {
       slots: {
-        root: 'group/blog-post rounded-3xl bg-pink-50 dark:bg-stone-900 overflow-hidden transition-all duration-300 hover:bg-pink-100 dark:hover:bg-stone-800',
+        root: 'group/blog-post rounded-3xl border-2 border-black dark:border-stone-600 bg-pink-50 dark:bg-stone-900 overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1',
         header: 'overflow-hidden',
         image: 'transition-transform duration-500 group-hover/blog-post:scale-110',
         body: 'p-6',
@@ -25,10 +64,10 @@ export default defineAppConfig({
       variants: {
         orientation: {
           horizontal: {
-            header: 'aspect-[16/9] bg-gradient-to-br from-pink-100 via-orange-50 to-yellow-100 dark:from-stone-900 dark:via-stone-800 dark:to-stone-900',
+            header: 'aspect-[16/9] bg-gradient-to-br from-pink-100 via-orange-50 to-yellow-100 dark:from-stone-800 dark:via-stone-900 dark:to-stone-800',
           },
           vertical: {
-            header: 'aspect-[4/3] bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 dark:from-stone-900 dark:via-stone-800 dark:to-stone-900',
+            header: 'aspect-[4/3] bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 dark:from-stone-800 dark:via-stone-900 dark:to-stone-800',
           }
         }
       }

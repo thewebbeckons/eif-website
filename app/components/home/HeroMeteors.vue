@@ -39,11 +39,11 @@ const iconPool: MeteorIcon[] = [
   { iconName: 'i-lucide-skull', colorClass: 'text-gray-400 dark:text-stone-500' },
 ]
 
-const sizeClasses = ['text-lg', 'text-xl', 'text-2xl']
+const sizeClasses = ['text-xl', 'text-2xl', 'text-3xl']
 
 const meteors = ref<Meteor[]>([])
 
-const getRandomItem = <T,>(items: T[]): T => items[Math.floor(Math.random() * items.length)]
+const getRandomItem = <T,>(items: T[]): T => items[Math.floor(Math.random() * items.length)]!
 
 const buildMeteors = () => {
   meteors.value = Array.from({ length: props.count }, (_, index) => {

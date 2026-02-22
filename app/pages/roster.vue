@@ -134,9 +134,6 @@ const getScoreColor = (score?: number) => {
   if (score >= 500) return 'text-yellow-500'
   return 'text-gray-500 dark:text-stone-400'
 }
-
-const hasGuruTag = (name: string) => name.toLowerCase().includes('eir')
-
 </script>
 
 <template>
@@ -169,7 +166,7 @@ const hasGuruTag = (name: string) => name.toLowerCase().includes('eir')
               <div v-for="member in sortedMembers" :key="member.name" class="p-5">
                 <div class="flex items-start justify-between gap-4">
                   <div>
-                    <UTooltip v-if="hasGuruTag(member.name)" text="M+ Guru">
+                    <UTooltip v-if="member.name.toLowerCase().includes('eir')" text="M+ Guru">
                       <p class="font-bold text-lg text-gray-900 dark:text-stone-100">
                         {{ member.name }}
                       </p>
@@ -193,10 +190,10 @@ const hasGuruTag = (name: string) => name.toLowerCase().includes('eir')
                         <img 
                           :src="run.background_image_url" 
                           alt=""
-                          class="object-cover h-10 w-10 brightness-75 border-2 border-gray-900 dark:border-stone-700 rounded-lg shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-transform group-hover:scale-110" 
+                          class="object-cover h-10 w-10 brightness-95 border-2 border-gray-900 dark:border-stone-700 rounded-lg shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-transform group-hover:scale-110" 
                         />
                         <div class="absolute inset-0 flex items-center justify-center">
-                           <p class="text-white font-black text-sm drop-shadow-md">{{ run.mythic_level }}</p>
+                           <p class="text-white font-black text-sm drop-shadow-sm">{{ run.mythic_level }}</p>
                         </div>
                       </div>
                       <p class="text-gray-500 dark:text-stone-400 font-bold text-[10px] mt-1">{{ run.short_name }}</p>
@@ -227,8 +224,8 @@ const hasGuruTag = (name: string) => name.toLowerCase().includes('eir')
                     class="ring-2 ring-gray-900 dark:ring-stone-700 ring-offset-2"
                   />
                   <div>
-                    <UTooltip v-if="hasGuruTag(row.original.name)" text="M+ Guru">
-                      <p class="font-bold text-lg text-gray-900 dark:text-stone-100">
+                    <UTooltip v-if="row.original.name.toLowerCase().includes('eir')" text="M+ Guru">
+                      <p class="font-bold text-lg text-gray-900 dark:text-stone-100 cursor-pointer">
                         {{ row.original.name }}
                       </p>
                     </UTooltip>
