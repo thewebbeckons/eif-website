@@ -21,7 +21,7 @@ const generateWipeWisdom = async () => {
 </script>
 
 <template>
-  <section class="relative flex flex-col lg:flex-row items-center justify-between gap-12 mt-8 md:mt-12 min-h-[60vh] pointer-events-none">
+  <section class="relative flex flex-col lg:flex-row items-center justify-between gap-12 mt-22 md:mt-12 min-h-[60vh] pointer-events-none">
     <div class="max-w-3xl space-y-8 z-10 relative pointer-events-auto">
       <h2 class="text-5xl sm:text-6xl md:text-7xl lg:text-[6.5rem] font-black uppercase leading-[0.85] tracking-tight text-white drop-shadow-[4px_4px_0px_#a855f7]">
         The Friendliest Guild on <br />

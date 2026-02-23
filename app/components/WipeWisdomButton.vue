@@ -19,7 +19,7 @@ const fetchWisdom = async () => {
     // Add artificial delay for the "AI is thinking" effect
     await new Promise((resolve) => setTimeout(resolve, 800));
 
-    const data = await $fetch('/api/wisdom/random');
+    const data = await $fetch<{ quote: string }>('/api/wisdom/random');
 
     if (!data || !data.quote) {
       throw new Error('Failed to fetch wisdom');
