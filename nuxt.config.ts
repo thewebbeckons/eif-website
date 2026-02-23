@@ -1,4 +1,4 @@
-import { apiEndpoint, repositoryName } from "./slicemachine.config.json";
+import { repositoryName } from "./slicemachine.config.json";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: ["@nuxt/ui", "@nuxtjs/prismic"],
@@ -11,9 +11,9 @@ export default defineNuxtConfig({
     fallback: 'dark'
   },
   prismic: {
-    endpoint: apiEndpoint || repositoryName
+    endpoint: repositoryName
   },
-  routeRules: {
-    '/api/roster': { swr: 600 }
-  }
+  // routeRules: {
+  //   '/api/roster': { swr: 600 }
+  // }
 });

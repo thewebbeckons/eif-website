@@ -34,15 +34,8 @@ const generateWipeWisdom = async () => {
       <div class="bg-zinc-900 border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] inline-block relative -rotate-2 w-full max-w-xl">
         <p class="text-xl font-bold text-zinc-100 mb-4">
           Community-first raiding on Illidan. Good vibes, better loot, and zero toxicity.
-        </p>
-        
-        <div v-if="wipeMotivation" class="bg-purple-600/50 p-4 border-2 border-dashed border-white mb-4 animate-[fadeIn_0.5s_ease-out]">
-          <p class="text-sm font-black italic">"{{ wipeMotivation }}"</p>
-        </div>
-        
-        <NeoButton @click="generateWipeWisdom" :loading="loadingWipe" colorClass="bg-purple-500 text-white w-full border-2">
-          Wipe Wisdom ✨
-        </NeoButton>
+        </p>        
+        <WipeWisdomButton />
       </div>
     </div>
 
