@@ -39,7 +39,7 @@ const iconPool: MeteorIcon[] = [
   { iconName: 'i-lucide-skull', colorClass: 'text-gray-400 dark:text-stone-500' },
 ]
 
-const sizeClasses = ['text-lg', 'text-xl', 'text-2xl']
+const sizeClasses = ['text-xl', 'text-2xl', 'text-3xl']
 
 const meteors = ref<Meteor[]>([])
 
