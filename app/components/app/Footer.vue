@@ -1,38 +1,25 @@
 <script lang="ts" setup>
+// neo-brutalist footer
 </script>
 
 <template>
-  <UFooter class="bg-stone-50 dark:bg-stone-950">
-    <template #left>
-      <AppLogo />
-    </template>
-
-    <template #right>
-      <nav class="flex flex-row space-x-4 items-center">
-        <UButton color="primary" variant="link" to="/news">News</UButton>
-        <UButton color="primary" variant="link" to="/streams">Streams</UButton>
-        <UButton color="primary" variant="link" to="/roster">Roster</UButton>
-        <UButton color="primary" variant="soft" @click="useJoinModal().open()" class="cursor-pointer">
-          Join Us
-        </UButton>
-      </nav>
-    </template>
-
-    <USeparator />
-
-    <template #bottom>
-      <UContainer>
-        <div class="flex flex-col sm:flex-row justify-between items-center w-full">
-          <p class="text-sm text-gray-500 dark:text-stone-400">
-            &copy; {{ new Date().getFullYear() }} EIF. All rights reserved.
-          </p>
-          <div class="flex space-x-4 mt-4 sm:mt-0">
-            <UButton to="/terms" variant="link" color="neutral" size="xs">Terms</UButton>
-            <UButton to="/privacy" variant="link" color="neutral" size="xs">Privacy</UButton>
-            <UButton to="/cookies" variant="link" color="neutral" size="xs">Cookies</UButton>
-          </div>
+  <footer class="w-full bg-black text-white p-12 border-t-8 border-purple-600 pointer-events-auto relative z-40">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+      <div class="flex items-center gap-4">
+        <UIcon name="i-lucide-skull" class="w-12 h-12 text-purple-500" />
+        <div>
+          <h2 class="text-3xl font-black uppercase tracking-tight">Exercise in Futility</h2>
+          <p class="text-lg text-purple-300 font-bold uppercase mt-1">Illidan • US</p>
         </div>
-      </UContainer>
-    </template>
-  </UFooter>
+      </div>
+      <div class="flex flex-col items-end gap-2 text-right">
+        <nav class="flex space-x-4 text-sm font-bold text-gray-400">
+          <NuxtLink to="/terms" class="hover:text-white">Terms</NuxtLink>
+          <NuxtLink to="/privacy" class="hover:text-white">Privacy</NuxtLink>
+          <NuxtLink to="/cookies" class="hover:text-white">Cookies</NuxtLink>
+        </nav>
+        <p class="text-zinc-500 font-bold">© {{ new Date().getFullYear() }} Exercise in Futility. Entering the Midnight.</p>
+      </div>
+    </div>
+  </footer>
 </template>

@@ -2,59 +2,70 @@
 @import "@nuxt/ui";
 
 body {
-  background-color: #FFFBEB;
+  background-color: #fffbeb;
 }
 
 .dark body {
   background-color: #0c0a09;
 }
 
-/* Softer neobrutalist shadows in dark mode */
-.dark {
-  --shadow-xs: 2px 2px 0px 0px rgba(168, 162, 158, 0.3);
-  --shadow-sm: 3px 3px 0px 0px rgba(168, 162, 158, 0.3);
-  --shadow-md: 4px 4px 0px 0px rgba(168, 162, 158, 0.3);
-  --shadow-lg: 6px 6px 0px 0px rgba(168, 162, 158, 0.25);
-  --shadow-xl: 8px 8px 0px 0px rgba(168, 162, 158, 0.2);
-}
-
 @theme {
-  --font-heading: "Work Sans", sans-serif;
-  --font-body: "Cabin", sans-serif;
-  --font-mono: "Source Code Pro", monospace;
+  --font-heading: "Inter Tight", "Plus Jakarta Sans", sans-serif;
+  --font-body: "Geist", sans-serif;
+  --font-mono: "Geist Mono", monospace;
 
-  --color-mage-blue: #69CCF0;
-  --color-druid-orange: #FF7D0A;
-  --color-monk-green: #00FF96;
-  --color-rogue-yellow: #FFF569;
-  --color-paladin-pink: #F58CBA;
-  --color-loot-purple: #A335EE;
-  --color-legendary-gold: #FF8000;
-  
+  --color-mage-blue: #69ccf0;
+  --color-druid-orange: #ff7d0a;
+  --color-monk-green: #00ff96;
+  --color-rogue-yellow: #fff569;
+  --color-paladin-pink: #f58cba;
+  --color-loot-purple: #a335ee;
+  --color-legendary-gold: #ff8000;
+
   --shadow-xs: 2px 2px 0px 0px var(--color-gray-900);
   --shadow-sm: 3px 3px 0px 0px var(--color-gray-900);
   --shadow-md: 4px 4px 0px 0px var(--color-gray-900);
   --shadow-lg: 6px 6px 0px 0px var(--color-gray-900);
   --shadow-xl: 8px 8px 0px 0px var(--color-gray-900);
-  
+
   --animate-float: float 6s ease-in-out infinite;
   --animate-glitch: glitch-shake 4s infinite;
   --animate-meteor-effect: meteor 5s linear infinite;
-  
+
   @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0px); }
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
   }
 
   @keyframes glitch-shake {
-    0% { transform: translate(0, 0); }
-    2% { transform: translate(-3px, 1px); }
-    4% { transform: translate(2px, -3px); }
-    6% { transform: translate(-1px, 3px); }
-    8% { transform: translate(1px, -1px); }
-    10% { transform: translate(0, 0); }
-    100% { transform: translate(0, 0); }
+    0% {
+      transform: translate(0, 0);
+    }
+    2% {
+      transform: translate(-3px, 1px);
+    }
+    4% {
+      transform: translate(2px, -3px);
+    }
+    6% {
+      transform: translate(-1px, 3px);
+    }
+    8% {
+      transform: translate(1px, -1px);
+    }
+    10% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
   }
 
   @keyframes meteor {
@@ -70,4 +81,8 @@ body {
       opacity: 0;
     }
   }
+}
+
+:root {
+  --ui-radius: 0;
 }

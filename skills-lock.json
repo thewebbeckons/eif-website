@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "skills": {
+    "document-writer": {
+      "source": "onmax/nuxt-skills",
+      "sourceType": "github",
+      "computedHash": "6c43c17a5e70cfdc3ba93780b41b95300090d46c827ce5617495a50187d9d6ad"
+    },
+    "motion": {
+      "source": "onmax/nuxt-skills",
+      "sourceType": "github",
+      "computedHash": "45d0803ea76f82fa40af91858472fb4528a8ce4c2a9a710b785e796cd5b3fe98"
+    },
+    "nuxt": {
+      "source": "onmax/nuxt-skills",
+      "sourceType": "github",
+      "computedHash": "13182b475f624586d706d05e8d18d81ac37e5b0f731ceb79107982f9ad474931"
+    },
+    "nuxt-seo": {
+      "source": "onmax/nuxt-skills",
+      "sourceType": "github",
+      "computedHash": "bffc66809f3a21055d2fd39d0bfa32eefdc681d2e93f4613fc3360addb3d3677"
+    },
+    "nuxt-ui": {
+      "source": "onmax/nuxt-skills",
+      "sourceType": "github",
+      "computedHash": "2abcc38cf1c4a65b11fea3a0a5673897073c09aeea8009e7055074ff30ddb607"
+    },
+    "pnpm": {
+      "source": "onmax/nuxt-skills",
+      "sourceType": "github",
+      "computedHash": "831177aaae4d6497688935c3d853e369dde1d6fbfbf0d4ed6381078968f5e3d0"
+    },
+    "reka-ui": {
+      "source": "onmax/nuxt-skills",
+      "sourceType": "github",
+      "computedHash": "c4de68cf105e52e41f068f406cf4846884d6116742e175a02f16b1a5536eb77e"
+    },
+    "tresjs": {
+      "source": "onmax/nuxt-skills",
+      "sourceType": "github",
+      "computedHash": "3ef19720f18ac2af115325a9950e369be2cf3e22ead5e4c025f86b7d5108d436"
+    },
+    "vue": {
+      "source": "onmax/nuxt-skills",
+      "sourceType": "github",
+      "computedHash": "db16f1d73f2221c7a0f7e013d884297302fd78eb0186bf16a546ef5735d2dd46"
+    },
+    "vueuse": {
+      "source": "onmax/nuxt-skills",
+      "sourceType": "github",
+      "computedHash": "64cfff86853a73f068f988f710bb84be705fec10a76901fda65b05603391153c"
+    }
+  }
+}

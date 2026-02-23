@@ -1,0 +1,76 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"heading": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading1",
+						"content": {
+							"text": "According"
+						}
+					}
+				]
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Occaecat culpa aute aliqua minim ex anim sint ut do non irure voluptate magna proident ipsum."
+						}
+					}
+				]
+			},
+			"cta_button": {
+				"key": "57a78444-58e0-46ba-accb-a74a11674a58",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "http://google.com",
+					"text": "floor"
+				}
+			},
+			"loot_item_name": {
+				"__TYPE__": "FieldContent",
+				"value": "parts",
+				"type": "Text"
+			},
+			"looted_by": {
+				"__TYPE__": "FieldContent",
+				"value": "principal",
+				"type": "Text"
+			},
+			"dps_meter": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"name",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "serve",
+									"type": "Text"
+								}
+							],
+							[
+								"dps",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "off",
+									"type": "Text"
+								}
+							]
+						]
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]
