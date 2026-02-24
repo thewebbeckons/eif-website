@@ -23,8 +23,8 @@ async function main() {
     // Let's try to just use it as they wrote and see if it works.
 
     const result = await generateText({
-      model: 'google/gemini-2.5-flash-lite' as any, // Cast to any to bypass TS complaining about missing provider wrapper
-      prompt: `Generate a list of 20 to 25 short, humorous, sometimes philosophical, but mostly unhinged and slightly sarcastic "Wipe Wisdom" quotes.
+      model: 'google/gemini-3-flash' as any, // Cast to any to bypass TS complaining about missing provider wrapper
+      prompt: `Generate a list of 50 to 60 short, humorous, sometimes philosophical, but mostly unhinged and slightly sarcastic "Wipe Wisdom" quotes.
       
       Context: This is for a World of Warcraft guild website. When a raid wipes (everyone dies and fails the boss), players often need a moment of levity.
       
@@ -37,7 +37,7 @@ async function main() {
       `,
       output: Output.object({
         schema: z.object({
-            responses: z.array(z.string()).min(20).max(25)
+            responses: z.array(z.string()).min(35).max(40)
         }),
       })
     });

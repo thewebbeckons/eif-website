@@ -10,8 +10,19 @@ export default defineAppConfig({
       }
     },
     input: {
+      slots: {
+        base: 'border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-150 ease-in-out focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] !ring-0 rounded-none bg-stone-900'
+      },
       defaultVariants: {
-        variant: 'outline',
+        variant: 'none',
+      }
+    },
+    textarea: {
+      slots: {
+        base: 'border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-150 ease-in-out focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] !ring-0 rounded-none bg-stone-900'
+      },
+      defaultVariants: {
+        variant: 'none',
       }
     },
     navigationMenu: {

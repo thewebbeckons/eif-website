@@ -5,7 +5,7 @@ const mockStreams = [
   {
     id: '1',
     streamerName: 'Jesse',
-    title: 'Mythic Raid Progression - Nerub-ar Palace',
+    title: 'Bear rawwr, tanking the keys',
     game: 'World of Warcraft',
     viewers: 1245,
     thumbnailUrl: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop', // generic gaming bg
@@ -15,7 +15,7 @@ const mockStreams = [
   {
     id: '2',
     streamerName: 'BobbyIsFire',
-    title: 'High Keys +15 Push w/ the boyz',
+    title: 'Pushing Keys w/ the boyz',
     game: 'World of Warcraft',
     viewers: 842,
     thumbnailUrl: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2071&auto=format&fit=crop', // generic gaming bg
@@ -25,7 +25,7 @@ const mockStreams = [
   {
     id: '3',
     streamerName: 'Icecream',
-    title: 'Chill gold farming & mount runs',
+    title: 'Chill gold farming & pet battles',
     game: 'World of Warcraft',
     viewers: 231,
     thumbnailUrl: 'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=2070&auto=format&fit=crop',
@@ -35,7 +35,7 @@ const mockStreams = [
   {
     id: '4',
     streamerName: 'Eir',
-    title: 'Healing Mythic+ / Chatting',
+    title: 'Mythic+ Guru, teaching these fools',
     game: 'World of Warcraft',
     viewers: 512,
     thumbnailUrl: 'https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=2106&auto=format&fit=crop',
