@@ -7,11 +7,15 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-02-15",
 
   colorMode: {
-    preference: 'dark',
-    fallback: 'dark'
+    preference: "dark",
+    fallback: "dark",
   },
   prismic: {
-    endpoint: repositoryName
+    endpoint: repositoryName,
+  },
+  runtimeConfig: {
+    twitchClientId: process.env.TWITCH_CLIENT_ID,
+    twitchClientSecret: process.env.TWITCH_CLIENT_SECRET,
   },
   // routeRules: {
   //   '/api/roster': { swr: 600 }

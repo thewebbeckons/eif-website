@@ -54,7 +54,7 @@ const generateWipeWisdom = async () => {
     </div>
 
     <div
-      class="relative w-full lg:w-1/2 flex flex-col items-center justify-center gap-12 z-10 pointer-events-auto"
+      class="relative w-full lg:w-1/2 flex flex-col md:flex-row lg:flex-col items-center justify-center gap-12 z-10 pointer-events-auto"
     >
       <!-- Loot Card -->
       <LootCard />

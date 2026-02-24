@@ -120,7 +120,7 @@ interface HomeDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/slices
    */
-  slices: prismic.SliceZone<HomeDocumentDataSlicesSlice> /**
+  slices: prismic.SliceZone<HomeDocumentDataSlicesSlice>; /**
    * Meta Title field in *Home*
    *
    * - **Field Type**: Text
@@ -128,7 +128,7 @@ interface HomeDocumentData {
    * - **API ID Path**: home.meta_title
    * - **Tab**: SEO & Metadata
    * - **Documentation**: https://prismic.io/docs/fields/text
-   */;
+   */
   meta_title: prismic.KeyTextField;
 
   /**
@@ -181,7 +181,7 @@ interface NewsDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/slices
    */
-  slices: prismic.SliceZone<NewsDocumentDataSlicesSlice> /**
+  slices: prismic.SliceZone<NewsDocumentDataSlicesSlice>; /**
    * Meta Title field in *News*
    *
    * - **Field Type**: Text
@@ -189,7 +189,7 @@ interface NewsDocumentData {
    * - **API ID Path**: news.meta_title
    * - **Tab**: SEO & Metadata
    * - **Documentation**: https://prismic.io/docs/fields/text
-   */;
+   */
   meta_title: prismic.KeyTextField;
 
   /**
@@ -227,11 +227,69 @@ interface NewsDocumentData {
 export type NewsDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<NewsDocumentData>, "news", Lang>;
 
+/**
+ * Item in *Streamers → Streamers*
+ */
+export interface StreamersDocumentDataStreamersItem {
+  /**
+   * Display Name field in *Streamers → Streamers*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: streamers.streamers[].display_name
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  display_name: prismic.KeyTextField;
+
+  /**
+   * Twitch User field in *Streamers → Streamers*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: streamers.streamers[].twitch_user
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  twitch_user: prismic.KeyTextField;
+}
+
+/**
+ * Content for Streamers documents
+ */
+interface StreamersDocumentData {
+  /**
+   * Streamers field in *Streamers*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: streamers.streamers[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  streamers: prismic.GroupField<Simplify<StreamersDocumentDataStreamersItem>>;
+}
+
+/**
+ * Streamers document from Prismic
+ *
+ * - **API ID**: `streamers`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type StreamersDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<StreamersDocumentData>,
+    "streamers",
+    Lang
+  >;
+
 export type AllDocumentTypes =
   | FooterDocument
   | GlobalNavDocument
   | HomeDocument
-  | NewsDocument;
+  | NewsDocument
+  | StreamersDocument;
 
 /**
  * Primary content in *CallToAction → Default → Primary*
@@ -635,6 +693,9 @@ declare module "@prismicio/client" {
       NewsDocument,
       NewsDocumentData,
       NewsDocumentDataSlicesSlice,
+      StreamersDocument,
+      StreamersDocumentData,
+      StreamersDocumentDataStreamersItem,
       AllDocumentTypes,
       CallToActionSlice,
       CallToActionSliceDefaultPrimary,

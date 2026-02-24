@@ -19,9 +19,9 @@
         class="flex flex-col items-center gap-2 text-center sm:items-end sm:text-right"
       >
         <nav class="flex space-x-4 text-sm font-bold text-gray-400">
-          <NuxtLink to="/terms" class="hover:text-white">Terms</NuxtLink>
-          <NuxtLink to="/privacy" class="hover:text-white">Privacy</NuxtLink>
-          <NuxtLink to="/cookies" class="hover:text-white">Cookies</NuxtLink>
+          <NuxtLink to="/news" class="hover:text-white">News</NuxtLink>
+          <NuxtLink to="/streams" class="hover:text-white">Streams</NuxtLink>
+          <NuxtLink to="/roster" class="hover:text-white">Roster</NuxtLink>
         </nav>
         <p class="text-zinc-500 font-bold">
           © {{ new Date().getFullYear() }} Exercise in Futility. Entering the
