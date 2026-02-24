@@ -17,7 +17,8 @@ export default defineNuxtConfig({
     twitchClientId: process.env.TWITCH_CLIENT_ID,
     twitchClientSecret: process.env.TWITCH_CLIENT_SECRET,
   },
-  // routeRules: {
-  //   '/api/roster': { swr: 600 }
-  // }
+  routeRules: {
+    "/api/streams": { swr: 600 },
+    "/": { swr: 1800 },
+  },
 });
