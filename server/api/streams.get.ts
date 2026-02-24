@@ -1,5 +1,3 @@
-import * as prismic from "@prismicio/client";
-
 export default defineCachedEventHandler(
   async (event) => {
     const config = useRuntimeConfig();
@@ -32,22 +30,21 @@ export default defineCachedEventHandler(
 
     if (!accessToken) return [];
 
-    // 2. Fetch Prismic Streamers Singleton
-    let prismicStreamers: any[] = [];
+    // 2. Fetch streamers from Nuxt Content
+    let contentStreamers: { displayName: string; twitchUser: string }[] = [];
     try {
-      const prismicClient = prismic.createClient("eif-guild"); // Using the correct repository name implicitly based on slicemachine.config.json or we can fetch it via context. But we can assume thewebbeckons for now based on context or use the injected client if possible.
-      const streamersDoc = await prismicClient.getSingle("streamers");
-      prismicStreamers = streamersDoc?.data?.streamers || [];
+      const streamersData = await queryCollection(event, "streamers").first();
+      contentStreamers = streamersData?.streamers || [];
     } catch (error) {
-      console.error("Failed to fetch streamers from Prismic:", error);
+      console.error("Failed to fetch streamers from content:", error);
       return [];
     }
 
-    if (prismicStreamers.length === 0) return [];
+    if (contentStreamers.length === 0) return [];
 
     // 3. Prepare login names for Twitch API
-    const logins = prismicStreamers
-      .map((s) => s.twitch_user)
+    const logins = contentStreamers
+      .map((s) => s.twitchUser)
       .filter(Boolean)
       .map((login) => login.toLowerCase());
 
@@ -80,18 +77,17 @@ export default defineCachedEventHandler(
       // Map offline streams first
       const mappedStreams = logins.map((login) => {
         const user = usersData.find((u: any) => u.login === login);
-        const prismicData = prismicStreamers.find(
-          (s) => s.twitch_user?.toLowerCase() === login,
+        const contentData = contentStreamers.find(
+          (s) => s.twitchUser?.toLowerCase() === login,
         );
 
         return {
           id: user?.id || login,
-          streamerName:
-            prismicData?.display_name || user?.display_name || login,
+          streamerName: contentData?.displayName || user?.display_name || login,
           title: "Offline",
           game: "",
           viewers: 0,
-          thumbnailUrl: user?.offline_image_url || "/offline_stream_sm.jpg", // generic fallback
+          thumbnailUrl: user?.offline_image_url || "/offline_stream_sm.jpg",
           avatarUrl:
             user?.profile_image_url ||
             "https://api.dicebear.com/9.x/pixel-art/svg",
@@ -120,7 +116,6 @@ export default defineCachedEventHandler(
             title: liveData.title,
             game: liveData.game_name,
             viewers: liveData.viewer_count,
-            // Replace placeholder sizes in Twitch thumbnail URL
             thumbnailUrl: liveData.thumbnail_url
               .replace("{width}", "1280")
               .replace("{height}", "720"),

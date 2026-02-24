@@ -1,22 +1,18 @@
 <script setup lang="ts">
-import { computed } from "vue";
-
-const { client } = usePrismic();
 const { data: posts, status } = await useAsyncData("news-posts", () =>
-  client.getAllByType("news", {
-    orderings: {
-      field: "document.first_publication_date",
-      direction: "desc",
-    },
-  }),
+  queryCollection("news").order("date", "DESC").all(),
 );
 
-const featuredPost = computed(() => posts.value?.[0]);
-const remainingPosts = computed(() => posts.value?.slice(1) || []);
+const featuredPost = computed(
+  () => posts.value?.find((p) => p.featured) ?? posts.value?.[0],
+);
+const remainingPosts = computed(
+  () => posts.value?.filter((p) => p !== featuredPost.value) || [],
+);
 
-const formatDate = (dateString?: string | null) => {
-  if (!dateString) return "";
-  return new Date(dateString).toLocaleDateString("en-US", {
+const formatDate = (date?: string | Date | null) => {
+  if (!date) return "";
+  return new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -30,7 +26,7 @@ const formatDate = (dateString?: string | null) => {
     <div class="pt-40 md:pt-52 pb-20 px-4">
       <div class="max-w-7xl mx-auto flex flex-col items-center text-center">
         <h1
-          class="text-6xl md:text-8xl font-black text-stone-100 dark:text-stone-100 uppercase tracking-tighter mb-6 style-text-shadow"
+          class="text-6xl md:text-8xl font-black text-stone-100 uppercase tracking-tighter mb-6 style-text-shadow"
         >
           Latest Intel
         </h1>
@@ -43,7 +39,7 @@ const formatDate = (dateString?: string | null) => {
       </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 mt-16 flex flex-col gap-16">
+    <div class="max-w-7xl mx-auto px-4 mt-8 flex flex-col gap-16">
       <!-- Loading State -->
       <div v-if="status === 'pending'" class="flex justify-center py-20">
         <UIcon
@@ -55,7 +51,7 @@ const formatDate = (dateString?: string | null) => {
       <!-- Featured Post -->
       <NuxtLink
         v-else-if="featuredPost"
-        :to="`/news/${featuredPost.uid}`"
+        :to="featuredPost.path"
         class="block group"
       >
         <div
@@ -64,9 +60,10 @@ const formatDate = (dateString?: string | null) => {
           <div
             class="h-64 lg:h-full border-b-4 lg:border-b-0 lg:border-r-4 border-black relative overflow-hidden bg-purple-500"
           >
-            <PrismicImage
-              v-if="featuredPost.data.meta_image?.url"
-              :field="featuredPost.data.meta_image"
+            <img
+              v-if="featuredPost.image"
+              :src="featuredPost.image"
+              :alt="featuredPost.title"
               class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
             />
             <div
@@ -81,23 +78,29 @@ const formatDate = (dateString?: string | null) => {
             >
               Featured
             </div>
+
+            <div
+              v-if="featuredPost.tag"
+              class="absolute top-4 right-4 bg-yellow-400 text-black border-4 border-black px-4 py-2 font-black uppercase text-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+            >
+              {{ featuredPost.tag }}
+            </div>
           </div>
 
           <div class="p-8 md:p-12 flex flex-col justify-center">
             <div
               class="text-sm font-bold text-gray-400 mb-4 uppercase tracking-widest"
             >
-              {{ formatDate(featuredPost.first_publication_date) }}
+              {{ formatDate(featuredPost.date) }}
             </div>
             <h2
               class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight group-hover:text-purple-400 transition-colors"
             >
-              {{ featuredPost.data.meta_title || "Untitled Post" }}
+              {{ featuredPost.title || "Untitled Post" }}
             </h2>
             <p class="text-lg text-gray-300 font-medium mb-8 line-clamp-3">
               {{
-                featuredPost.data.meta_description ||
-                "Click to read the full story..."
+                featuredPost.description || "Click to read the full story..."
               }}
             </p>
 
@@ -117,8 +120,8 @@ const formatDate = (dateString?: string | null) => {
       >
         <NuxtLink
           v-for="post in remainingPosts"
-          :key="post.id"
-          :to="`/news/${post.uid}`"
+          :key="post.path"
+          :to="post.path"
           class="block group"
         >
           <div
@@ -127,9 +130,10 @@ const formatDate = (dateString?: string | null) => {
             <div
               class="h-48 border-b-4 border-black relative overflow-hidden bg-emerald-400"
             >
-              <PrismicImage
-                v-if="post.data.meta_image?.url"
-                :field="post.data.meta_image"
+              <img
+                v-if="post.image"
+                :src="post.image"
+                :alt="post.title"
                 class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
               />
               <div
@@ -138,24 +142,28 @@ const formatDate = (dateString?: string | null) => {
               >
                 Image
               </div>
+
+              <div
+                v-if="post.tag"
+                class="absolute top-4 left-4 bg-yellow-400 text-black border-4 border-black px-4 py-2 font-black uppercase text-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+              >
+                {{ post.tag }}
+              </div>
             </div>
 
             <div class="p-6 flex flex-col flex-grow">
               <div
                 class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-widest"
               >
-                {{ formatDate(post.first_publication_date) }}
+                {{ formatDate(post.date) }}
               </div>
               <h3
                 class="text-2xl font-black text-white mb-4 group-hover:text-pink-400 transition-colors line-clamp-2"
               >
-                {{ post.data.meta_title || "Untitled Post" }}
+                {{ post.title || "Untitled Post" }}
               </h3>
               <p class="text-gray-300 font-medium mb-6 line-clamp-3">
-                {{
-                  post.data.meta_description ||
-                  "Click to read the full story..."
-                }}
+                {{ post.description || "Click to read the full story..." }}
               </p>
 
               <div
