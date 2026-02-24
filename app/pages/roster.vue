@@ -140,22 +140,34 @@ const hasGuruTag = (name: string) => name.toLowerCase().includes("eir");
               >
                 <div class="flex items-start justify-between gap-4">
                   <div>
-                    <UTooltip v-if="hasGuruTag(member.name)" text="M+ Guru">
+                    <div class="flex items-center gap-1">
                       <p
-                        class="font-black cursor-crosshair text-xl text-white uppercase tracking-tight"
+                        class="font-black text-xl text-white uppercase tracking-tight"
                       >
                         {{ member.name }}
-                        <span v-if="hasGuruTag(member.name)" class="text-2xl"
-                          >✨</span
-                        >
                       </p>
-                    </UTooltip>
-                    <p
-                      v-else
-                      class="font-black text-xl text-white uppercase tracking-tight"
-                    >
-                      {{ member.name }}
-                    </p>
+                      <UPopover
+                        v-if="hasGuruTag(member.name)"
+                        :ui="{
+                          content:
+                            'bg-stone-800 border-2 border-black text-white shadow-[4px_4px_0_0_black] ring-0 rounded-none',
+                        }"
+                      >
+                        <button
+                          class="cursor-pointer hover:scale-110 transition-transform flex items-center text-xl relative -top-px"
+                          title="M+ Guru"
+                        >
+                          ✨
+                        </button>
+                        <template #content>
+                          <div
+                            class="px-3 py-2 font-black text-sm uppercase tracking-wider"
+                          >
+                            M+ Guru
+                          </div>
+                        </template>
+                      </UPopover>
+                    </div>
                     <p
                       :class="[
                         'text-xs font-bold uppercase tracking-wider',
@@ -232,26 +244,34 @@ const hasGuruTag = (name: string) => name.toLowerCase().includes("eir");
                     class="border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rounded-none"
                   />
                   <div>
-                    <UTooltip
-                      v-if="hasGuruTag(row.original.name)"
-                      color="neutral"
-                      variant="subtle"
-                      text="M+ Guru"
-                      :delay-duration="0"
-                      :ui="{ content: 'bg-black text-white ring-zinc-800' }"
-                    >
+                    <div class="flex items-center gap-1">
                       <p
-                        class="font-black cursor-crosshair text-xl text-white uppercase tracking-tight"
+                        class="font-black text-xl text-white uppercase tracking-tight"
                       >
-                        {{ row.original.name }} ✨
+                        {{ row.original.name }}
                       </p>
-                    </UTooltip>
-                    <p
-                      v-else
-                      class="font-black text-xl text-white uppercase tracking-tight"
-                    >
-                      {{ row.original.name }}
-                    </p>
+                      <UPopover
+                        v-if="hasGuruTag(row.original.name)"
+                        :ui="{
+                          content:
+                            'bg-stone-800 border-2 border-black text-white shadow-[4px_4px_0_0_black] ring-0 rounded-none',
+                        }"
+                      >
+                        <button
+                          class="cursor-pointer hover:scale-110 transition-transform flex items-center text-xl relative -top-px"
+                          title="M+ Guru"
+                        >
+                          ✨
+                        </button>
+                        <template #content>
+                          <div
+                            class="px-3 py-2 font-black text-sm uppercase tracking-wider"
+                          >
+                            M+ Guru
+                          </div>
+                        </template>
+                      </UPopover>
+                    </div>
                     <p
                       :class="[
                         'text-xs font-bold uppercase tracking-wider',
