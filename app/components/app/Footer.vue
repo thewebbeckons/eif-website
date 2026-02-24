@@ -3,22 +3,30 @@
 </script>
 
 <template>
-  <footer class="w-full bg-black text-white p-12 border-t-8 border-purple-600 pointer-events-auto relative z-40">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-      <div class="flex items-center gap-4">
-        <UIcon name="i-lucide-skull" class="w-12 h-12 text-purple-500" />
-        <div>
-          <h2 class="text-3xl font-black uppercase tracking-tight">Exercise in Futility</h2>
-          <p class="text-lg text-purple-300 font-bold uppercase mt-1">Illidan • US</p>
-        </div>
+  <footer
+    class="w-full bg-black text-white p-12 border-t-8 border-purple-600 pointer-events-auto relative z-40"
+  >
+    <div
+      class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8"
+    >
+      <div class="flex flex-col items-center sm:items-start gap-1">
+        <AppLogo />
+        <p class="sm:ml-10 text-sm text-purple-300 font-bold uppercase mt-1">
+          Illidan • US
+        </p>
       </div>
-      <div class="flex flex-col items-end gap-2 text-right">
+      <div
+        class="flex flex-col items-center gap-2 text-center sm:items-end sm:text-right"
+      >
         <nav class="flex space-x-4 text-sm font-bold text-gray-400">
           <NuxtLink to="/terms" class="hover:text-white">Terms</NuxtLink>
           <NuxtLink to="/privacy" class="hover:text-white">Privacy</NuxtLink>
           <NuxtLink to="/cookies" class="hover:text-white">Cookies</NuxtLink>
         </nav>
-        <p class="text-zinc-500 font-bold">© {{ new Date().getFullYear() }} Exercise in Futility. Entering the Midnight.</p>
+        <p class="text-zinc-500 font-bold">
+          © {{ new Date().getFullYear() }} Exercise in Futility. Entering the
+          Midnight.
+        </p>
       </div>
     </div>
   </footer>

@@ -27,8 +27,15 @@ const submitApplication = async () => {
   errorMessage.value = "";
 
   try {
-    // We will hook this up to an API endpoint later (e.g., to send an email or save to DB)
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await $fetch("/api/apply", {
+      method: "POST",
+      body: {
+        characterInfo: form.characterInfo,
+        discordTag: form.discordTag,
+        message: form.message,
+      },
+    });
+
     isSuccess.value = true;
 
     // Auto close and reset
