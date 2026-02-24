@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
   // 1. Rate Limiting
   const ip = getRequestIP(event, { xForwardedFor: true }) || "unknown";
   const now = Date.now();
-  
+
   let rateData = rateLimitMap.get(ip);
   if (!rateData || now > rateData.resetTime) {
     rateData = { count: 0, resetTime: now + RATE_LIMIT_WINDOW_MS };
@@ -28,9 +28,11 @@ export default defineEventHandler(async (event) => {
 
   // 2. Read Request Body
   const body = await readValidatedBody(event, (body) => {
-    return z.object({
-      classAndSpec: z.string().min(1).max(100),
-    }).safeParse(body);
+    return z
+      .object({
+        classAndSpec: z.string().min(1).max(100),
+      })
+      .safeParse(body);
   });
 
   if (!body.success) {
@@ -45,8 +47,9 @@ export default defineEventHandler(async (event) => {
   // 3. AI Generation
   try {
     const { text } = await generateText({
-      model: 'google/gemini-2.5-flash', // Using OpenAI compatibility for the gateway
-      system: "You are the 'Recruitment Scout ✨'. You evaluate potential players for a midcore WoW guild. You are sarcastic, love cats, and hate toxic players. Keep it under 60 words.",
+      model: "google/gemini-2.5-flash-lite", // Using OpenAI compatibility for the gateway
+      system:
+        "You are the 'Recruitment Scout ✨'. You evaluate potential players for a midcore WoW guild. You are sarcastic, love cats, and hate toxic players. Keep it under 60 words.",
       prompt: `Class and Spec: ${classAndSpec}. Tell them if they are a good fit for 'Exercise in Futility' on US-Illidan. Be playful and refer to specific WoW mechanics or tropes.`,
       maxOutputTokens: 1000,
       temperature: 0.8,
@@ -57,7 +60,8 @@ export default defineEventHandler(async (event) => {
     console.error("AI Generation Error:", error);
     throw createError({
       statusCode: 500,
-      statusMessage: "The scout's connection to the void was severed. Try again later.",
+      statusMessage:
+        "The scout's connection to the void was severed. Try again later.",
     });
   }
 });
