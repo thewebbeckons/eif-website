@@ -1,0 +1,30 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"quote": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Qui tempor sit exercitation ullamco laboris cillum reprehenderit eiusmod magna voluptate cillum minim. Officia nisi ex qui excepteur ullamco laboris incididunt proident in minim cillum incididunt. Enim id esse consequat officia deserunt qui ullamco dolor labore officia dolor."
+						}
+					}
+				]
+			},
+			"author_name": {
+				"__TYPE__": "FieldContent",
+				"value": "mission",
+				"type": "Text"
+			},
+			"author_title": {
+				"__TYPE__": "FieldContent",
+				"value": "exercise",
+				"type": "Text"
+			}
+		},
+		"items": []
+	}
+]

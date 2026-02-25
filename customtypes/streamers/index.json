@@ -1,0 +1,34 @@
+{
+  "id": "streamers",
+  "json": {
+    "Main": {
+      "streamers": {
+        "type": "Group",
+        "config": {
+          "label": "Streamers",
+          "repeat": true,
+          "fields": {
+            "display_name": {
+              "type": "Text",
+              "config": {
+                "label": "Display Name",
+                "placeholder": ""
+              }
+            },
+            "twitch_user": {
+              "type": "Text",
+              "config": {
+                "label": "Twitch User",
+                "placeholder": ""
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "label": "Streamers",
+  "repeatable": false,
+  "status": true,
+  "format": "custom"
+}

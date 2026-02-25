@@ -1,0 +1,38 @@
+{
+  "id": "testimonial",
+  "type": "SharedSlice",
+  "name": "QuoteCard",
+  "description": "A testimonial section displaying a quote with author name and title",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default testimonial variation",
+      "imageUrl": "",
+      "primary": {
+        "quote": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Quote",
+            "multi": "paragraph,strong,em"
+          }
+        },
+        "author_name": {
+          "type": "Text",
+          "config": {
+            "label": "Author Name"
+          }
+        },
+        "author_title": {
+          "type": "Text",
+          "config": {
+            "label": "Author Title"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

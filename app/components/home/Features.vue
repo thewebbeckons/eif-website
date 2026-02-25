@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import BentoCard from "~/components/home/BentoCard.vue";
-import RecruitScoutCard from "~/components/home/RecruitScoutCard.vue";
 
 type ExplodingCat = {
   id: number;
@@ -64,8 +63,8 @@ const handleCatClick = (e: MouseEvent) => {
     <div
       class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-8 auto-rows-min md:auto-rows-[400px] pointer-events-auto text-black"
     >
-      <!-- Recruitment Scout -->
-      <RecruitScoutCard />
+      <!-- Quote Generator -->
+      <HomeQuoteGeneratorCard />
 
       <!-- AOTC Card -->
       <BentoCard colorClass="bg-orange-500" class="md:col-span-2">

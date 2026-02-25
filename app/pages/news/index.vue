@@ -1,16 +1,20 @@
 <script setup lang="ts">
+const prismic = usePrismic();
+
 const { data: posts, status } = await useAsyncData("news-posts", () =>
-  queryCollection("news").order("date", "DESC").all(),
+  prismic.client.getAllByType("news", {
+    orderings: [{ field: "document.last_publication_date", direction: "desc" }],
+  }),
 );
 
 const featuredPost = computed(
-  () => posts.value?.find((p) => p.featured) ?? posts.value?.[0],
+  () => posts.value?.find((p) => p.data.featured) ?? posts.value?.[0],
 );
 const remainingPosts = computed(
   () => posts.value?.filter((p) => p !== featuredPost.value) || [],
 );
 
-const formatDate = (date?: string | Date | null) => {
+const formatDate = (date?: string | null) => {
   if (!date) return "";
   return new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
@@ -51,7 +55,7 @@ const formatDate = (date?: string | Date | null) => {
       <!-- Featured Post -->
       <NuxtLink
         v-else-if="featuredPost"
-        :to="featuredPost.path"
+        :to="`/news/${featuredPost.uid}`"
         class="block group"
       >
         <div
@@ -60,10 +64,10 @@ const formatDate = (date?: string | Date | null) => {
           <div
             class="h-64 lg:h-full border-b-4 lg:border-b-0 lg:border-r-4 border-black relative overflow-hidden bg-purple-500"
           >
-            <img
-              v-if="featuredPost.image"
-              :src="featuredPost.image"
-              :alt="featuredPost.title"
+            <PrismicImage
+              v-if="featuredPost.data.image?.url"
+              :field="featuredPost.data.image"
+              :alt="featuredPost.data.image.alt || ''"
               class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
             />
             <div
@@ -80,10 +84,10 @@ const formatDate = (date?: string | Date | null) => {
             </div>
 
             <div
-              v-if="featuredPost.tag"
+              v-if="featuredPost.data.category"
               class="absolute top-4 right-4 bg-yellow-400 text-black border-4 border-black px-4 py-2 font-black uppercase text-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
             >
-              {{ featuredPost.tag }}
+              {{ featuredPost.data.category }}
             </div>
           </div>
 
@@ -91,16 +95,17 @@ const formatDate = (date?: string | Date | null) => {
             <div
               class="text-sm font-bold text-gray-400 mb-4 uppercase tracking-widest"
             >
-              {{ formatDate(featuredPost.date) }}
+              {{ formatDate(featuredPost.last_publication_date) }}
             </div>
             <h2
               class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight group-hover:text-purple-400 transition-colors"
             >
-              {{ featuredPost.title || "Untitled Post" }}
+              {{ featuredPost.data.title || "Untitled Post" }}
             </h2>
             <p class="text-lg text-gray-300 font-medium mb-8 line-clamp-3">
               {{
-                featuredPost.description || "Click to read the full story..."
+                featuredPost.data.description ||
+                "Click to read the full story..."
               }}
             </p>
 
@@ -120,8 +125,8 @@ const formatDate = (date?: string | Date | null) => {
       >
         <NuxtLink
           v-for="post in remainingPosts"
-          :key="post.path"
-          :to="post.path"
+          :key="post.uid"
+          :to="`/news/${post.uid}`"
           class="block group"
         >
           <div
@@ -130,10 +135,10 @@ const formatDate = (date?: string | Date | null) => {
             <div
               class="h-48 border-b-4 border-black relative overflow-hidden bg-emerald-400"
             >
-              <img
-                v-if="post.image"
-                :src="post.image"
-                :alt="post.title"
+              <PrismicImage
+                v-if="post.data.image?.url"
+                :field="post.data.image"
+                :alt="post.data.title || ''"
                 class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
               />
               <div
@@ -144,10 +149,10 @@ const formatDate = (date?: string | Date | null) => {
               </div>
 
               <div
-                v-if="post.tag"
+                v-if="post.data.category"
                 class="absolute top-4 left-4 bg-yellow-400 text-black border-4 border-black px-4 py-2 font-black uppercase text-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
               >
-                {{ post.tag }}
+                {{ post.data.category }}
               </div>
             </div>
 
@@ -155,15 +160,15 @@ const formatDate = (date?: string | Date | null) => {
               <div
                 class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-widest"
               >
-                {{ formatDate(post.date) }}
+                {{ formatDate(post.last_publication_date) }}
               </div>
               <h3
                 class="text-2xl font-black text-white mb-4 group-hover:text-pink-400 transition-colors line-clamp-2"
               >
-                {{ post.title || "Untitled Post" }}
+                {{ post.data.title || "Untitled Post" }}
               </h3>
               <p class="text-gray-300 font-medium mb-6 line-clamp-3">
-                {{ post.description || "Click to read the full story..." }}
+                {{ post.data.description || "Click to read the full story..." }}
               </p>
 
               <div

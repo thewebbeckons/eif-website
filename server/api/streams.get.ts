@@ -1,3 +1,5 @@
+import streamersJson from "~~/app/assets/streamers.json";
+
 export default defineCachedEventHandler(
   async (event) => {
     const config = useRuntimeConfig();
@@ -30,15 +32,8 @@ export default defineCachedEventHandler(
 
     if (!accessToken) return [];
 
-    // 2. Fetch streamers from Nuxt Content
-    let contentStreamers: { displayName: string; twitchUser: string }[] = [];
-    try {
-      const streamersData = await queryCollection(event, "streamers").first();
-      contentStreamers = streamersData?.streamers || [];
-    } catch (error) {
-      console.error("Failed to fetch streamers from content:", error);
-      return [];
-    }
+    // 2. Read streamers from static JSON
+    const contentStreamers = streamersJson.streamers || [];
 
     if (contentStreamers.length === 0) return [];
 

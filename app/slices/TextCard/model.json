@@ -1,0 +1,48 @@
+{
+  "id": "chapter_intro",
+  "type": "SharedSlice",
+  "name": "TextCard",
+  "description": "A chapter introduction section with subtitle, title, and rich text body content",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default chapter intro variation",
+      "imageUrl": "",
+      "primary": {
+        "body": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Body",
+            "placeholder": "Write your content",
+            "allowTargetBlank": true,
+            "multi": "paragraph,strong,em,hyperlink,image,heading2,list-item,o-list-item"
+          }
+        }
+      },
+      "items": {}
+    },
+    {
+      "id": "textCardHighlight",
+      "name": "TextCard - Highlight",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default chapter intro variation",
+      "imageUrl": "",
+      "primary": {
+        "body": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Body",
+            "placeholder": "Write your content",
+            "allowTargetBlank": true,
+            "multi": "paragraph,strong,em,hyperlink,image,heading2,list-item,o-list-item"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

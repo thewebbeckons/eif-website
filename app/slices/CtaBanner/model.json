@@ -1,0 +1,43 @@
+{
+  "type": "SharedSlice",
+  "id": "cta_banner",
+  "name": "CTA Banner",
+  "variations": [
+    {
+      "id": "default_banner",
+      "name": "Default Banner",
+      "description": "Default style with heading, description, and a single CTA button.",
+      "version": "initial",
+      "imageUrl": "",
+      "docURL": "...",
+      "primary": {
+        "heading": {
+          "type": "StructuredText",
+          "config": {
+            "single": "heading2,strong,em",
+            "label": "Heading"
+          }
+        },
+        "description": {
+          "type": "StructuredText",
+          "config": {
+            "single": "paragraph,strong,em",
+            "label": "Description"
+          }
+        },
+        "button": {
+          "type": "Link",
+          "config": {
+            "label": "Button",
+            "placeholder": "",
+            "select": null,
+            "allowTargetBlank": true,
+            "allowText": true,
+            "repeat": false
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

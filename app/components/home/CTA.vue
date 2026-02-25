@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import NeoButton from "~/components/home/NeoButton.vue";
-
 const joinModal = useJoinModal();
 </script>
 

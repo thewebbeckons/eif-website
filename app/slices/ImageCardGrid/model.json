@@ -1,0 +1,39 @@
+{
+  "id": "image_card_grid",
+  "type": "SharedSlice",
+  "name": "ImageCardGrid",
+  "description": "A grid layout displaying image cards with titles",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default variation with image cards",
+      "imageUrl": "",
+      "primary": {
+        "cards": {
+          "type": "Group",
+          "config": {
+            "label": "Cards",
+            "fields": {
+              "image": {
+                "type": "Image",
+                "config": {
+                  "label": "Image"
+                }
+              },
+              "title": {
+                "type": "StructuredText",
+                "config": {
+                  "label": "Title",
+                  "single": "heading2"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
