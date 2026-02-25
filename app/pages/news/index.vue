@@ -67,7 +67,6 @@ const formatDate = (date?: string | null) => {
             <PrismicImage
               v-if="featuredPost.data.image?.url"
               :field="featuredPost.data.image"
-              :alt="featuredPost.data.image.alt || ''"
               class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
             />
             <div
@@ -138,7 +137,6 @@ const formatDate = (date?: string | null) => {
               <PrismicImage
                 v-if="post.data.image?.url"
                 :field="post.data.image"
-                :alt="post.data.title || ''"
                 class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
               />
               <div
@@ -156,7 +154,7 @@ const formatDate = (date?: string | null) => {
               </div>
             </div>
 
-            <div class="p-6 flex flex-col flex-grow">
+            <div class="p-6 flex flex-col grow">
               <div
                 class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-widest"
               >

@@ -12,7 +12,9 @@ export interface Stream {
   isLive: boolean;
 }
 
-const { data: streams, status } = await useFetch<Stream[]>("/api/streams");
+const { data: streams, status } = await useFetch<Stream[]>("/api/streams", {
+  getCachedData: () => undefined,
+});
 
 const liveStreams = computed(
   () => streams.value?.filter((s) => s.isLive) || [],
@@ -80,7 +82,7 @@ const offlineStreams = computed(
             <USkeleton class="bg-stone-800 w-full aspect-video rounded-none" />
             <div class="p-4 flex gap-4">
               <USkeleton
-                class="bg-stone-800 w-12 h-12 rounded-full border-2 border-black flex-shrink-0"
+                class="bg-stone-800 w-12 h-12 rounded-full border-2 border-black shrink-0"
               />
               <div class="flex-1 space-y-2">
                 <USkeleton class="bg-stone-800 h-5 w-3/4" />

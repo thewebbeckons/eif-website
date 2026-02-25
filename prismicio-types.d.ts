@@ -69,42 +69,6 @@ type ContentRelationshipFieldWithData<
   >;
 }[Exclude<TCustomType[number], string>["id"]];
 
-interface FooterDocumentData {}
-
-/**
- * Footer document from Prismic
- *
- * - **API ID**: `footer`
- * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/content-modeling
- *
- * @typeParam Lang - Language API ID of the document.
- */
-export type FooterDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithoutUID<
-    Simplify<FooterDocumentData>,
-    "footer",
-    Lang
-  >;
-
-interface GlobalNavDocumentData {}
-
-/**
- * Global Nav document from Prismic
- *
- * - **API ID**: `global_nav`
- * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/content-modeling
- *
- * @typeParam Lang - Language API ID of the document.
- */
-export type GlobalNavDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithoutUID<
-    Simplify<GlobalNavDocumentData>,
-    "global_nav",
-    Lang
-  >;
-
 /**
  * Item in *Home → Roles*
  */
@@ -402,12 +366,7 @@ export type StreamersDocument<Lang extends string = string> =
     Lang
   >;
 
-export type AllDocumentTypes =
-  | FooterDocument
-  | GlobalNavDocument
-  | HomeDocument
-  | NewsDocument
-  | StreamersDocument;
+export type AllDocumentTypes = HomeDocument | NewsDocument | StreamersDocument;
 
 /**
  * Primary content in *TextCard → Default → Primary*
@@ -707,10 +666,6 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
-      FooterDocument,
-      FooterDocumentData,
-      GlobalNavDocument,
-      GlobalNavDocumentData,
       HomeDocument,
       HomeDocumentData,
       HomeDocumentDataRolesItem,

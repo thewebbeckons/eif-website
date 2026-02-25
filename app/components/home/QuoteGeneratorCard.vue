@@ -60,7 +60,7 @@ onMounted(() => {
         </h3>
       </div>
       <p class="text-indigo-100 font-bold mb-6 relative z-10">
-        Tap into the profound wisdom of the collective consciousness.
+        Tap into the profound wisdom of the one, the only, the Qyleth.
       </p>
 
       <div class="grow flex flex-col justify-end gap-6 relative z-10">

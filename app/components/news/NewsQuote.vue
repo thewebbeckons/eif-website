@@ -33,7 +33,7 @@ defineProps<{
         >
         <span
           v-if="role"
-          class="text-zinc-600 text-sm font-bold uppercase tracking-widest mt-1"
+          class="text-white text-sm font-bold uppercase tracking-widest mt-1"
           >{{ role }}</span
         >
       </footer>

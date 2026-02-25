@@ -7,7 +7,7 @@ const dpsPlayers = [
     dps: "1.3M",
   },
   { name: "IceCreamCone", color: "bg-cyan-400", width: "w-[88%]", dps: "1.1M" },
-  { name: "Grammy", color: "bg-blue-500", width: "w-[82%]", dps: "980k" },
+  { name: "Emmy", color: "bg-blue-500", width: "w-[82%]", dps: "980k" },
   {
     name: "bobbyisfire",
     color: "bg-orange-500",
