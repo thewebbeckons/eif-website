@@ -30,7 +30,12 @@ const { open } = useJoinModal();
     </template>
 
     <template #default>
-      <UNavigationMenu :items="items" :ui="{ link: 'text-lg' }" />
+      <UNavigationMenu
+        :items="items"
+        :ui="{
+          link: 'text-lg focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none rounded-md',
+        }"
+      />
     </template>
 
     <template #right>
@@ -57,7 +62,13 @@ const { open } = useJoinModal();
           damping: 20,
         }"
       >
-        <UNavigationMenu :items="items" orientation="vertical" />
+        <UNavigationMenu
+          :items="items"
+          orientation="vertical"
+          :ui="{
+            link: 'focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none rounded-md',
+          }"
+        />
         <UButton
           color="primary"
           variant="solid"
