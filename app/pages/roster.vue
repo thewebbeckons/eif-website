@@ -27,10 +27,22 @@ const sortedMembers = computed(() => {
   });
 });
 
-const raidProgression = computed(() => {
-  if (!guild.value?.raid_progression) return null;
-  // Specifically targeting Nerub-ar Palace as per plan
-  return guild.value.raid_progression["manaforge-omega"];
+const raidProgressionArray = computed(() => {
+  if (!guild.value?.raid_progression) return [];
+  // return an array of { name: 'Formatted Name', summary: '1/8 M' }
+  const progressions = guild.value.raid_progression;
+  return Object.keys(progressions).map((key) => {
+    // Format name: 'manaforge-omega' -> 'Manaforge Omega'
+    const formattedName = key
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+
+    return {
+      name: formattedName,
+      summary: progressions[key].summary,
+    };
+  });
 });
 
 const columns: TableColumn<Member>[] = [
@@ -106,17 +118,20 @@ const hasGuruTag = (name: string) => name.toLowerCase().includes("eir");
           </p>
         </div>
 
-        <div
-          v-if="raidProgression"
-          class="bg-secondary border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-none px-6 py-4 flex flex-col items-center transform transition hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] duration-200"
-        >
-          <span
-            class="text-sm font-black text-white uppercase tracking-widest mb-1"
-            >Manaforge Omega</span
+        <div v-if="raidProgressionArray.length > 0" class="flex gap-4">
+          <div
+            v-for="raid in raidProgressionArray"
+            :key="raid.name"
+            class="bg-secondary border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-none px-6 py-4 flex flex-col items-center transform transition hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] duration-200"
           >
-          <span class="text-3xl font-heading font-black text-white">{{
-            raidProgression.summary
-          }}</span>
+            <span
+              class="text-sm font-black text-white uppercase tracking-widest mb-1"
+              >{{ raid.name }}</span
+            >
+            <span class="text-3xl font-heading font-black text-white">{{
+              raid.summary
+            }}</span>
+          </div>
         </div>
       </div>
 
@@ -327,6 +342,18 @@ const hasGuruTag = (name: string) => name.toLowerCase().includes("eir");
             </UTable>
           </div>
         </div>
+      </div>
+
+      <div
+        class="mt-4 text-right text-gray-400 font-bold font-mono text-sm uppercase tracking-wider"
+      >
+        Data powered by
+        <a
+          href="https://raider.io/"
+          target="_blank"
+          class="text-orange-500 hover:text-orange-400 hover:underline"
+          >Raider.io</a
+        >
       </div>
     </UContainer>
   </div>
