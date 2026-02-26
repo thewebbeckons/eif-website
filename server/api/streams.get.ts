@@ -77,9 +77,27 @@ export default defineCachedEventHandler(
       const usersResponse: any = await fetchTwitch("users", usersQuery);
       const usersData = usersResponse?.data || [];
 
+      // 4.5 Get Channels info (for offline title/game)
+      const userIds = usersData.map((u: any) => u.id);
+      let channelsData: any[] = [];
+      if (userIds.length > 0) {
+        const channelsQuery = new URLSearchParams();
+        userIds.forEach((id: string) =>
+          channelsQuery.append("broadcaster_id", id),
+        );
+        const channelsResponse: any = await fetchTwitch(
+          "channels",
+          channelsQuery,
+        );
+        channelsData = channelsResponse?.data || [];
+      }
+
       // Map offline streams first
       const mappedStreams = logins.map((login) => {
         const user = usersData.find((u: any) => u.login === login);
+        const channel = channelsData.find(
+          (c: any) => c.broadcaster_id === user?.id,
+        );
         const contentData = contentStreamers.find(
           (s) => String(s.twitch_user).toLowerCase() === login,
         );
@@ -89,8 +107,8 @@ export default defineCachedEventHandler(
           streamerName:
             contentData?.display_name || user?.display_name || login,
           twitchUrl: `https://www.twitch.tv/${user?.login || login}`,
-          title: "Offline",
-          game: "",
+          title: channel?.title || "Offline",
+          game: channel?.game_name || "",
           viewers: 0,
           thumbnailUrl: user?.offline_image_url || "/offline_stream_sm.jpg",
           avatarUrl:
