@@ -86,7 +86,7 @@ const handleCatClick = (e: MouseEvent) => {
                 >Achieved!</span
               >
               <span class="text-xl font-black uppercase leading-tight"
-                >Ahead of Curve</span
+                >Ahead of the Curve</span
               >
             </div>
           </div>
@@ -115,7 +115,7 @@ const handleCatClick = (e: MouseEvent) => {
               class="bg-blue-500 text-white px-2 py-1 text-xs font-black border-2 border-black"
               >+13</span
             >
-            <span class="text-sm font-black uppercase truncate">Ara-Kara</span>
+            <span class="text-sm font-black uppercase truncate">Skyreach</span>
           </div>
           <div
             class="bg-white border-4 border-black p-3 flex items-center gap-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] group-hover:-translate-x-2 transition-transform w-[90%] self-end"
@@ -124,7 +124,9 @@ const handleCatClick = (e: MouseEvent) => {
               class="bg-pink-500 text-white px-2 py-1 text-xs font-black border-2 border-black"
               >+11</span
             >
-            <span class="text-sm font-black uppercase truncate">Threads</span>
+            <span class="text-sm font-black uppercase truncate"
+              >Maisara Caverns</span
+            >
           </div>
         </div>
         <div class="bg-blue-700 p-8 border-t-4 border-black text-white">
