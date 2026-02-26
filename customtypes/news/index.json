@@ -51,6 +51,15 @@
           "placeholder": "Short Description for News Feed"
         }
       },
+      "author": {
+        "type": "Select",
+        "config": {
+          "label": "Author",
+          "placeholder": "Since we don't have users...",
+          "options": ["Mali", "Qyleth", "Lasoop"],
+          "default_value": "Mali"
+        }
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",

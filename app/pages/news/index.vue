@@ -92,9 +92,15 @@ const formatDate = (date?: string | null) => {
 
           <div class="p-8 md:p-12 flex flex-col justify-center">
             <div
-              class="text-sm font-bold text-gray-400 mb-4 uppercase tracking-widest"
+              class="text-sm font-bold text-gray-400 mb-4 uppercase tracking-widest flex items-center gap-2 flex-wrap"
             >
-              {{ formatDate(featuredPost.last_publication_date) }}
+              <span>{{ formatDate(featuredPost.last_publication_date) }}</span>
+              <template v-if="featuredPost.data.author">
+                <span class="text-gray-600">•</span>
+                <span class="text-pink-400"
+                  >By {{ featuredPost.data.author }}</span
+                >
+              </template>
             </div>
             <h2
               class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight group-hover:text-purple-400 transition-colors"
@@ -156,9 +162,13 @@ const formatDate = (date?: string | null) => {
 
             <div class="p-6 flex flex-col grow">
               <div
-                class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-widest"
+                class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-widest flex items-center gap-2 flex-wrap"
               >
-                {{ formatDate(post.last_publication_date) }}
+                <span>{{ formatDate(post.last_publication_date) }}</span>
+                <template v-if="post.data.author">
+                  <span class="text-gray-600">•</span>
+                  <span class="text-pink-400">By {{ post.data.author }}</span>
+                </template>
               </div>
               <h3
                 class="text-2xl font-black text-white mb-4 group-hover:text-pink-400 transition-colors line-clamp-2"

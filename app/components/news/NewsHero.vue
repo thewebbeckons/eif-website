@@ -2,6 +2,7 @@
 defineProps<{
   title: string;
   date: string;
+  author?: string;
   originalDate?: string;
   tag?: string;
   image?: string;
@@ -45,7 +46,7 @@ defineProps<{
         {{ title }}
       </h1>
       <div
-        class="text-pink-400! font-bold uppercase tracking-widest text-sm flex items-center gap-2"
+        class="text-pink-400! font-bold uppercase tracking-widest text-sm flex items-center gap-2 flex-wrap"
       >
         <UIcon name="i-lucide-calendar" class="w-4 h-4" />
         {{ date }}
@@ -58,6 +59,11 @@ defineProps<{
             class="w-4 h-4 text-pink-300 hover:text-white transition-colors cursor-help"
           />
         </UTooltip>
+        <template v-if="author">
+          <span class="text-gray-500 mx-1">•</span>
+          <UIcon name="i-lucide-user" class="w-4 h-4" />
+          <span class="text-white">{{ author }}</span>
+        </template>
       </div>
     </div>
   </div>

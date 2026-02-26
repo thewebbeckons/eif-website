@@ -65,6 +65,7 @@ useSeoMeta({
             :image="post.data.image?.url || undefined"
             :image-alt="post.data.title || ''"
             :tag="post.data.category || undefined"
+            :author="post.data.author || undefined"
           />
         </div>
 

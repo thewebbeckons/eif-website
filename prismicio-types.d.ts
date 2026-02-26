@@ -255,6 +255,18 @@ interface NewsDocumentData {
   description: prismic.KeyTextField;
 
   /**
+   * Author field in *News*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: Since we don't have users...
+   * - **Default Value**: Mali
+   * - **API ID Path**: news.author
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  author: prismic.SelectField<"Mali" | "Qyleth" | "Lasoop", "filled">;
+
+  /**
    * Slice Zone field in *News*
    *
    * - **Field Type**: Slice Zone
