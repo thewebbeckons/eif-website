@@ -1,10 +1,25 @@
 <script setup lang="ts">
-const roles = ref([
+const props = defineProps<{
+  roles?: any[];
+}>();
+
+const defaultRoles = [
   { name: "Tanks", icon: "i-lucide-shield", status: "Disabled" },
   { name: "Healers", icon: "i-lucide-plus", status: "Disabled" },
   { name: "Melee", icon: "i-lucide-swords", status: "Disabled" },
   { name: "Ranged", icon: "i-lucide-target", status: "Disabled" },
-]);
+];
+
+const computedRoles = computed(() => {
+  if (props.roles && props.roles.length > 0) {
+    return props.roles.map((r) => ({
+      name: r.role_name || "Unknown",
+      icon: r.icon || "i-lucide-help-circle",
+      status: r.status ? "Active" : "Disabled",
+    }));
+  }
+  return defaultRoles;
+});
 </script>
 
 <template>
@@ -43,7 +58,7 @@ const roles = ref([
       <div class="flex-1 w-full max-w-2xl mx-auto">
         <div class="grid grid-cols-2 gap-3 md:gap-4 max-w-xl mx-auto">
           <div
-            v-for="role in roles"
+            v-for="role in computedRoles"
             :key="role.name"
             :class="[
               'border-4 p-4 md:p-6 flex flex-col items-center justify-center transition-transform',

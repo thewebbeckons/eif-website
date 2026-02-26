@@ -4,6 +4,10 @@ import NeoButton from "~/components/home/NeoButton.vue";
 import LootCard from "~/components/home/LootCard.vue";
 import DetailsCard from "~/components/home/DetailsCard.vue";
 
+const props = defineProps<{
+  description?: string;
+}>();
+
 const { open } = useJoinModal();
 
 const wipeMotivation = ref("");
@@ -45,9 +49,11 @@ const generateWipeWisdom = async () => {
       <div
         class="bg-zinc-900 border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] inline-block relative -rotate-2 w-full max-w-xl"
       >
-        <p class="text-xl font-bold text-zinc-100 mb-4">
-          Community-first raiding on Illidan. Good vibes, better loot, and zero
-          toxicity.
+        <p class="text-xl font-bold text-zinc-100 mb-4 whitespace-pre-wrap">
+          {{
+            props.description ||
+            "Community-first raiding on Illidan. Good vibes, better loot, and zero toxicity."
+          }}
         </p>
         <WipeWisdomButton />
       </div>

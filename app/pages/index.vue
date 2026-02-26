@@ -1,4 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { client } = usePrismic();
+
+const { data: home } = await useAsyncData("home", () =>
+  client.getSingle("home"),
+);
+</script>
 
 <template>
   <div
@@ -6,10 +12,10 @@
   >
     <div class="relative z-10 pointer-events-none">
       <main class="max-w-7xl mx-auto px-6 py-12 md:py-24">
-        <HomeHero />
+        <HomeHero :description="home?.data.description ?? undefined" />
         <HomeFeatures />
         <HomeVibes />
-        <HomeRecruitmentRoles />
+        <HomeRecruitmentRoles :roles="home?.data.roles" />
       </main>
     </div>
   </div>
