@@ -2,6 +2,7 @@
 defineProps<{
   title: string;
   date: string;
+  originalDate?: string;
   tag?: string;
   image?: string;
   imageAlt?: string;
@@ -48,6 +49,15 @@ defineProps<{
       >
         <UIcon name="i-lucide-calendar" class="w-4 h-4" />
         {{ date }}
+        <UTooltip
+          v-if="originalDate && originalDate !== date"
+          :text="`Original Draft: ${originalDate}`"
+        >
+          <UIcon
+            name="i-lucide-info"
+            class="w-4 h-4 text-pink-300 hover:text-white transition-colors cursor-help"
+          />
+        </UTooltip>
       </div>
     </div>
   </div>

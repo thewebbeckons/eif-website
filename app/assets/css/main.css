@@ -83,6 +83,71 @@ body {
   }
 }
 
+.prismic-rich-text p {
+  @apply mb-4 leading-relaxed;
+}
+
+.prismic-rich-text h1,
+.prismic-rich-text h2,
+.prismic-rich-text h3,
+.prismic-rich-text h4,
+.prismic-rich-text h5,
+.prismic-rich-text h6 {
+  @apply font-black uppercase mt-8 mb-4;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+}
+.prismic-rich-text h1 {
+  @apply text-4xl;
+}
+.prismic-rich-text h2 {
+  @apply text-3xl;
+}
+.prismic-rich-text h3 {
+  @apply text-2xl;
+}
+
+.prismic-rich-text a {
+  @apply font-bold underline underline-offset-4 transition-colors text-pink-400 hover:text-pink-300;
+}
+
+.prismic-rich-text ul {
+  @apply list-disc list-outside ml-6 mb-4 space-y-2;
+}
+
+.prismic-rich-text ol {
+  @apply list-decimal list-outside ml-6 mb-4 space-y-2;
+}
+
+.prismic-rich-text img {
+  @apply border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] my-8 max-w-full h-auto;
+}
+
+.prismic-rich-text blockquote {
+  @apply border-l-4 border-pink-400 pl-4 py-1 italic bg-zinc-800/50 my-6;
+}
+
+.prismic-rich-text strong {
+  @apply font-bold;
+}
+
+.prismic-rich-text > *:first-child {
+  @apply mt-0;
+}
+.prismic-rich-text > *:last-child {
+  @apply mb-0;
+}
+
+/* Highlight variant overrides */
+.prismic-rich-text-highlight :is(h1, h2, h3, h4, h5, h6) {
+  text-shadow: 2px 2px 0px rgba(255, 255, 255, 1);
+}
+.prismic-rich-text-highlight a {
+  @apply text-purple-700 hover:text-purple-800;
+}
+.prismic-rich-text-highlight blockquote {
+  @apply border-purple-700 bg-emerald-500/30;
+}
+
 :root {
   --ui-radius: 0;
 }

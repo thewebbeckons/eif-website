@@ -4,6 +4,7 @@ import StreamCard from "~/components/streams/StreamCard.vue";
 export interface Stream {
   id: string;
   streamerName: string;
+  twitchUrl: string;
   title: string;
   game: string;
   viewers: number;

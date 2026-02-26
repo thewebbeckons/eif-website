@@ -12,7 +12,7 @@ defineProps<{
   >
     <!-- Decorative background offset -->
     <div
-      class="absolute -inset-2 bg-pink-500 -z-10 border-4 border-black translate-x-4 translate-y-4"
+      class="absolute -inset-2 bg-pink-500 -z-10 border-4 border-black translate-x-2 translate-y-2 md:translate-x-4 md:translate-y-4"
     ></div>
 
     <UIcon

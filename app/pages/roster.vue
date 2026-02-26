@@ -11,7 +11,7 @@ interface Member {
 }
 
 const { data: rosterData, status } = await useFetch<any>("/api/roster", {
-  lazy: true, // optional: fetching on client side nicely
+  server: true,
 });
 
 const guild = computed(() => rosterData.value?.guild || null);

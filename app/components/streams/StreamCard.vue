@@ -3,6 +3,7 @@ const props = defineProps<{
   stream: {
     id: string
     streamerName: string
+    twitchUrl: string
     title: string
     game: string
     viewers: number
@@ -15,10 +16,27 @@ const props = defineProps<{
 const formattedViewers = computed(() => {
   return new Intl.NumberFormat('en-US').format(props.stream.viewers)
 })
+
+const rootTag = computed(() => (props.stream.isLive ? 'a' : 'div'))
+
+const rootProps = computed(() => {
+  if (!props.stream.isLive) {
+    return {}
+  }
+
+  return {
+    href: props.stream.twitchUrl,
+    target: '_blank',
+    rel: 'noopener noreferrer',
+    'aria-label': `Watch ${props.stream.streamerName} on Twitch`,
+  }
+})
 </script>
 
 <template>
-  <div 
+  <component
+    :is="rootTag"
+    v-bind="rootProps"
     class="group relative block bg-stone-900 border-4 border-black rounded-none overflow-hidden transform transition-all duration-300"
     :class="stream.isLive 
       ? 'shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-2 hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:border-[#d8b4fe]' 
@@ -75,5 +93,5 @@ const formattedViewers = computed(() => {
         </p>
       </div>
     </div>
-  </div>
+  </component>
 </template>

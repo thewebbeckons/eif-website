@@ -52,7 +52,7 @@ useSeoMeta({
           <!-- Back link -->
           <NuxtLink
             to="/news"
-            class="inline-flex items-center gap-2 font-black uppercase text-sm text-gray-400 hover:text-pink-400 transition-colors"
+            class="inline-flex items-center gap-2 font-black uppercase text-sm text-gray-400 hover:text-pink-400 hover:underline transition-colors"
           >
             <UIcon name="i-lucide-arrow-left" class="w-5 h-5" />
             Back to News
@@ -61,6 +61,7 @@ useSeoMeta({
           <NewsHero
             :title="post.data.title || 'Untitled'"
             :date="formatDate(post.last_publication_date)"
+            :original-date="formatDate(post.first_publication_date)"
             :image="post.data.image?.url || undefined"
             :image-alt="post.data.title || ''"
             :tag="post.data.category || undefined"

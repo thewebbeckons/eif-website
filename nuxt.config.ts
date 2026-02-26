@@ -5,6 +5,11 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
   compatibilityDate: "2025-02-15",
+  routeRules: {
+    // Cache roster page HTML and API payload for 10 minutes.
+    "/roster": { swr: 600 },
+    "/api/roster": { swr: 600 },
+  },
 
   prismic: {
     endpoint: apiEndpoint || repositoryName,

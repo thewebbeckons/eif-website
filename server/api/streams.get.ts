@@ -88,6 +88,7 @@ export default defineCachedEventHandler(
           id: user?.id || login,
           streamerName:
             contentData?.display_name || user?.display_name || login,
+          twitchUrl: `https://www.twitch.tv/${user?.login || login}`,
           title: "Offline",
           game: "",
           viewers: 0,
