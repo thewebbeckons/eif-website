@@ -70,6 +70,59 @@ type ContentRelationshipFieldWithData<
 }[Exclude<TCustomType[number], string>["id"]];
 
 /**
+ * Item in *Cats → Cats*
+ */
+export interface CatsDocumentDataCatsItem {
+  /**
+   * Character Name field in *Cats → Cats*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Raider.io Name
+   * - **API ID Path**: cats.cats[].character_name
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  character_name: prismic.KeyTextField;
+
+  /**
+   * Cat Names field in *Cats → Cats*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Comma Separated List of Cat Names
+   * - **API ID Path**: cats.cats[].cat_names
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  cat_names: prismic.KeyTextField;
+}
+
+/**
+ * Content for Cats documents
+ */
+interface CatsDocumentData {
+  /**
+   * Cats field in *Cats*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: cats.cats[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  cats: prismic.GroupField<Simplify<CatsDocumentDataCatsItem>>;
+}
+
+/**
+ * Cats document from Prismic
+ *
+ * - **API ID**: `cats`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type CatsDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<Simplify<CatsDocumentData>, "cats", Lang>;
+
+/**
  * Item in *Home → Roles*
  */
 export interface HomeDocumentDataRolesItem {
@@ -378,7 +431,11 @@ export type StreamersDocument<Lang extends string = string> =
     Lang
   >;
 
-export type AllDocumentTypes = HomeDocument | NewsDocument | StreamersDocument;
+export type AllDocumentTypes =
+  | CatsDocument
+  | HomeDocument
+  | NewsDocument
+  | StreamersDocument;
 
 /**
  * Primary content in *TextCard → Default → Primary*
@@ -678,6 +735,9 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      CatsDocument,
+      CatsDocumentData,
+      CatsDocumentDataCatsItem,
       HomeDocument,
       HomeDocumentData,
       HomeDocumentDataRolesItem,

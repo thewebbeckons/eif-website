@@ -14,6 +14,11 @@ const { data: rosterData, status } = await useFetch<any>("/api/roster", {
   server: true,
 });
 
+const { client } = usePrismic();
+const { data: catsDoc } = await useAsyncData("cats", () =>
+  client.getSingle("cats"),
+);
+
 const guild = computed(() => rosterData.value?.guild || null);
 const members = computed<Member[]>(() => rosterData.value?.members || []);
 const loadingScores = computed(() => status.value === "pending");
@@ -95,6 +100,14 @@ const getScoreColor = (score?: number) => {
 };
 
 const hasGuruTag = (name: string) => name.toLowerCase().includes("eir");
+
+const getMemberCats = (name: string) => {
+  if (!catsDoc.value?.data?.cats) return null;
+  const match = catsDoc.value.data.cats.find(
+    (c: any) => c.character_name?.toLowerCase() === name.toLowerCase(),
+  );
+  return match?.cat_names || null;
+};
 </script>
 
 <template>
@@ -161,6 +174,28 @@ const hasGuruTag = (name: string) => name.toLowerCase().includes("eir");
                       >
                         {{ member.name }}
                       </p>
+                      <template v-if="getMemberCats(member.name)">
+                        <UPopover
+                          :ui="{
+                            content:
+                              'bg-stone-800 border-2 border-black text-white shadow-[4px_4px_0_0_black] ring-0 rounded-none',
+                          }"
+                        >
+                          <button
+                            class="cursor-pointer hover:scale-110 transition-transform flex items-center text-xl relative -top-px ml-1"
+                            title="Cats"
+                          >
+                            🐱
+                          </button>
+                          <template #content>
+                            <div
+                              class="px-3 py-2 font-black text-sm uppercase tracking-wider"
+                            >
+                              {{ getMemberCats(member.name) }}
+                            </div>
+                          </template>
+                        </UPopover>
+                      </template>
                       <UPopover
                         v-if="hasGuruTag(member.name)"
                         :ui="{
@@ -265,6 +300,28 @@ const hasGuruTag = (name: string) => name.toLowerCase().includes("eir");
                       >
                         {{ row.original.name }}
                       </p>
+                      <template v-if="getMemberCats(row.original.name)">
+                        <UPopover
+                          :ui="{
+                            content:
+                              'bg-stone-800 border-2 border-black text-white shadow-[4px_4px_0_0_black] ring-0 rounded-none',
+                          }"
+                        >
+                          <button
+                            class="cursor-pointer hover:scale-110 transition-transform flex items-center text-xl relative -top-px ml-1"
+                            title="Cats"
+                          >
+                            🐱
+                          </button>
+                          <template #content>
+                            <div
+                              class="px-3 py-2 font-black text-sm uppercase tracking-wider"
+                            >
+                              {{ getMemberCats(row.original.name) }}
+                            </div>
+                          </template>
+                        </UPopover>
+                      </template>
                       <UPopover
                         v-if="hasGuruTag(row.original.name)"
                         :ui="{

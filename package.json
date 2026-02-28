@@ -30,10 +30,12 @@
   },
   "dependencies": {
     "@nuxt/ui": "^4.2.1",
+    "@nuxthub/core": "^0.10.6",
     "@vueuse/core": "^12.8.2",
     "ai": "^6.0.97",
     "motion-v": "^0.11.3",
     "nuxt": "^4.2.1",
+    "postgres": "^3.4.8",
     "zod": "^4.1.13"
   },
   "devDependencies": {

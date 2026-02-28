@@ -1,4 +1,4 @@
-import { apiEndpoint, repositoryName } from "./slicemachine.config.json";
+import { repositoryName } from "./slicemachine.config.json";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: ["@nuxt/ui", "@nuxtjs/prismic"],
@@ -12,7 +12,7 @@ export default defineNuxtConfig({
   },
 
   prismic: {
-    endpoint: apiEndpoint || repositoryName,
+    endpoint: repositoryName,
     clientConfig: {
       // `type` is the API ID of a page type.
       // `path` determines the URL for a page of that type.
