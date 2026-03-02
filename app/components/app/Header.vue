@@ -6,8 +6,6 @@ const items = computed(() => [
   { label: "Streams", to: "/streams" },
   { label: "Roster", to: "/roster" },
 ]);
-
-const { open } = useJoinModal();
 </script>
 
 <template>
@@ -37,18 +35,6 @@ const { open } = useJoinModal();
         }"
       />
     </template>
-
-    <template #right>
-      <UButton
-        color="primary"
-        variant="solid"
-        class="hidden lg:flex"
-        @click="open"
-      >
-        Join Us
-      </UButton>
-    </template>
-
     <template #body>
       <motion.div
         class="flex flex-col gap-4"
@@ -69,14 +55,6 @@ const { open } = useJoinModal();
             link: 'focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none rounded-md',
           }"
         />
-        <UButton
-          color="primary"
-          variant="solid"
-          class="w-full justify-center"
-          @click="open"
-        >
-          Join Us
-        </UButton>
       </motion.div>
     </template>
   </UHeader>
