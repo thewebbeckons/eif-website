@@ -16,7 +16,7 @@ const { data: rosterData, status } = await useFetch<any>("/api/roster", {
 
 const guild = computed(() => rosterData.value?.guild || null);
 const members = computed<Member[]>(() => rosterData.value?.members || []);
-const loadingScores = computed(() => status.value === "pending");
+const isLoading = computed(() => status.value === "pending");
 
 const sortedMembers = computed(() => {
   return [...members.value].sort((a, b) => {
@@ -26,6 +26,8 @@ const sortedMembers = computed(() => {
     return 0;
   });
 });
+
+const hasMembers = computed(() => sortedMembers.value.length > 0);
 
 const raidProgressionArray = computed(() => {
   if (!guild.value?.raid_progression) return [];
@@ -118,11 +120,14 @@ const hasGuruTag = (name: string) => name.toLowerCase().includes("eir");
           </p>
         </div>
 
-        <div v-if="raidProgressionArray.length > 0" class="flex gap-4">
+        <div
+          v-if="raidProgressionArray.length > 0"
+          class="flex w-full flex-wrap gap-4 md:w-auto md:justify-end"
+        >
           <div
             v-for="raid in raidProgressionArray"
             :key="raid.name"
-            class="bg-secondary border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-none px-6 py-4 flex flex-col items-center transform transition hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] duration-200"
+            class="flex min-w-52 flex-1 flex-col items-center rounded-none border-4 border-black bg-secondary px-6 py-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition duration-200 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:min-w-0 md:flex-none"
           >
             <span
               class="text-sm font-black text-white uppercase tracking-widest mb-1"
@@ -139,15 +144,27 @@ const hasGuruTag = (name: string) => name.toLowerCase().includes("eir");
         class="bg-stone-900 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rounded-none overflow-hidden mt-8"
       >
         <div class="p-1">
-          <!-- Inner padding for border separation if needed, or just let table fill -->
-          <div class="block md:hidden">
-            <div
-              v-if="status === 'pending' || loadingScores"
-              class="py-10 text-center text-white font-black text-xl uppercase tracking-widest"
+          <div
+            v-if="isLoading"
+            class="py-10 text-center text-white font-black text-xl uppercase tracking-widest"
+          >
+            Loading roster...
+          </div>
+
+          <div v-else-if="!hasMembers" class="py-16 text-center">
+            <p
+              class="text-xs font-black uppercase tracking-[0.35em] text-cyan-300"
             >
-              Loading roster...
-            </div>
-            <div v-else class="divide-y-4 divide-black">
+              Season Standby
+            </p>
+            <p class="mt-3 text-lg font-bold text-stone-300">
+              Between seasons — the roster returns when new Raider.IO data is
+              available.
+            </p>
+          </div>
+
+          <template v-else>
+            <div class="block md:hidden">
               <div
                 v-for="member in sortedMembers"
                 :key="member.name"
@@ -238,109 +255,113 @@ const hasGuruTag = (name: string) => name.toLowerCase().includes("eir");
                 </div>
               </div>
             </div>
-          </div>
-          <div class="hidden md:block">
-            <UTable
-              :data="sortedMembers"
-              :columns="columns"
-              :loading="status === 'pending' || loadingScores"
-              :ui="{
-                th: 'font-heading font-black text-white uppercase tracking-widest text-xs py-5 border-b-4 border-black',
-                td: 'font-body font-bold py-4 text-white',
-                tbody: 'divide-y-4 divide-black',
-              }"
-            >
-              <template #name-cell="{ row }">
-                <div class="flex items-center gap-4">
-                  <UAvatar
-                    :src="row.original.thumbnail_url"
-                    size="lg"
-                    :alt="`${row.original.name} avatar`"
-                    class="border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rounded-none"
-                  />
-                  <div>
-                    <div class="flex items-center gap-1">
-                      <p
-                        class="font-black text-xl text-white uppercase tracking-tight"
-                      >
-                        {{ row.original.name }}
-                      </p>
-                      <UPopover
-                        v-if="hasGuruTag(row.original.name)"
-                        :ui="{
-                          content:
-                            'bg-stone-800 border-2 border-black text-white shadow-[4px_4px_0_0_black] ring-0 rounded-none',
-                        }"
-                      >
-                        <button
-                          class="cursor-pointer hover:scale-110 transition-transform flex items-center text-xl relative -top-px"
-                          title="M+ Guru"
+            <div class="hidden md:block">
+              <UTable
+                :data="sortedMembers"
+                :columns="columns"
+                :loading="isLoading"
+                :ui="{
+                  th: 'font-heading font-black text-white uppercase tracking-widest text-xs py-5 border-b-4 border-black',
+                  td: 'font-body font-bold py-4 text-white',
+                  tbody: 'divide-y-4 divide-black',
+                }"
+              >
+                <template #name-cell="{ row }">
+                  <div class="flex items-center gap-4">
+                    <UAvatar
+                      :src="row.original.thumbnail_url"
+                      size="lg"
+                      :alt="`${row.original.name} avatar`"
+                      class="border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rounded-none"
+                    />
+                    <div>
+                      <div class="flex items-center gap-1">
+                        <p
+                          class="font-black text-xl text-white uppercase tracking-tight"
                         >
-                          ✨
-                        </button>
-                        <template #content>
-                          <div
-                            class="px-3 py-2 font-black text-sm uppercase tracking-wider"
-                          >
-                            M+ Guru
-                          </div>
-                        </template>
-                      </UPopover>
-                    </div>
-                    <p
-                      :class="[
-                        'text-xs font-bold uppercase tracking-wider',
-                        getClassColor(row.original.class),
-                      ]"
-                    >
-                      {{ row.original.class }}
-                    </p>
-                  </div>
-                </div>
-              </template>
-              <template #mythic_plus_best_runs-cell="{ row }">
-                <div
-                  v-if="row.original.mythic_plus_best_runs"
-                  class="flex flex-row gap-2 items-center"
-                >
-                  <div
-                    v-for="run in row.original.mythic_plus_best_runs"
-                    :key="run.id"
-                    class="flex flex-col items-center relative group"
-                  >
-                    <div class="relative">
-                      <img
-                        :src="run.background_image_url"
-                        alt=""
-                        class="object-cover h-10 w-10 brightness-75 border-2 border-black rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-transform group-hover:scale-110"
-                      />
-                      <div
-                        class="absolute inset-0 flex items-center justify-center"
-                      >
-                        <p class="text-white font-black text-sm drop-shadow-md">
-                          {{ run.mythic_level }}
+                          {{ row.original.name }}
                         </p>
+                        <UPopover
+                          v-if="hasGuruTag(row.original.name)"
+                          :ui="{
+                            content:
+                              'bg-stone-800 border-2 border-black text-white shadow-[4px_4px_0_0_black] ring-0 rounded-none',
+                          }"
+                        >
+                          <button
+                            class="cursor-pointer hover:scale-110 transition-transform flex items-center text-xl relative -top-px"
+                            title="M+ Guru"
+                          >
+                            ✨
+                          </button>
+                          <template #content>
+                            <div
+                              class="px-3 py-2 font-black text-sm uppercase tracking-wider"
+                            >
+                              M+ Guru
+                            </div>
+                          </template>
+                        </UPopover>
                       </div>
+                      <p
+                        :class="[
+                          'text-xs font-bold uppercase tracking-wider',
+                          getClassColor(row.original.class),
+                        ]"
+                      >
+                        {{ row.original.class }}
+                      </p>
                     </div>
-                    <p class="text-white font-black uppercase text-[10px] mt-1">
-                      {{ run.short_name }}
-                    </p>
                   </div>
-                </div>
-                <span v-else class="text-white/50 font-black">-</span>
-              </template>
-              <template #mythic_plus_score-cell="{ row }">
-                <div
-                  :class="[
-                    'font-heading font-black text-xl',
-                    getScoreColor(row.getValue('mythic_plus_score')),
-                  ]"
-                >
-                  {{ row.getValue("mythic_plus_score") || "-" }}
-                </div>
-              </template>
-            </UTable>
-          </div>
+                </template>
+                <template #mythic_plus_best_runs-cell="{ row }">
+                  <div
+                    v-if="row.original.mythic_plus_best_runs"
+                    class="flex flex-row gap-2 items-center"
+                  >
+                    <div
+                      v-for="run in row.original.mythic_plus_best_runs"
+                      :key="run.id"
+                      class="flex flex-col items-center relative group"
+                    >
+                      <div class="relative">
+                        <img
+                          :src="run.background_image_url"
+                          alt=""
+                          class="object-cover h-10 w-10 brightness-75 border-2 border-black rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-transform group-hover:scale-110"
+                        />
+                        <div
+                          class="absolute inset-0 flex items-center justify-center"
+                        >
+                          <p
+                            class="text-white font-black text-sm drop-shadow-md"
+                          >
+                            {{ run.mythic_level }}
+                          </p>
+                        </div>
+                      </div>
+                      <p
+                        class="text-white font-black uppercase text-[10px] mt-1"
+                      >
+                        {{ run.short_name }}
+                      </p>
+                    </div>
+                  </div>
+                  <span v-else class="text-white/50 font-black">-</span>
+                </template>
+                <template #mythic_plus_score-cell="{ row }">
+                  <div
+                    :class="[
+                      'font-heading font-black text-xl',
+                      getScoreColor(row.getValue('mythic_plus_score')),
+                    ]"
+                  >
+                    {{ row.getValue("mythic_plus_score") || "-" }}
+                  </div>
+                </template>
+              </UTable>
+            </div>
+          </template>
         </div>
       </div>
 
