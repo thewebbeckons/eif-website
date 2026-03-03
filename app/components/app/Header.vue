@@ -56,6 +56,7 @@ const onOpenGifModal = (open: boolean) => {
           icon="i-lucide-sparkles"
           color="neutral"
           variant="ghost"
+          square
           aria-label="Random Schitt's Creek GIF"
           class="text-stone-300 hover:text-white bg-purple-500 hover:bg-purple-600 cursor-pointer hidden sm:block"
         />
