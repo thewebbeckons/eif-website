@@ -6,6 +6,28 @@ const items = computed(() => [
   { label: "Streams", to: "/streams" },
   { label: "Roster", to: "/roster" },
 ]);
+
+const schittsCreekGifs = [
+  "https://media.giphy.com/media/xUA7b2zzeFPdRtBMek/giphy.gif",
+  "https://media.giphy.com/media/l0Ex6Ut39Zj7DzJn2/giphy.gif",
+  "https://media.giphy.com/media/UWJOhdyCXIGt5RcKSq/giphy.gif",
+  "https://media.giphy.com/media/fVzdH5xUnvqwpCCqdl/giphy.gif",
+  "https://media.giphy.com/media/Q8UvE3ISdNWfww5YaU/giphy.gif",
+  "https://media.giphy.com/media/SSKgkYJtpsYWCTFSng/giphy.gif",
+  "https://media.giphy.com/media/VgZzoLgZeukZRhxrpW/giphy.gif",
+  "https://media.giphy.com/media/cLw4RZHnJCIcR9uMhP/giphy.gif",
+  "https://media.giphy.com/media/hVb0lLoOLpB6TzxY6v/giphy.gif",
+  "https://media.giphy.com/media/U2KuGfM27RgLWeTF0q/giphy.gif",
+];
+
+const selectedGif = ref("");
+const onOpenGifModal = (open: boolean) => {
+  if (open) {
+    selectedGif.value =
+      schittsCreekGifs[Math.floor(Math.random() * schittsCreekGifs.length)] ||
+      "";
+  }
+};
 </script>
 
 <template>
@@ -25,6 +47,30 @@ const items = computed(() => [
   >
     <template #left>
       <AppLogo />
+    </template>
+
+    <template #right>
+      <UModal @update:open="onOpenGifModal">
+        <UButton
+          size="sm"
+          icon="i-lucide-sparkles"
+          color="neutral"
+          variant="ghost"
+          aria-label="Random Schitt's Creek GIF"
+          class="text-stone-300 hover:text-white bg-purple-500 hover:bg-purple-600 cursor-pointer hidden sm:block"
+        />
+        <template #content>
+          <div
+            class="p-1 max-w-max mx-auto border border-stone-800 rounded-xl bg-stone-900 shadow-2xl relative overflow-hidden"
+          >
+            <img
+              :src="selectedGif"
+              class="rounded-lg object-contain max-h-[80vh]"
+              alt="Schitt's Creek GIF"
+            />
+          </div>
+        </template>
+      </UModal>
     </template>
 
     <template #default>
