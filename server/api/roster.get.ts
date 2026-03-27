@@ -1,4 +1,4 @@
-export default defineEventHandler(
+export default defineCachedEventHandler(
   async (event): Promise<{ guild: any; members: any[] }> => {
     const raiderIoKey = process.env.RAIDER_IO_KEY;
 
@@ -11,6 +11,7 @@ export default defineEventHandler(
         fields: "members,raid_progression:current-tier",
         ...(raiderIoKey ? { access_key: raiderIoKey } : {}),
       },
+      timeout: 8_000,
     });
 
     if (!guild?.members) {
@@ -29,7 +30,7 @@ export default defineEventHandler(
         thumbnail_url: null,
       }));
 
-    // 3. Fetch all character data strings in parallel
+    // 3. Fetch all character data in parallel (with per-request timeout)
     const scorePromises = filteredMembers.map(async (member: any) => {
       try {
         const data = await $fetch<any>(
@@ -43,6 +44,7 @@ export default defineEventHandler(
                 "mythic_plus_scores_by_season:current,mythic_plus_best_runs",
               ...(raiderIoKey ? { access_key: raiderIoKey } : {}),
             },
+            timeout: 5_000,
           },
         );
 
@@ -60,7 +62,7 @@ export default defineEventHandler(
 
     await Promise.allSettled(scorePromises);
 
-    // 4. Filter out members with 0 score, just as the client was doing
+    // 4. Filter out members with 0 score
     const members = filteredMembers.filter(
       (m: any) => (m.mythic_plus_score || 0) > 0,
     );
@@ -69,5 +71,13 @@ export default defineEventHandler(
       guild,
       members,
     };
+  },
+  {
+    // Cache for 10 minutes server-side. Unlike SWR route rules on Vercel,
+    // defineCachedEventHandler only caches successful responses — a failed
+    // revalidation won't leave stale data stuck indefinitely.
+    maxAge: 600,
+    name: "roster",
+    getKey: () => "roster",
   },
 );
