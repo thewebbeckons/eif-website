@@ -1,4 +1,11 @@
-import { apiEndpoint, repositoryName } from "./slicemachine.config.json";
+import slicemachineConfig from "./slicemachine.config.json";
+
+const repositoryName = String(slicemachineConfig.repositoryName);
+const apiEndpoint =
+  "apiEndpoint" in slicemachineConfig &&
+  typeof slicemachineConfig.apiEndpoint === "string"
+    ? slicemachineConfig.apiEndpoint
+    : undefined;
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: ["@nuxt/ui", "@nuxtjs/prismic"],

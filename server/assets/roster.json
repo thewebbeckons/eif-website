@@ -1,0 +1,219 @@
+{
+  "guild": {
+    "name": "Exercise in Futility",
+    "realm": "illidan",
+    "region": "us"
+  },
+  "players": [
+    {
+      "id": "nightgrizzly-illidan",
+      "name": "Nightgrizzly",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Druid",
+      "race": "Night Elf",
+      "label": "Nightgrizzly"
+    },
+    {
+      "id": "eiralinn-illidan",
+      "name": "Eiralinn",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Demon Hunter",
+      "race": "Blood Elf",
+      "label": "Eiralinn"
+    },
+    {
+      "id": "azkabaar-illidan",
+      "name": "Azkabaar",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Warlock",
+      "race": "Orc",
+      "label": "Azkabaar"
+    },
+    {
+      "id": "lharghrarn-illidan",
+      "name": "Lharghrarn",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Warlock",
+      "race": "Orc",
+      "label": "Lharghrarn"
+    },
+    {
+      "id": "coffeewizard-illidan",
+      "name": "Coffeewizard",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Mage",
+      "race": "Blood Elf",
+      "label": "Coffeewizard"
+    },
+    {
+      "id": "sammfdrood-illidan",
+      "name": "Sammfdrood",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Druid",
+      "race": "Tauren",
+      "label": "Sammfdrood"
+    },
+    {
+      "id": "frumplez-illidan",
+      "name": "Frumplez",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Demon Hunter",
+      "race": "Blood Elf",
+      "label": "Frumplez"
+    },
+    {
+      "id": "splint-illidan",
+      "name": "Splint",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Hunter",
+      "race": "Orc",
+      "label": "Splint"
+    },
+    {
+      "id": "emberwilde-illidan",
+      "name": "Emberwilde",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Evoker",
+      "race": "Dracthyr",
+      "label": "Emberwilde"
+    },
+    {
+      "id": "rozenthal-illidan",
+      "name": "Rozenthal",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Evoker",
+      "race": "Dracthyr",
+      "label": "Rozenthal"
+    },
+    {
+      "id": "avoidritz-illidan",
+      "name": "Avoidritz",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Demon Hunter",
+      "race": "Blood Elf",
+      "label": "Avoidritz"
+    },
+    {
+      "id": "malitaur-illidan",
+      "name": "Malitaur",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Druid",
+      "race": "Tauren",
+      "label": "Malitaur"
+    },
+    {
+      "id": "halastair-illidan",
+      "name": "Halastair",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Mage",
+      "race": "Blood Elf",
+      "label": "Halastair"
+    },
+    {
+      "id": "cynshot-illidan",
+      "name": "Cynshot",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Hunter",
+      "race": "Orc",
+      "label": "Cynshot"
+    },
+    {
+      "id": "tofukittykat-illidan",
+      "name": "Tofukittykat",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Paladin",
+      "race": "Blood Elf",
+      "label": "Tofukittykat"
+    },
+    {
+      "id": "zerawin-illidan",
+      "name": "Zerawin",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Shaman",
+      "race": "Troll",
+      "label": "Zerawin"
+    },
+    {
+      "id": "papsfears-illidan",
+      "name": "Papsfears",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Warlock",
+      "race": "Orc",
+      "label": "Papsfears"
+    },
+    {
+      "id": "ildarani-illidan",
+      "name": "Ildarani",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Demon Hunter",
+      "race": "Blood Elf",
+      "label": "Ildarani"
+    },
+    {
+      "id": "andstu-illidan",
+      "name": "Andstu",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Mage",
+      "race": "Blood Elf",
+      "label": "Andstu"
+    }
+  ],
+  "teams": [
+    {
+      "id": "push-team-alpha",
+      "name": "Push Team Alpha",
+      "memberIds": [
+        "nightgrizzly-illidan",
+        "eiralinn-illidan",
+        "azkabaar-illidan",
+        "coffeewizard-illidan",
+        "sammfdrood-illidan"
+      ]
+    },
+    {
+      "id": "push-team-beta",
+      "name": "Push Team Beta",
+      "memberIds": [
+        "frumplez-illidan",
+        "splint-illidan",
+        "emberwilde-illidan",
+        "rozenthal-illidan",
+        "avoidritz-illidan"
+      ]
+    },
+    {
+      "id": "vault-enjoyers",
+      "name": "Vault Enjoyers",
+      "memberIds": [
+        "malitaur-illidan",
+        "halastair-illidan",
+        "cynshot-illidan",
+        "tofukittykat-illidan",
+        "zerawin-illidan",
+        "papsfears-illidan",
+        "ildarani-illidan",
+        "andstu-illidan",
+        "eiralinn-illidan"
+      ]
+    }
+  ]
+}
