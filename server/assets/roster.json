@@ -1,0 +1,291 @@
+{
+  "guild": {
+    "name": "Exercise in Futility",
+    "realm": "illidan",
+    "region": "us"
+  },
+  "players": [
+    {
+      "id": "nightgrizzly-illidan",
+      "name": "Nightgrizzly",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Death Knight",
+      "race": "Blood Elf",
+      "label": "Nightgrizzly"
+    },
+    {
+      "id": "eiralinn-illidan",
+      "name": "Eiralinn",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Hunter",
+      "race": "Void Elf",
+      "label": "Eiralinn"
+    },
+    {
+      "id": "azkabaar-illidan",
+      "name": "Azkabaar",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Warlock",
+      "race": "Orc",
+      "label": "Azkabaar"
+    },
+    {
+      "id": "lharghrarn-illidan",
+      "name": "Lharghrarn",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Warlock",
+      "race": "Orc",
+      "label": "Lharghrarn"
+    },
+    {
+      "id": "coffeewizard-illidan",
+      "name": "Coffeewizard",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Mage",
+      "race": "Void Elf",
+      "label": "Coffeewizard"
+    },
+    {
+      "id": "sammfdrood-illidan",
+      "name": "Sammfdrood",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Druid",
+      "race": "Haranir",
+      "label": "Sammfdrood"
+    },
+    {
+      "id": "frumplez-illidan",
+      "name": "Frumplez",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Hunter",
+      "race": "Orc",
+      "label": "Frumplez"
+    },
+    {
+      "id": "splint-illidan",
+      "name": "Splint",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Warrior",
+      "race": "Human",
+      "label": "Splint"
+    },
+    {
+      "id": "emberwilde-illidan",
+      "name": "Emberwilde",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Evoker",
+      "race": "Dracthyr",
+      "label": "Emberwilde"
+    },
+    {
+      "id": "rozenthal-illidan",
+      "name": "Rozenthal",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Evoker",
+      "race": "Dracthyr",
+      "label": "Rozenthal"
+    },
+    {
+      "id": "avoidritz-illidan",
+      "name": "Avoidritz",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Demon Hunter",
+      "race": "Void Elf",
+      "label": "Avoidritz"
+    },
+    {
+      "id": "malitaur-illidan",
+      "name": "Malitaur",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Druid",
+      "race": "Tauren",
+      "label": "Malitaur"
+    },
+    {
+      "id": "halastair-illidan",
+      "name": "Halastair",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Mage",
+      "race": "Blood Elf",
+      "label": "Halastair"
+    },
+    {
+      "id": "cynshot-illidan",
+      "name": "Cynshot",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Hunter",
+      "race": "Blood Elf",
+      "label": "Cynshot"
+    },
+    {
+      "id": "tofukittykat-illidan",
+      "name": "Tofukittykat",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Paladin",
+      "race": "Dwarf",
+      "label": "Tofukittykat"
+    },
+    {
+      "id": "zerawin-illidan",
+      "name": "Zerawin",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Priest",
+      "race": "Night Elf",
+      "label": "Zerawin"
+    },
+    {
+      "id": "papsfears-illidan",
+      "name": "Papsfears",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Warlock",
+      "race": "Orc",
+      "label": "Papsfears"
+    },
+    {
+      "id": "ildarani-illidan",
+      "name": "Ildarani",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Demon Hunter",
+      "race": "Blood Elf",
+      "label": "Ildarani"
+    },
+    {
+      "id": "andstu-illidan",
+      "name": "Andstu",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Mage",
+      "race": "Goblin",
+      "label": "Andstu"
+    },
+    {
+      "id": "qyleth-illidan",
+      "name": "Qyleth",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Rogue",
+      "race": "Blood Elf",
+      "label": "Qyleth"
+    },
+    {
+      "id": "cynzet-illidan",
+      "name": "Cynzet",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Paladin",
+      "race": "Blood Elf",
+      "label": "Cynzet"
+    },
+    {
+      "id": "cantibor-illidan",
+      "name": "Cantibor",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Warlock",
+      "race": "Undead",
+      "label": "Cantibor"
+    },
+    {
+      "id": "lasood-illidan",
+      "name": "Lasood",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Druid",
+      "race": "Kul Tiran",
+      "label": "Lasood"
+    },
+    {
+      "id": "khannot-illidan",
+      "name": "Khannot",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Shaman",
+      "race": "Orc",
+      "label": "Khannot"
+    },
+    {
+      "id": "lysandris-illidan",
+      "name": "Lysandris",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Paladin",
+      "race": "Blood Elf",
+      "label": "Lysandris"
+    }
+  ],
+  "teams": [
+    {
+      "id": "potatoed-patahtoad",
+      "name": "Potatoed Patahtoad",
+      "memberIds": [
+        "nightgrizzly-illidan",
+        "eiralinn-illidan",
+        "lharghrarn-illidan",
+        "sammfdrood-illidan",
+        "coffeewizard-illidan"
+      ]
+    },
+    {
+      "id": "tbd!",
+      "name": "TBD!",
+      "memberIds": [
+        "malitaur-illidan",
+        "lysandris-illidan",
+        "qyleth-illidan",
+        "cantibor-illidan",
+        "avoidritz-illidan"
+      ]
+    },
+    {
+      "id": "can-our-name-be-coys",
+      "name": "Can Our Name Be Coys?",
+      "memberIds": [
+        "khannot-illidan",
+        "malitaur-illidan",
+        "avoidritz-illidan",
+        "azkabaar-illidan",
+        "rozenthal-illidan"
+      ]
+    },
+    {
+      "id": "campbells-angels",
+      "name": "Campbell's Angels",
+      "memberIds": [
+        "lasood-illidan",
+        "cynzet-illidan",
+        "frumplez-illidan",
+        "papsfears-illidan",
+        "coffeewizard-illidan"
+      ]
+    },
+    {
+      "id": "silly-geese",
+      "name": "Silly Geese",
+      "memberIds": [
+        "splint-illidan",
+        "halastair-illidan",
+        "cynshot-illidan",
+        "tofukittykat-illidan",
+        "zerawin-illidan"
+      ]
+    }
+  ]
+}
