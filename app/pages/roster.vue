@@ -63,20 +63,25 @@ const sortedTeams = computed(() => {
   });
 });
 
-const getSortedTeamMembers = (team: RosterTeam) => {
-  return [...team.members].sort((a, b) => {
-    const scoreOrder = compareScoresDesc(
-      a.mythic_plus_score,
-      b.mythic_plus_score,
-    );
+const sortedTeamMembersMap = computed<Record<string, RosterPlayer[]>>(() => {
+  return Object.fromEntries(
+    teams.value.map((team) => [
+      team.id,
+      [...team.members].sort((a, b) => {
+        const scoreOrder = compareScoresDesc(
+          a.mythic_plus_score,
+          b.mythic_plus_score,
+        );
 
-    if (scoreOrder !== 0) {
-      return scoreOrder;
-    }
+        if (scoreOrder !== 0) {
+          return scoreOrder;
+        }
 
-    return getDisplayName(a).localeCompare(getDisplayName(b));
-  });
-};
+        return getDisplayName(a).localeCompare(getDisplayName(b));
+      }),
+    ]),
+  );
+});
 
 const hasPlayers = computed(() => sortedPlayers.value.length > 0);
 const hasTeams = computed(() => sortedTeams.value.length > 0);
@@ -122,8 +127,8 @@ const getClassColor = (className: string) => {
     Mage: "text-[#69CCF0]",
     Monk: "text-[#00FF96]",
     Paladin: "text-[#F58CBA]",
-    Priest: "dark:text-[#FFFFFF] text-[#000000]",
-    Rogue: "text-warning dark:text-[#FFF569]",
+    Priest: "text-[#FFFFFF]",
+    Rogue: "text-[#FFF569]",
     Shaman: "text-[#0070DE]",
     Warlock: "text-[#9482C9]",
     Warrior: "text-[#C79C6E]",
@@ -192,34 +197,36 @@ const getRunKey = (run: RosterBestRun, index: number) =>
       </div>
 
       <div class="mb-6 flex justify-start md:justify-end">
-        <div
+        <UFieldGroup
           class="inline-flex border-4 border-black bg-stone-950 p-1 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]"
         >
-          <button
-            type="button"
-            class="px-5 py-2 font-black uppercase tracking-[0.25em] transition-colors"
+          <UButton
+            label="List"
+            :active="viewMode === 'list'"
+            color="neutral"
+            variant="ghost"
             :class="
               viewMode === 'list'
-                ? 'bg-secondary text-white'
-                : 'bg-transparent text-stone-300 hover:text-white'
+                ? 'rounded-none bg-secondary/90 text-white shadow-[inset_0_-3px_0_0_rgba(255,255,255,0.18)]'
+                : 'rounded-none text-stone-300 hover:text-white'
             "
-            @click="viewMode = 'list'"
-          >
-            List
-          </button>
-          <button
-            type="button"
             class="px-5 py-2 font-black uppercase tracking-[0.25em] transition-colors"
+            @click="viewMode = 'list'"
+          />
+          <UButton
+            label="Teams"
+            :active="viewMode === 'teams'"
+            color="neutral"
+            variant="ghost"
             :class="
               viewMode === 'teams'
-                ? 'bg-secondary text-white'
-                : 'bg-transparent text-stone-300 hover:text-white'
+                ? 'rounded-none bg-secondary/90 text-white shadow-[inset_0_-3px_0_0_rgba(255,255,255,0.18)]'
+                : 'rounded-none text-stone-300 hover:text-white'
             "
+            class="px-5 py-2 font-black uppercase tracking-[0.25em] transition-colors"
             @click="viewMode = 'teams'"
-          >
-            Teams
-          </button>
-        </div>
+          />
+        </UFieldGroup>
       </div>
 
       <div
@@ -522,7 +529,7 @@ const getRunKey = (run: RosterBestRun, index: number) =>
 
                 <div class="mt-5 space-y-3">
                   <div
-                    v-for="player in getSortedTeamMembers(team)"
+                    v-for="player in sortedTeamMembersMap[team.id] || []"
                     :key="`${team.id}-${player.id}`"
                     class="flex items-center justify-between gap-4 border-2 border-black bg-stone-900 px-4 py-3"
                   >

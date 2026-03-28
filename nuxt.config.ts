@@ -13,8 +13,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   compatibilityDate: "2025-02-15",
   routeRules: {
-    // Cache roster page HTML for 10 minutes (SWR at Vercel edge).
-    "/roster": { swr: 600 },
+    // Cache roster page HTML for 5 minutes (SWR at Vercel edge).
+    "/roster": { swr: 300 },
     // API caching is handled in-handler via defineCachedEventHandler
     // so failed revalidations don't leave stale data stuck forever.
   },
