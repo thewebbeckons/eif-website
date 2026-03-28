@@ -63,6 +63,21 @@ const sortedTeams = computed(() => {
   });
 });
 
+const getSortedTeamMembers = (team: RosterTeam) => {
+  return [...team.members].sort((a, b) => {
+    const scoreOrder = compareScoresDesc(
+      a.mythic_plus_score,
+      b.mythic_plus_score,
+    );
+
+    if (scoreOrder !== 0) {
+      return scoreOrder;
+    }
+
+    return getDisplayName(a).localeCompare(getDisplayName(b));
+  });
+};
+
 const hasPlayers = computed(() => sortedPlayers.value.length > 0);
 const hasTeams = computed(() => sortedTeams.value.length > 0);
 
@@ -507,7 +522,7 @@ const getRunKey = (run: RosterBestRun, index: number) =>
 
                 <div class="mt-5 space-y-3">
                   <div
-                    v-for="player in team.members"
+                    v-for="player in getSortedTeamMembers(team)"
                     :key="`${team.id}-${player.id}`"
                     class="flex items-center justify-between gap-4 border-2 border-black bg-stone-900 px-4 py-3"
                   >
