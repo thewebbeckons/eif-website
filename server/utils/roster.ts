@@ -59,7 +59,19 @@ const rosterConfigSchema = z
       }
       teamIds.add(team.id);
 
+      const seenMemberIds = new Set<string>();
+
       team.memberIds.forEach((memberId, memberIndex) => {
+        if (seenMemberIds.has(memberId)) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: ["teams", index, "memberIds", memberIndex],
+            message: `Duplicate player id "${memberId}" in team "${team.name}".`,
+          });
+        } else {
+          seenMemberIds.add(memberId);
+        }
+
         if (!playerIds.has(memberId)) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
