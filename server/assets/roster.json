@@ -10,8 +10,8 @@
       "name": "Nightgrizzly",
       "realm": "illidan",
       "region": "us",
-      "class": "Druid",
-      "race": "Night Elf",
+      "class": "Death Knight",
+      "race": "Blood Elf",
       "label": "Nightgrizzly"
     },
     {
@@ -19,8 +19,8 @@
       "name": "Eiralinn",
       "realm": "illidan",
       "region": "us",
-      "class": "Demon Hunter",
-      "race": "Blood Elf",
+      "class": "Hunter",
+      "race": "Void Elf",
       "label": "Eiralinn"
     },
     {
@@ -47,7 +47,7 @@
       "realm": "illidan",
       "region": "us",
       "class": "Mage",
-      "race": "Blood Elf",
+      "race": "Void Elf",
       "label": "Coffeewizard"
     },
     {
@@ -56,7 +56,7 @@
       "realm": "illidan",
       "region": "us",
       "class": "Druid",
-      "race": "Tauren",
+      "race": "Haranir",
       "label": "Sammfdrood"
     },
     {
@@ -64,8 +64,8 @@
       "name": "Frumplez",
       "realm": "illidan",
       "region": "us",
-      "class": "Demon Hunter",
-      "race": "Blood Elf",
+      "class": "Hunter",
+      "race": "Orc",
       "label": "Frumplez"
     },
     {
@@ -73,8 +73,8 @@
       "name": "Splint",
       "realm": "illidan",
       "region": "us",
-      "class": "Hunter",
-      "race": "Orc",
+      "class": "Warrior",
+      "race": "Human",
       "label": "Splint"
     },
     {
@@ -101,7 +101,7 @@
       "realm": "illidan",
       "region": "us",
       "class": "Demon Hunter",
-      "race": "Blood Elf",
+      "race": "Void Elf",
       "label": "Avoidritz"
     },
     {
@@ -128,7 +128,7 @@
       "realm": "illidan",
       "region": "us",
       "class": "Hunter",
-      "race": "Orc",
+      "race": "Blood Elf",
       "label": "Cynshot"
     },
     {
@@ -137,7 +137,7 @@
       "realm": "illidan",
       "region": "us",
       "class": "Paladin",
-      "race": "Blood Elf",
+      "race": "Dwarf",
       "label": "Tofukittykat"
     },
     {
@@ -145,8 +145,8 @@
       "name": "Zerawin",
       "realm": "illidan",
       "region": "us",
-      "class": "Shaman",
-      "race": "Troll",
+      "class": "Priest",
+      "race": "Night Elf",
       "label": "Zerawin"
     },
     {
@@ -173,46 +173,107 @@
       "realm": "illidan",
       "region": "us",
       "class": "Mage",
-      "race": "Blood Elf",
+      "race": "Goblin",
       "label": "Andstu"
+    },
+    {
+      "id": "qyleth-illidan",
+      "name": "Qyleth",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Rogue",
+      "race": "Blood Elf",
+      "label": "Qyleth"
+    },
+    {
+      "id": "cynzet-illidan",
+      "name": "Cynzet",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Paladin",
+      "race": "Blood Elf",
+      "label": "Cynzet"
+    },
+    {
+      "id": "cantibor-illidan",
+      "name": "Cantibor",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Warlock",
+      "race": "Undead",
+      "label": "Cantibor"
+    },
+    {
+      "id": "lasood-illidan",
+      "name": "Lasood",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Druid",
+      "race": "Kul Tiran",
+      "label": "Lasood"
+    },
+    {
+      "id": "khannot-illidan",
+      "name": "Khannot",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Shaman",
+      "race": "Orc",
+      "label": "Khannot"
+    },
+    {
+      "id": "lysandris-illidan",
+      "name": "Lysandris",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Paladin",
+      "race": "Blood Elf",
+      "label": "Lysandris"
     }
   ],
   "teams": [
     {
-      "id": "push-team-alpha",
-      "name": "Push Team Alpha",
+      "id": "uncle-lharghen",
+      "name": "Uncle Lharghen",
       "memberIds": [
         "nightgrizzly-illidan",
         "eiralinn-illidan",
-        "azkabaar-illidan",
-        "coffeewizard-illidan",
-        "sammfdrood-illidan"
+        "lharghrarn-illidan",
+        "sammfdrood-illidan",
+        "coffeewizard-illidan"
       ]
     },
     {
-      "id": "push-team-beta",
-      "name": "Push Team Beta",
+      "id": "tbd!",
+      "name": "TBD!",
       "memberIds": [
-        "frumplez-illidan",
-        "splint-illidan",
-        "emberwilde-illidan",
-        "rozenthal-illidan",
+        "malitaur-illidan",
+        "lysandris-illidan",
+        "qyleth-illidan",
+        "cantibor-illidan",
         "avoidritz-illidan"
       ]
     },
     {
-      "id": "vault-enjoyers",
-      "name": "Vault Enjoyers",
+      "id": "pumpers",
+      "name": "Pumpers",
       "memberIds": [
+        "khannot-illidan",
         "malitaur-illidan",
-        "halastair-illidan",
-        "cynshot-illidan",
-        "tofukittykat-illidan",
-        "zerawin-illidan",
+        "avoidritz-illidan",
+        "azkabaar-illidan",
+        "rozenthal-illidan"
+      ]
+    },
+    {
+      "id": "campbells-angels",
+      "name": "Campbell's Angels",
+      "memberIds": [
+        "lasood-illidan",
+        "cynzet-illidan",
+        "frumplez-illidan",
         "papsfears-illidan",
-        "ildarani-illidan",
-        "andstu-illidan",
-        "eiralinn-illidan"
+        "coffeewizard-illidan"
       ]
     }
   ]

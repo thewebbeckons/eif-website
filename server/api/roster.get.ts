@@ -4,7 +4,7 @@ import type {
   RosterResponse,
 } from "../../shared/types/roster";
 
-export default defineCachedEventHandler(
+export default defineEventHandler(
   async (): Promise<RosterResponse> => {
     const raiderIoKey = process.env.RAIDER_IO_KEY;
     const rosterConfig = getRosterConfig();
@@ -82,10 +82,5 @@ export default defineCachedEventHandler(
       players,
       teams: rosterConfig.teams,
     });
-  },
-  {
-    maxAge: 600,
-    name: "roster",
-    getKey: () => "roster",
   },
 );
