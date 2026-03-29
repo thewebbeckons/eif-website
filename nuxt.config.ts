@@ -11,13 +11,7 @@ export default defineNuxtConfig({
   modules: ["@nuxt/ui", "@nuxtjs/prismic"],
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
-  compatibilityDate: "2025-02-15",
-  routeRules: {
-    // Cache roster page HTML for 5 minutes (SWR at Vercel edge).
-    "/roster": { swr: 300 },
-    // API caching is handled in-handler via defineCachedEventHandler
-    // so failed revalidations don't leave stale data stuck forever.
-  },
+  compatibilityDate: "2026-01-15",
 
   prismic: {
     endpoint: apiEndpoint || repositoryName,
