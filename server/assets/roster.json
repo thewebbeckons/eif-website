@@ -33,6 +33,15 @@
       "label": "Azkabaar"
     },
     {
+      "id": "magegoburn-illidan",
+      "name": "Magegoburn",
+      "realm": "illidan",
+      "region": "us",
+      "class": "Mage",
+      "race": "Nightborne",
+      "label": "Magegoburn"
+    },
+    {
       "id": "lharghrarn-illidan",
       "name": "Lharghrarn",
       "realm": "illidan",
