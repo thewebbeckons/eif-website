@@ -13,9 +13,9 @@ useSeoMeta({
   ogTitle: "Exercise in Futility | World of Warcraft Guild",
   ogDescription:
     "Exercise in Futility is a World of Warcraft guild on US-Illidan focused on community and progression. Join us for a fun and active environment.",
-  ogImage: "/void-seo.jpg",
+  ogImage: "/seo_image.png",
   twitterCard: "summary_large_image",
-  twitterImage: "/void-seo.jpg",
+  twitterImage: "/seo_image.png",
 });
 </script>
 
