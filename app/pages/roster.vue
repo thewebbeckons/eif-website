@@ -151,6 +151,9 @@ const getLookupStatusLabel = (player: RosterPlayer) =>
   player.lookup_status === "lookup_failed" ? "Lookup failed" : "No score yet";
 const getRunKey = (run: RosterBestRun, index: number) =>
   run.id ?? `${run.short_name || "run"}-${run.mythic_level || 0}-${index}`;
+
+const getRaiderIoUrl = (player: RosterPlayer) =>
+  `https://raider.io/characters/${encodeURIComponent(player.region)}/${encodeURIComponent(player.realm)}/${encodeURIComponent(player.name)}`;
 </script>
 
 <template>
@@ -316,14 +319,18 @@ const getRunKey = (run: RosterBestRun, index: number) =>
                       {{ getLookupStatusLabel(player) }}
                     </p>
                   </div>
-                  <div
+                  <UButton
+                    :to="getRaiderIoUrl(player)"
+                    target="_blank"
+                    variant="ghost"
+                    :label="String(player.mythic_plus_score ?? '-')"
+                    trailing-icon="i-lucide-external-link"
                     :class="[
-                      'font-heading text-xl font-black',
+                      'font-heading text-xl font-black border-0 shadow-none hover:translate-x-0 hover:translate-y-0 hover:shadow-none active:translate-x-0 active:translate-y-0',
                       getScoreColor(player.mythic_plus_score),
                     ]"
-                  >
-                    {{ player.mythic_plus_score ?? "-" }}
-                  </div>
+                    :ui="{ trailingIcon: 'h-3.5 w-3.5 text-stone-500' }"
+                  />
                 </div>
                 <div class="mt-4">
                   <div
@@ -466,19 +473,25 @@ const getRunKey = (run: RosterBestRun, index: number) =>
                 </template>
 
                 <template #mythic_plus_score-cell="{ row }">
-                  <div
+                  <UButton
+                    :to="getRaiderIoUrl(row.original)"
+                    target="_blank"
+                    variant="ghost"
+                    :label="
+                      String(
+                        (row.getValue('mythic_plus_score') as number | null) ??
+                          '-',
+                      )
+                    "
+                    trailing-icon="i-lucide-external-link"
                     :class="[
-                      'font-heading text-xl font-black',
+                      'font-heading text-xl font-black border-0 shadow-none hover:translate-x-0 hover:translate-y-0 hover:shadow-none active:translate-x-0 active:translate-y-0',
                       getScoreColor(
                         row.getValue('mythic_plus_score') as number | null,
                       ),
                     ]"
-                  >
-                    {{
-                      (row.getValue("mythic_plus_score") as number | null) ??
-                      "-"
-                    }}
-                  </div>
+                    :ui="{ trailingIcon: 'h-3.5 w-3.5 text-stone-500' }"
+                  />
                 </template>
               </UTable>
             </div>
@@ -572,14 +585,18 @@ const getRunKey = (run: RosterBestRun, index: number) =>
                       </div>
                     </div>
 
-                    <div
+                    <UButton
+                      :to="getRaiderIoUrl(player)"
+                      target="_blank"
+                      variant="ghost"
+                      :label="String(player.mythic_plus_score ?? '-')"
+                      trailing-icon="i-lucide-external-link"
                       :class="[
-                        'text-right font-heading text-2xl font-black',
+                        'font-heading text-2xl font-black border-0 shadow-none hover:translate-x-0 hover:translate-y-0 hover:shadow-none active:translate-x-0 active:translate-y-0',
                         getScoreColor(player.mythic_plus_score),
                       ]"
-                    >
-                      {{ player.mythic_plus_score ?? "-" }}
-                    </div>
+                      :ui="{ trailingIcon: 'h-3.5 w-3.5 text-stone-500' }"
+                    />
                   </div>
                 </div>
               </section>

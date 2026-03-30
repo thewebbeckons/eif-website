@@ -60,7 +60,7 @@ const simulateTyping = (fullText: string) => {
       color="primary"
       variant="solid"
       @click="fetchWisdom"
-      class="w-full sm:w-auto font-bold neo-shadow"
+      class="w-full sm:w-auto"
     >
       Wipe Wisdom
     </UButton>
