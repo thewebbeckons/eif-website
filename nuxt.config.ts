@@ -1,6 +1,8 @@
 import slicemachineConfig from "./slicemachine.config.json";
 
 const repositoryName = String(slicemachineConfig.repositoryName);
+const rosterRefreshCron = "*/10 * * * *";
+const isPreviewCloudflareEnv = process.env.CLOUDFLARE_ENV === "preview";
 const apiEndpoint =
   "apiEndpoint" in slicemachineConfig &&
   typeof slicemachineConfig.apiEndpoint === "string"
@@ -8,7 +10,7 @@ const apiEndpoint =
     : undefined;
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@nuxt/ui", "@nuxtjs/prismic"],
+  modules: ["@nuxt/ui", "@nuxtjs/prismic", "@nuxthub/core"],
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
   compatibilityDate: "2026-01-15",
@@ -26,7 +28,33 @@ export default defineNuxtConfig({
     preference: "dark",
     fallback: "dark",
   },
+  hub: {
+    kv: process.env.CLOUDFLARE_KV_NAMESPACE_ID
+      ? {
+          driver: "cloudflare-kv-binding",
+          namespaceId: process.env.CLOUDFLARE_KV_NAMESPACE_ID,
+        }
+      : true,
+  },
+  nitro: {
+    experimental: {
+      tasks: true,
+    },
+    scheduledTasks: isPreviewCloudflareEnv
+      ? {}
+      : {
+          [rosterRefreshCron]: ["roster:refresh"],
+        },
+    cloudflare: {
+      wrangler: {
+        triggers: {
+          crons: isPreviewCloudflareEnv ? [] : [rosterRefreshCron],
+        },
+      },
+    },
+  },
   runtimeConfig: {
+    raiderIoKey: process.env.RAIDER_IO_KEY,
     twitchClientId: process.env.TWITCH_CLIENT_ID,
     twitchClientSecret: process.env.TWITCH_CLIENT_SECRET,
   },
