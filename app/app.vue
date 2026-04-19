@@ -21,6 +21,11 @@ useSeoMeta({
 
 <template>
   <UApp>
+    <NuxtLoadingIndicator
+      :height="4"
+      :throttle="0"
+      color="linear-gradient(90deg, #22d3ee 0%, #d8b4fe 50%, #f97316 100%)"
+    />
     <InteractiveBackground />
     <div class="relative z-10 flex flex-col min-h-screen">
       <AppHeader />
