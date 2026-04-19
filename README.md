@@ -65,7 +65,7 @@ Use the production namespace ID in the production environment and the preview na
 
 ### 4. Cron trigger
 
-The Worker cron is generated at build time from [nuxt.config.ts](/Users/jesse/Developer/eif-website/nuxt.config.ts) and runs every 10 minutes in production:
+The Worker cron is generated at build time from [nuxt.config.ts](./nuxt.config.ts) and runs every 10 minutes in production:
 
 ```txt
 */10 * * * *

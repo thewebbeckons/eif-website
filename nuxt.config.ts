@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   modules: ["@nuxt/ui", "@nuxtjs/prismic", "@nuxthub/core"],
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
-  compatibilityDate: "2026-01-15",
+  compatibilityDate: "2025-02-15",
 
   prismic: {
     endpoint: apiEndpoint || repositoryName,

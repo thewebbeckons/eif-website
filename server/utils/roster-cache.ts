@@ -24,6 +24,8 @@ const createDefaultRosterRefreshStatus = (): RosterRefreshStatus => ({
   lastFailureMessage: null,
 });
 
+let rosterRefreshStatusWriteQueue = Promise.resolve();
+
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null;
 
@@ -53,6 +55,9 @@ const isRosterRefreshStatus = (
   );
 };
 
+const normalizeRosterRefreshStatus = (value: unknown): RosterRefreshStatus =>
+  isRosterRefreshStatus(value) ? value : createDefaultRosterRefreshStatus();
+
 export async function getCachedRosterSnapshot(): Promise<CachedRosterSnapshot | null> {
   const snapshot = await kv.get<CachedRosterSnapshot>(ROSTER_SNAPSHOT_KEY);
   return isCachedRosterSnapshot(snapshot) ? snapshot : null;
@@ -66,20 +71,32 @@ export async function setCachedRosterSnapshot(
 
 export async function getRosterRefreshStatus(): Promise<RosterRefreshStatus> {
   const status = await kv.get<RosterRefreshStatus>(ROSTER_STATUS_KEY);
-  return isRosterRefreshStatus(status)
-    ? status
-    : createDefaultRosterRefreshStatus();
+  return normalizeRosterRefreshStatus(status);
 }
 
 export async function setRosterRefreshStatus(
   statusUpdate: Partial<RosterRefreshStatus>,
 ): Promise<RosterRefreshStatus> {
-  const nextStatus = {
-    ...(await getRosterRefreshStatus()),
-    ...statusUpdate,
-  } satisfies RosterRefreshStatus;
+  const runUpdate = async (): Promise<RosterRefreshStatus> => {
+    const currentStatus = normalizeRosterRefreshStatus(
+      await kv.get<RosterRefreshStatus>(ROSTER_STATUS_KEY),
+    );
 
-  await kv.set(ROSTER_STATUS_KEY, nextStatus);
+    const nextStatus = {
+      ...currentStatus,
+      ...statusUpdate,
+    } satisfies RosterRefreshStatus;
 
-  return nextStatus;
+    await kv.set(ROSTER_STATUS_KEY, nextStatus);
+
+    return nextStatus;
+  };
+
+  const result = rosterRefreshStatusWriteQueue.then(runUpdate, runUpdate);
+  rosterRefreshStatusWriteQueue = result.then(
+    () => undefined,
+    () => undefined,
+  );
+
+  return result;
 }
