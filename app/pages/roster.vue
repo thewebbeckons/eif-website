@@ -7,7 +7,7 @@ import type {
   RosterTeam,
 } from "../../shared/types/roster";
 
-const { data: rosterData, status } = await useFetch<RosterResponse>(
+const { data: rosterData, error, status } = await useFetch<RosterResponse>(
   "/api/roster",
   {
     server: true,
@@ -20,6 +20,10 @@ const guild = computed(() => rosterData.value?.guild || null);
 const players = computed<RosterPlayer[]>(() => rosterData.value?.players || []);
 const teams = computed<RosterTeam[]>(() => rosterData.value?.teams || []);
 const isLoading = computed(() => status.value === "pending");
+const hasLoadError = computed(() => status.value === "error");
+const loadErrorMessage = computed(() =>
+  error.value?.statusMessage || "Roster data is temporarily unavailable.",
+);
 
 const compareScoresDesc = (left: number | null, right: number | null) => {
   const leftHasScore = typeof left === "number";
@@ -241,6 +245,23 @@ const getRaiderIoUrl = (player: RosterPlayer) =>
             class="py-10 text-center text-xl font-black uppercase tracking-widest text-white"
           >
             Loading roster...
+          </div>
+
+          <div
+            v-else-if="hasLoadError"
+            class="py-16 text-center"
+          >
+            <p
+              class="text-xs font-black uppercase tracking-[0.35em] text-rose-300"
+            >
+              Roster Unavailable
+            </p>
+            <p class="mt-3 text-lg font-bold text-stone-200">
+              {{ loadErrorMessage }}
+            </p>
+            <p class="mt-2 text-sm font-medium text-stone-400">
+              The last roster refresh did not complete successfully.
+            </p>
           </div>
 
           <div
