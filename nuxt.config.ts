@@ -29,12 +29,11 @@ export default defineNuxtConfig({
     fallback: "dark",
   },
   hub: {
-    kv: process.env.CLOUDFLARE_KV_NAMESPACE_ID
-      ? {
-          driver: "cloudflare-kv-binding",
-          namespaceId: process.env.CLOUDFLARE_KV_NAMESPACE_ID,
-        }
-      : true,
+    kv: {
+      driver: "cloudflare-kv-binding",
+      namespaceId: process.env.CLOUDFLARE_KV_NAMESPACE_ID,
+      binding: "KV",
+    },
   },
   nitro: {
     experimental: {

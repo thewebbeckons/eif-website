@@ -22,9 +22,12 @@
   "main": "index.js",
   "scripts": {
     "build": "nuxt build",
+    "build:worker": "NITRO_PRESET=cloudflare_module nuxt build",
     "dev": "nuxt dev",
+    "deploy": "pnpm build:worker && wrangler deploy --cwd .output",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "preview:worker": "pnpm build:worker && wrangler dev --cwd .output",
     "postinstall": "nuxt prepare",
     "slicemachine": "start-slicemachine"
   },

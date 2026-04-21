@@ -1,9 +1,30 @@
 import { createClient } from "@prismicio/client";
 
+const getTwitchCredentials = (event: any) => {
+  const config = useRuntimeConfig(event);
+  const cloudflareEnv =
+    event.context?._platform?.cloudflare?.env ||
+    event.context?.cloudflare?.env ||
+    {};
+
+  return {
+    clientId:
+      config.twitchClientId ||
+      cloudflareEnv.TWITCH_CLIENT_ID ||
+      cloudflareEnv.TWITCH_ID ||
+      process.env.TWITCH_CLIENT_ID ||
+      process.env.TWITCH_ID,
+    clientSecret:
+      config.twitchClientSecret ||
+      cloudflareEnv.TWITCH_CLIENT_SECRET ||
+      process.env.TWITCH_CLIENT_SECRET,
+  };
+};
+
 export default defineCachedEventHandler(
   async (event) => {
-    const config = useRuntimeConfig();
-    const { twitchClientId, twitchClientSecret } = config;
+    const { clientId: twitchClientId, clientSecret: twitchClientSecret } =
+      getTwitchCredentials(event);
 
     if (!twitchClientId || !twitchClientSecret) {
       console.error("Twitch credentials missing in environment.");

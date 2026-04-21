@@ -34,6 +34,15 @@ pnpm dev
 # Build for production
 pnpm build
 
+# Build a Cloudflare Worker artifact
+pnpm build:worker
+
+# Preview the built Worker locally
+pnpm preview:worker
+
+# Deploy the built Worker
+pnpm deploy
+
 # Preview production build
 pnpm preview
 ```
@@ -57,11 +66,15 @@ Set these variables in Cloudflare Workers Builds for both environments:
 
 Use the production namespace ID in the production environment and the preview namespace ID in the preview environment.
 
+NuxtHub's `hub:kv` runtime expects a Cloudflare binding named `KV`. When `CLOUDFLARE_KV_NAMESPACE_ID` is present during a worker build, Nuxt/Nitro generates that binding in `.output/server/wrangler.json`.
+
 ### 3. Build configuration
 
 - Production builds can use `pnpm build` on Cloudflare, where Nuxt/Nitro will detect the Workers target automatically.
-- For local manual Workers builds, use `NITRO_PRESET=cloudflare_module pnpm build`.
+- For local manual Workers builds, use `pnpm build:worker`.
 - To build preview bindings locally, also set `CLOUDFLARE_ENV=preview`.
+- If you deploy with Wrangler, deploy from `.output` so it uses the generated Worker config: `pnpm deploy`.
+- If you deploy from the Cloudflare dashboard instead, confirm the deployed worker has a KV namespace bound with the exact binding name `KV`.
 
 ### 4. Cron trigger
 
