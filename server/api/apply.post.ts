@@ -4,16 +4,12 @@ import { z } from "zod";
 
 const RATE_LIMIT_MAX = 2;
 const RATE_LIMIT_WINDOW_SECONDS = 15 * 60;
+const DISCORD_WEBHOOK_TIMEOUT_MS = 8_000;
 
 const applicationSchema = z.object({
   characterInfo: z.string().trim().min(1).max(200),
   discordTag: z.string().trim().min(1).max(100),
   message: z.string().trim().min(1).max(2000),
-});
-
-const rateLimitSchema = z.object({
-  count: z.number().int().nonnegative(),
-  resetAt: z.number().int().positive(),
 });
 
 const hashIdentifier = async (value: string) => {
@@ -24,30 +20,38 @@ const hashIdentifier = async (value: string) => {
   ).join("");
 };
 
-const enforceRateLimit = async (identifier: string) => {
-  const now = Date.now();
-  const key = `recruitment:rate:${await hashIdentifier(identifier)}`;
-  const stored = rateLimitSchema.safeParse(
-    await kv.get<z.infer<typeof rateLimitSchema>>(key),
+const throwRateLimitError = (): never => {
+  throw createError({
+    statusCode: 429,
+    statusMessage:
+      "You're eager! Please wait a bit before sending another application.",
+  });
+};
+
+const enforceRateLimit = async (event: H3Event, identifier: string) => {
+  const identifierHash = await hashIdentifier(identifier);
+  const environment = getCloudflareEnvironment(event);
+  const rateLimiter = getRateLimitBinding(
+    environment,
+    "RECRUITMENT_RATE_LIMITER",
   );
-  const current =
-    stored.success && stored.data.resetAt > now
-      ? stored.data
-      : {
-          count: 0,
-          resetAt: now + RATE_LIMIT_WINDOW_SECONDS * 1000,
-        };
-  const next = { ...current, count: current.count + 1 };
 
-  await kv.set(key, next, { ttl: RATE_LIMIT_WINDOW_SECONDS });
-
-  if (next.count > RATE_LIMIT_MAX) {
-    throw createError({
-      statusCode: 429,
-      statusMessage:
-        "You're eager! Please wait a bit before sending another application.",
-    });
+  if (rateLimiter) {
+    const outcome = await rateLimiter.limit({ key: identifierHash });
+    if (!outcome.success) throwRateLimitError();
   }
+
+  const keyPrefix = `recruitment:rate:${identifierHash}:`;
+  const existingSubmissions = await kv.keys(keyPrefix);
+  if (existingSubmissions.length >= RATE_LIMIT_MAX) {
+    throwRateLimitError();
+  }
+
+  // Unique markers avoid lost increments. The Cloudflare rate-limit binding
+  // atomically guards the minute during which new KV keys are propagating.
+  await kv.set(`${keyPrefix}${Date.now()}:${crypto.randomUUID()}`, true, {
+    ttl: RATE_LIMIT_WINDOW_SECONDS,
+  });
 };
 
 const getDiscordWebhookUrl = (event: H3Event) => {
@@ -62,7 +66,7 @@ const getDiscordWebhookUrl = (event: H3Event) => {
 
 export default defineEventHandler(async (event) => {
   const ip = getRequestIP(event, { xForwardedFor: true }) || "unknown";
-  await enforceRateLimit(ip);
+  await enforceRateLimit(event, ip);
 
   const body = await readValidatedBody(event, (value) =>
     applicationSchema.safeParse(value),
@@ -87,10 +91,17 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  const abortController = new AbortController();
+  const timeoutId = setTimeout(
+    () => abortController.abort(),
+    DISCORD_WEBHOOK_TIMEOUT_MS,
+  );
+
   try {
     const response = await fetch(webhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      signal: abortController.signal,
       body: JSON.stringify({
         username: "Recruitment Bot ✨",
         embeds: [
@@ -132,5 +143,7 @@ export default defineEventHandler(async (event) => {
       statusCode: 502,
       statusMessage: "Failed to submit application to the void.",
     });
+  } finally {
+    clearTimeout(timeoutId);
   }
 });

@@ -21,6 +21,10 @@ export interface HallOfFameSeason {
 export interface HallOfFameContent {
   title: string;
   introduction: string;
+  metaTitle: string | null;
+  metaDescription: string | null;
+  metaImageUrl: string | null;
+  metaImageAlt: string;
   activeSeason: {
     name: string;
     description: string;

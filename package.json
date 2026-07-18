@@ -32,6 +32,7 @@
     "preview:worker": "pnpm build:worker && wrangler dev --cwd .output",
     "postinstall": "nuxt prepare",
     "typecheck": "nuxt typecheck",
+    "worker:types": "pnpm build:worker && wrangler types worker-configuration.d.ts --config .output/server/wrangler.json --include-runtime false",
     "wisdom:generate": "tsx scripts/generate-wisdom.ts"
   },
   "dependencies": {
@@ -48,6 +49,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "5.20260718.1",
     "@iconify-json/lucide": "^1.2.118",
     "@nuxtjs/prismic": "^5.3.0",
     "ai": "^7.0.31",

@@ -32,6 +32,7 @@ const simulateTyping = (fullText: string) => {
 const fetchWisdom = async () => {
   if (loading.value) return;
 
+  stopTyping();
   showModal.value = true;
   loading.value = true;
   displayedText.value = "";

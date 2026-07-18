@@ -52,6 +52,9 @@ const hallOfFameDocumentSchema = z.object({
     introduction: nullableTextSchema,
     active_season_name: nullableTextSchema,
     active_season_description: nullableTextSchema,
+    meta_title: nullableTextSchema,
+    meta_description: nullableTextSchema,
+    meta_image: imageSchema.nullable().optional(),
     slices: z.array(z.unknown()).default([]),
   }),
 });
@@ -115,12 +118,18 @@ const mapPrismicMember = (
 
 const mapChampionSeasonSlice = (
   value: unknown,
-): HallOfFameSeason | null => {
+): HallOfFameSeason => {
   const parsed = championSeasonSliceSchema.safeParse(value);
-  if (!parsed.success) return null;
+  if (!parsed.success) {
+    throw new Error(
+      `Invalid champion season slice: ${z.prettifyError(parsed.error)}`,
+    );
+  }
 
   const { primary } = parsed.data;
-  if (!primary.season_name || !primary.team_name) return null;
+  if (!primary.season_name || !primary.team_name) {
+    throw new Error("Champion season slices require a season and team name.");
+  }
 
   const members = (primary.members || parsed.data.items || [])
     .map(mapPrismicMember)
@@ -144,6 +153,10 @@ const getFallbackContent = (): HallOfFameContent => {
     title: "Hall of Fame",
     introduction:
       "Immortalizing our champion Mythic+ squads across the seasons.",
+    metaTitle: null,
+    metaDescription: null,
+    metaImageUrl: null,
+    metaImageAlt: "Exercise in Futility Hall of Fame",
     activeSeason: {
       name: "Midnight Season 1",
       description:
@@ -177,15 +190,18 @@ const getPrismicContent = async (): Promise<HallOfFameContent> => {
   );
   const response = await client.getSingle("hall_of_fame");
   const document = hallOfFameDocumentSchema.parse(response);
-  const seasons = document.data.slices
-    .map(mapChampionSeasonSlice)
-    .filter((season): season is HallOfFameSeason => season !== null);
+  const seasons = document.data.slices.map(mapChampionSeasonSlice);
 
   return {
     title: document.data.title || "Hall of Fame",
     introduction:
       document.data.introduction ||
       "Immortalizing our champion Mythic+ squads across the seasons.",
+    metaTitle: document.data.meta_title || null,
+    metaDescription: document.data.meta_description || null,
+    metaImageUrl: document.data.meta_image?.url || null,
+    metaImageAlt:
+      document.data.meta_image?.alt || "Exercise in Futility Hall of Fame",
     activeSeason: document.data.active_season_name
       ? {
           name: document.data.active_season_name,

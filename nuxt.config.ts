@@ -60,6 +60,26 @@ export default defineNuxtConfig({
           },
         },
         upload_source_maps: true,
+        // @ts-expect-error Nitro's bundled config types lag Wrangler 4.112,
+        // whose schema supports Workers Rate Limiting bindings.
+        ratelimits: [
+          {
+            name: "RECRUITMENT_RATE_LIMITER",
+            namespace_id: "140891719",
+            simple: {
+              limit: 2,
+              period: 60,
+            },
+          },
+          {
+            name: "ROSTER_BUILD_RATE_LIMITER",
+            namespace_id: "140891720",
+            simple: {
+              limit: 1,
+              period: 60,
+            },
+          },
+        ],
         triggers: {
           crons: isPreviewCloudflareEnv ? [] : [rosterRefreshCron],
         },

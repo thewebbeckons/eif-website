@@ -1,5 +1,16 @@
 import type { H3Event } from "h3";
 
+export type CloudflareRateLimitBinding =
+  Env["RECRUITMENT_RATE_LIMITER"];
+
+const isCloudflareRateLimitBinding = (
+  value: unknown,
+): value is CloudflareRateLimitBinding =>
+  typeof value === "object" &&
+  value !== null &&
+  "limit" in value &&
+  typeof value.limit === "function";
+
 export const getCloudflareEnvironment = (
   event: H3Event,
 ): Record<string, unknown> => {
@@ -18,4 +29,12 @@ export const getEnvironmentString = (
 ) => {
   const value = environment[key];
   return typeof value === "string" && value.length > 0 ? value : undefined;
+};
+
+export const getRateLimitBinding = (
+  environment: Record<string, unknown>,
+  key: string,
+): CloudflareRateLimitBinding | undefined => {
+  const value = environment[key];
+  return isCloudflareRateLimitBinding(value) ? value : undefined;
 };

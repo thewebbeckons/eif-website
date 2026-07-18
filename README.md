@@ -57,7 +57,7 @@ This site rejects generic templates in favor of a bold, premium **Neo-Brutalist*
 
 ### 📝 5. Discord-bound Guild Applications
 - **Global Recruitment Modal**: Triggered via `JoinModal.vue` through `useJoinModal()` composables.
-- **Validation & Rate Limits**: Validated with **Zod** and protected by a hashed, distributed NuxtHub KV rate limit.
+- **Validation & Rate Limits**: Validated with **Zod** and protected by a hashed Cloudflare rate-limit binding plus expiring NuxtHub KV submission markers.
 - **Rich Embed Deliveries**: Converts applicant logs (Character Name, Server, Discord Tag, and Message) into beautiful rich purple embeds forwarded via Discord Webhook.
 
 ### 🤖 6. Snarky Wipe Wisdom Generator

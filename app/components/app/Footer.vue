@@ -18,7 +18,9 @@
       <div
         class="flex flex-col items-center gap-2 text-center sm:items-end sm:text-right"
       >
-        <nav class="flex space-x-4 text-sm font-bold text-gray-400">
+        <nav
+          class="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm font-bold text-gray-400 sm:justify-end"
+        >
           <NuxtLink to="/news" class="hover:text-white">News</NuxtLink>
           <NuxtLink to="/streams" class="hover:text-white">Streams</NuxtLink>
           <NuxtLink to="/roster" class="hover:text-white">Roster</NuxtLink>

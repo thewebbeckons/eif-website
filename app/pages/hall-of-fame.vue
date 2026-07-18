@@ -10,10 +10,20 @@ const isLoading = computed(() => status.value === "pending");
 const hasError = computed(() => status.value === "error");
 
 useSeoMeta({
-  title: () => data.value?.title || "Hall of Fame",
+  title: () => data.value?.metaTitle || data.value?.title || "Hall of Fame",
   description: () =>
+    data.value?.metaDescription ||
     data.value?.introduction ||
     "Exercise in Futility's season-by-season Mythic+ champions.",
+  ogTitle: () => data.value?.metaTitle || data.value?.title || "Hall of Fame",
+  ogDescription: () =>
+    data.value?.metaDescription ||
+    data.value?.introduction ||
+    "Exercise in Futility's season-by-season Mythic+ champions.",
+  ogImage: () => data.value?.metaImageUrl || undefined,
+  ogImageAlt: () => data.value?.metaImageAlt,
+  twitterCard: () =>
+    data.value?.metaImageUrl ? "summary_large_image" : "summary",
 });
 </script>
 
