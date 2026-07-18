@@ -1,19 +1,8 @@
 <script lang="ts" setup>
 import StreamCard from "~/components/streams/StreamCard.vue";
+import type { GuildStream } from "../../shared/types/stream";
 
-export interface Stream {
-  id: string;
-  streamerName: string;
-  twitchUrl: string;
-  title: string;
-  game: string;
-  viewers: number;
-  thumbnailUrl: string;
-  avatarUrl: string;
-  isLive: boolean;
-}
-
-const { data: streams, status } = await useFetch<Stream[]>("/api/streams", {
+const { data: streams, status } = await useFetch<GuildStream[]>("/api/streams", {
   getCachedData: () => undefined,
 });
 

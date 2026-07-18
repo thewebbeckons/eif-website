@@ -2,8 +2,6 @@
   "id": "news",
   "label": "News",
   "repeatable": true,
-  "status": true,
-  "format": "page",
   "json": {
     "Main": {
       "uid": {
@@ -32,16 +30,21 @@
         "config": {
           "label": "Category",
           "placeholder": "",
-          "options": ["Raid", "News", "Event", "Announcement"]
+          "options": [
+            "Raid",
+            "News",
+            "Event",
+            "Announcement"
+          ]
         }
       },
       "featured": {
         "type": "Boolean",
         "config": {
           "label": "Featured",
-          "placeholder_false": "false",
+          "default_value": false,
           "placeholder_true": "true",
-          "default_value": false
+          "placeholder_false": "false"
         }
       },
       "description": {
@@ -56,8 +59,12 @@
         "config": {
           "label": "Author",
           "placeholder": "Since we don't have users...",
-          "options": ["Mali", "Qyleth", "Lasoop"],
-          "default_value": "Mali"
+          "default_value": "Mali",
+          "options": [
+            "Mali",
+            "Qyleth",
+            "Lasoop"
+          ]
         }
       },
       "slices": {
@@ -83,30 +90,32 @@
     },
     "SEO & Metadata": {
       "meta_title": {
+        "type": "Text",
         "config": {
           "label": "Meta Title",
           "placeholder": "A title of the page used for social media and search engines"
-        },
-        "type": "Text"
+        }
       },
       "meta_description": {
+        "type": "Text",
         "config": {
           "label": "Meta Description",
           "placeholder": "A brief summary of the page"
-        },
-        "type": "Text"
+        }
       },
       "meta_image": {
+        "type": "Image",
         "config": {
-          "constraint": {
-            "height": 1260,
-            "width": 2400
-          },
           "label": "Meta Image",
+          "constraint": {
+            "width": 2400,
+            "height": 1260
+          },
           "thumbnails": []
-        },
-        "type": "Image"
+        }
       }
     }
-  }
+  },
+  "status": true,
+  "format": "page"
 }

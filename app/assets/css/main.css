@@ -1,3 +1,6 @@
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
+@import "@fontsource-variable/inter-tight";
 @import "tailwindcss";
 @import "@nuxt/ui";
 
@@ -10,9 +13,9 @@ body {
 }
 
 @theme {
-  --font-heading: "Inter Tight", "Plus Jakarta Sans", sans-serif;
-  --font-body: "Geist", sans-serif;
-  --font-mono: "Geist Mono", monospace;
+  --font-heading: "Inter Tight Variable", "Plus Jakarta Sans", sans-serif;
+  --font-body: "Geist Variable", sans-serif;
+  --font-mono: "Geist Mono Variable", monospace;
 
   --color-mage-blue: #69ccf0;
   --color-druid-orange: #ff7d0a;

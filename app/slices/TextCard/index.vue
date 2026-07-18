@@ -15,7 +15,7 @@ const props = defineProps(getSliceComponentProps<Content.ChapterIntroSlice>());
         props.slice.variation === 'textCardHighlight' ? 'highlight' : 'default'
       "
     >
-      <CustomPrismicRichText :field="props.slice.primary.body" />
+      <PrismicCustomRichText :field="props.slice.primary.body" />
     </NewsTextCard>
   </section>
 </template>

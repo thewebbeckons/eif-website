@@ -1,16 +1,8 @@
 <script lang="ts" setup>
+import type { GuildStream } from "../../../shared/types/stream";
+
 const props = defineProps<{
-  stream: {
-    id: string;
-    streamerName: string;
-    twitchUrl: string;
-    title: string;
-    game: string;
-    viewers: number;
-    thumbnailUrl: string;
-    avatarUrl: string;
-    isLive: boolean;
-  };
+  stream: GuildStream;
 }>();
 
 const formattedViewers = computed(() => {

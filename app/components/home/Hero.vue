@@ -55,7 +55,7 @@ const generateWipeWisdom = async () => {
             "Community-first raiding on Illidan. Good vibes, better loot, and zero toxicity."
           }}
         </p>
-        <WipeWisdomButton />
+        <HomeWipeWisdomButton />
       </div>
     </div>
 

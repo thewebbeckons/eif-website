@@ -22,6 +22,9 @@
           <NuxtLink to="/news" class="hover:text-white">News</NuxtLink>
           <NuxtLink to="/streams" class="hover:text-white">Streams</NuxtLink>
           <NuxtLink to="/roster" class="hover:text-white">Roster</NuxtLink>
+          <NuxtLink to="/hall-of-fame" class="hover:text-white">
+            Hall of Fame
+          </NuxtLink>
         </nav>
         <p class="text-zinc-500 font-bold">
           © {{ new Date().getFullYear() }} Exercise in Futility. Entering the

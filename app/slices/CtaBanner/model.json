@@ -1,28 +1,28 @@
 {
-  "type": "SharedSlice",
   "id": "cta_banner",
+  "type": "SharedSlice",
   "name": "CTA Banner",
   "variations": [
     {
       "id": "default_banner",
       "name": "Default Banner",
       "description": "Default style with heading, description, and a single CTA button.",
-      "version": "initial",
-      "imageUrl": "",
+      "imageUrl": "https://images.prismic.io/eif-guild/shared-slices/cta_banner/default_banner/4a7e4397513ba2a6c0de576b4959ddb4d820d056.png?auto=compress%2Cformat",
       "docURL": "...",
+      "version": "initial",
       "primary": {
         "heading": {
           "type": "StructuredText",
           "config": {
-            "single": "heading2,strong,em",
-            "label": "Heading"
+            "label": "Heading",
+            "single": "heading2,strong,em"
           }
         },
         "description": {
           "type": "StructuredText",
           "config": {
-            "single": "paragraph,strong,em",
-            "label": "Description"
+            "label": "Description",
+            "single": "paragraph,strong,em"
           }
         },
         "button": {

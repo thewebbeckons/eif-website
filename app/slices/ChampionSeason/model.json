@@ -1,0 +1,102 @@
+{
+  "id": "champion_season",
+  "name": "Champion Season",
+  "type": "SharedSlice",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "description": "Default",
+      "docURL": "",
+      "imageUrl": "",
+      "version": "",
+      "primary": {
+        "season_id": {
+          "type": "Text",
+          "config": {
+            "label": "Season ID",
+            "placeholder": "midnight-season-1"
+          }
+        },
+        "season_name": {
+          "type": "Text",
+          "config": {
+            "label": "Season name",
+            "placeholder": "Midnight Season 1"
+          }
+        },
+        "team_name": {
+          "type": "Text",
+          "config": {
+            "label": "Team name",
+            "placeholder": "Champion team name"
+          }
+        },
+        "score": {
+          "type": "Number",
+          "config": {
+            "label": "Team score",
+            "placeholder": "3000",
+            "min": 0,
+            "step": 0.01
+          }
+        },
+        "members": {
+          "type": "Group",
+          "config": {
+            "label": "Team members",
+            "fields": {
+              "name": {
+                "type": "Text",
+                "config": {
+                  "label": "Character name",
+                  "placeholder": "Character name"
+                }
+              },
+              "class_name": {
+                "type": "Text",
+                "config": {
+                  "label": "Class",
+                  "placeholder": "Death Knight"
+                }
+              },
+              "specialization": {
+                "type": "Text",
+                "config": {
+                  "label": "Specialization",
+                  "placeholder": "Blood"
+                }
+              },
+              "role": {
+                "type": "Select",
+                "config": {
+                  "label": "Role",
+                  "options": [
+                    "TANK",
+                    "HEALER",
+                    "DPS"
+                  ]
+                }
+              },
+              "avatar": {
+                "type": "Image",
+                "config": {
+                  "label": "Avatar",
+                  "placeholder": "Square character portrait"
+                }
+              },
+              "profile_url": {
+                "type": "Link",
+                "config": {
+                  "label": "Raider.IO profile",
+                  "select": "web",
+                  "allowTargetBlank": true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

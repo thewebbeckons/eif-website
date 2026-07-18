@@ -1,27 +1,25 @@
-import slicemachineConfig from "./slicemachine.config.json";
+import prismicConfig from "./prismic.config.json";
 
-const repositoryName = String(slicemachineConfig.repositoryName);
 const rosterRefreshCron = "*/10 * * * *";
 const isPreviewCloudflareEnv = process.env.CLOUDFLARE_ENV === "preview";
-const apiEndpoint =
-  "apiEndpoint" in slicemachineConfig &&
-  typeof slicemachineConfig.apiEndpoint === "string"
-    ? slicemachineConfig.apiEndpoint
-    : undefined;
+const isDevelopment = process.env.NODE_ENV === "development";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: ["@nuxt/ui", "@nuxtjs/prismic", "@nuxthub/core"],
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
-  compatibilityDate: "2025-02-15",
+  compatibilityDate: "2026-07-18",
 
   prismic: {
-    endpoint: apiEndpoint || repositoryName,
+    endpoint: prismicConfig.repositoryName,
     clientConfig: {
-      // `type` is the API ID of a page type.
-      // `path` determines the URL for a page of that type.
-      routes: [{ type: "news", path: "/news/:uid" }],
+      routes: prismicConfig.routes,
     },
+  },
+
+  ui: {
+    fonts: false,
   },
 
   colorMode: {
@@ -29,13 +27,19 @@ export default defineNuxtConfig({
     fallback: "dark",
   },
   hub: {
-    kv: {
-      driver: "cloudflare-kv-binding",
-      namespaceId: process.env.CLOUDFLARE_KV_NAMESPACE_ID,
-      binding: "KV",
-    },
+    kv: isDevelopment
+      ? {
+          driver: "fs-lite",
+          base: ".data/kv",
+        }
+      : {
+          driver: "cloudflare-kv-binding",
+          namespaceId: process.env.CLOUDFLARE_KV_NAMESPACE_ID,
+          binding: "KV",
+        },
   },
   nitro: {
+    compatibilityDate: "2026-07-18",
     experimental: {
       tasks: true,
     },
@@ -46,6 +50,16 @@ export default defineNuxtConfig({
         },
     cloudflare: {
       wrangler: {
+        observability: {
+          enabled: true,
+          head_sampling_rate: 1,
+          logs: {
+            enabled: true,
+            head_sampling_rate: 1,
+            invocation_logs: true,
+          },
+        },
+        upload_source_maps: true,
         triggers: {
           crons: isPreviewCloudflareEnv ? [] : [rosterRefreshCron],
         },
@@ -53,6 +67,7 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig: {
+    discordWebhookUrl: process.env.DISCORD_WEBHOOK_URL,
     raiderIoKey: process.env.RAIDER_IO_KEY,
     twitchClientId: process.env.TWITCH_CLIENT_ID,
     twitchClientSecret: process.env.TWITCH_CLIENT_SECRET,

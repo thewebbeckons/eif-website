@@ -5,6 +5,7 @@ const items = computed(() => [
   { label: "News", to: "/news" },
   { label: "Streams", to: "/streams" },
   { label: "Roster", to: "/roster" },
+  { label: "Hall of Fame", to: "/hall-of-fame" },
 ]);
 
 const schittsCreekGifs = [

@@ -2,15 +2,14 @@
   "id": "testimonial",
   "type": "SharedSlice",
   "name": "QuoteCard",
-  "description": "A testimonial section displaying a quote with author name and title",
   "variations": [
     {
       "id": "default",
       "name": "Default",
+      "description": "Default testimonial variation",
+      "imageUrl": "https://images.prismic.io/eif-guild/shared-slices/testimonial/default/7a76d8e3a8e0f530ded9b210c7ec77d7593c74cf.jpg?auto=compress%2Cformat",
       "docURL": "...",
       "version": "initial",
-      "description": "Default testimonial variation",
-      "imageUrl": "",
       "primary": {
         "quote": {
           "type": "StructuredText",
@@ -34,5 +33,6 @@
       },
       "items": {}
     }
-  ]
+  ],
+  "description": "A testimonial section displaying a quote with author name and title"
 }

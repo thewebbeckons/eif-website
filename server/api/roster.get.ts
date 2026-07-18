@@ -1,17 +1,6 @@
 import type { RosterResponse } from "../../shared/types/roster";
 import type { CachedRosterSnapshot } from "../utils/roster-cache";
 
-const ROSTER_BUILD_LOCK_KEY = "roster:snapshot:build";
-const ROSTER_BUILD_LOCK_TTL_MS = 20_000;
-
-let inFlightRosterSnapshotBuild:
-  | {
-      key: string;
-      startedAt: number;
-      promise: Promise<CachedRosterSnapshot>;
-    }
-  | null = null;
-
 async function persistBuiltRosterSnapshot(
   snapshot: CachedRosterSnapshot,
 ): Promise<void> {
@@ -26,40 +15,14 @@ async function persistBuiltRosterSnapshot(
       }),
     ]);
   } catch (error) {
-    console.error("Failed to seed cached roster snapshot", error);
+    logWorkerError("roster.cache.seed_failed", error);
   }
 }
 
-async function getOrCreateRosterSnapshotBuild(): Promise<CachedRosterSnapshot> {
-  const now = Date.now();
-
-  if (
-    inFlightRosterSnapshotBuild &&
-    inFlightRosterSnapshotBuild.key === ROSTER_BUILD_LOCK_KEY &&
-    now - inFlightRosterSnapshotBuild.startedAt < ROSTER_BUILD_LOCK_TTL_MS
-  ) {
-    return inFlightRosterSnapshotBuild.promise;
-  }
-
-  const promise = (async () => {
-    const snapshot = await buildRosterSnapshot();
-    await persistBuiltRosterSnapshot(snapshot);
-    return snapshot;
-  })();
-
-  inFlightRosterSnapshotBuild = {
-    key: ROSTER_BUILD_LOCK_KEY,
-    startedAt: now,
-    promise,
-  };
-
-  try {
-    return await promise;
-  } finally {
-    if (inFlightRosterSnapshotBuild?.promise === promise) {
-      inFlightRosterSnapshotBuild = null;
-    }
-  }
+async function buildAndCacheRosterSnapshot(): Promise<CachedRosterSnapshot> {
+  const snapshot = await buildRosterSnapshot();
+  await persistBuiltRosterSnapshot(snapshot);
+  return snapshot;
 }
 
 export default defineEventHandler(async (): Promise<RosterResponse> => {
@@ -69,14 +32,14 @@ export default defineEventHandler(async (): Promise<RosterResponse> => {
       return cachedSnapshot.data;
     }
   } catch (error) {
-    console.error("Failed to read cached roster snapshot", error);
+    logWorkerError("roster.cache.read_failed", error);
   }
 
   try {
-    const snapshot = await getOrCreateRosterSnapshotBuild();
+    const snapshot = await buildAndCacheRosterSnapshot();
     return snapshot.data;
   } catch (error) {
-    console.error("Failed to build roster snapshot", error);
+    logWorkerError("roster.snapshot.build_failed", error);
 
     throw createError({
       statusCode: 503,

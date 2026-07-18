@@ -1,0 +1,27 @@
+{
+  "id": "qisms",
+  "label": "Qisms",
+  "repeatable": false,
+  "json": {
+    "Main": {
+      "quotes": {
+        "type": "Group",
+        "config": {
+          "label": "Quotes",
+          "repeat": true,
+          "fields": {
+            "quote": {
+              "type": "Text",
+              "config": {
+                "label": "Quote",
+                "placeholder": ""
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "status": true,
+  "format": "custom"
+}

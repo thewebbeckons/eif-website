@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import type { HomeDocumentDataRolesItem } from "../../../prismicio-types";
+
 const props = defineProps<{
-  roles?: any[];
+  roles?: HomeDocumentDataRolesItem[];
 }>();
 
 const defaultRoles = [
