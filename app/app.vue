@@ -5,6 +5,11 @@ useHead({
   link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
 });
 
+useScript({
+  src: "https://insights.thewebbeckons.ca/script.js?siteId=977e6679-d5e8-4c82-86ae-18d2b5685c75",
+  defer: true,
+});
+
 useSeoMeta({
   title: "Exercise in Futility",
   titleTemplate: "%s | World of Warcraft Guild",

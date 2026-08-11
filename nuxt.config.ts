@@ -10,7 +10,7 @@ const apiEndpoint =
     : undefined;
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@nuxt/ui", "@nuxtjs/prismic", "@nuxthub/core"],
+  modules: ["@nuxt/ui", "@nuxtjs/prismic", "@nuxthub/core", "@nuxt/scripts"],
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
   compatibilityDate: "2025-02-15",
