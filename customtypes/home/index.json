@@ -1,56 +1,53 @@
 {
   "format": "page",
   "id": "home",
-  "label": "Home",
-  "repeatable": false,
-  "status": true,
   "json": {
     "Main": {
       "description": {
-        "type": "Text",
         "config": {
           "label": "Description",
           "placeholder": "ie. above wipe wisdom"
-        }
+        },
+        "type": "Text"
       },
       "roles": {
-        "type": "Group",
         "config": {
-          "label": "Roles",
-          "repeat": true,
           "fields": {
             "role_name": {
-              "type": "Text",
               "config": {
                 "label": "Role",
                 "placeholder": "Tank, healer, etc"
-              }
+              },
+              "type": "Text"
             },
             "icon": {
-              "type": "Text",
               "config": {
                 "label": "Icon",
                 "placeholder": "Lucide icon name (eg. i-lucide-shield)"
-              }
+              },
+              "type": "Text"
             },
             "status": {
-              "type": "Boolean",
               "config": {
+                "default_value": false,
                 "label": "Status",
                 "placeholder_false": "disabled",
-                "placeholder_true": "active",
-                "default_value": false
-              }
+                "placeholder_true": "active"
+              },
+              "type": "Boolean"
             }
-          }
-        }
+          },
+          "label": "Roles",
+          "repeat": true
+        },
+        "type": "Group"
       },
       "slices": {
-        "type": "Slices",
-        "fieldset": "Slice Zone",
         "config": {
           "choices": {}
-        }
+        },
+        "fieldset": "Slice Zone",
+        "type": "Slices"
       }
     },
     "SEO & Metadata": {
@@ -71,8 +68,8 @@
       "meta_image": {
         "config": {
           "constraint": {
-            "height": 1260,
-            "width": 2400
+            "width": 2400,
+            "height": 1260
           },
           "label": "Meta Image",
           "thumbnails": []
@@ -80,5 +77,8 @@
         "type": "Image"
       }
     }
-  }
+  },
+  "label": "Home",
+  "repeatable": false,
+  "status": true
 }

@@ -1,48 +1,48 @@
 {
-  "id": "chapter_intro",
-  "type": "SharedSlice",
-  "name": "TextCard",
   "description": "A chapter introduction section with subtitle, title, and rich text body content",
+  "id": "chapter_intro",
+  "name": "TextCard",
+  "type": "SharedSlice",
   "variations": [
     {
-      "id": "default",
-      "name": "Default",
-      "docURL": "...",
-      "version": "initial",
       "description": "Default chapter intro variation",
-      "imageUrl": "",
+      "docURL": "...",
+      "id": "default",
+      "imageUrl": "https://images.prismic.io/eif-guild/shared-slices/chapter_intro/default/c493ad42ece6562e417be469597b854665d4ab88.jpg?auto=compress%2Cformat",
+      "items": {},
+      "name": "Default",
       "primary": {
         "body": {
-          "type": "StructuredText",
           "config": {
-            "label": "Body",
-            "placeholder": "Write your content",
             "allowTargetBlank": true,
-            "multi": "paragraph,strong,em,hyperlink,image,heading2,list-item,o-list-item"
-          }
+            "label": "Body",
+            "multi": "paragraph,strong,em,hyperlink,image,heading2,list-item,o-list-item",
+            "placeholder": "Write your content"
+          },
+          "type": "StructuredText"
         }
       },
-      "items": {}
+      "version": "initial"
     },
     {
-      "id": "textCardHighlight",
-      "name": "TextCard - Highlight",
-      "docURL": "...",
-      "version": "initial",
       "description": "Default chapter intro variation",
-      "imageUrl": "",
+      "docURL": "...",
+      "id": "textCardHighlight",
+      "imageUrl": "https://images.prismic.io/eif-guild/shared-slices/chapter_intro/textCardHighlight/7c96999c83da115bde45bad69434185d962839c7.png?auto=compress%2Cformat",
+      "items": {},
+      "name": "TextCard - Highlight",
       "primary": {
         "body": {
-          "type": "StructuredText",
           "config": {
-            "label": "Body",
-            "placeholder": "Write your content",
             "allowTargetBlank": true,
-            "multi": "paragraph,strong,em,hyperlink,image,heading2,list-item,o-list-item"
-          }
+            "label": "Body",
+            "multi": "paragraph,strong,em,hyperlink,image,heading2,list-item,o-list-item",
+            "placeholder": "Write your content"
+          },
+          "type": "StructuredText"
         }
       },
-      "items": {}
+      "version": "initial"
     }
   ]
 }

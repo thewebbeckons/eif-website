@@ -47,6 +47,26 @@ pnpm deploy
 pnpm preview
 ```
 
+## Prismic Type Builder
+
+Content models are managed in Prismic's browser-based Type Builder. The Prismic
+CLI keeps those models and generated TypeScript types in sync with the app; Slice
+Machine is not used.
+
+```bash
+# Compare local models with the Type Builder
+pnpm prismic:status
+
+# Pull the Type Builder models and regenerate components/types
+pnpm prismic:pull
+
+# Regenerate TypeScript types from the checked-in models
+pnpm prismic:types
+```
+
+After changing models in the Type Builder, run `pnpm prismic:pull` and commit the
+resulting model and generated-type changes.
+
 ## Cloudflare Workers Deployment
 
 This project targets **Cloudflare Workers**, not Cloudflare Pages. The roster cache uses [NuxtHub KV](https://hub.nuxt.com) and a Nitro scheduled task that refreshes Raider.IO data every 10 minutes in production.
@@ -91,6 +111,12 @@ Preview builds should set `CLOUDFLARE_ENV=preview`, which disables the cron trig
 - `pnpm dev` uses NuxtHub local storage under `.data/` for KV.
 - Remote Cloudflare bindings are optional for development and are not required for the roster page to work locally.
 
+### 6. Roster cat tooltips
+
+Cat ownership is managed in `app/assets/cats.json`, keyed by the stable player IDs
+from `server/assets/roster.json`. Each entry's `catNames` array is shown from the
+cat icon beside that player in every roster view.
+
 ## Project Structure
 
 ```
@@ -98,11 +124,11 @@ app/
 ├── components/
 │   ├── app/        # Global components (Header, Footer, Logo, JoinModal)
 │   └── home/       # Homepage sections
+├── assets/         # Checked-in site data, including roster cat ownership
 ├── composables/    # Shared state (useJoinModal)
 ├── pages/          # Route pages
-└── assets/css/     # Global styles
-content/
-└── News/           # Markdown blog posts
+└── slices/         # Prismic slice components and pulled models
+customtypes/       # Content models pulled from the Prismic Type Builder
 public/             # Static assets
 server/             # Server routes, tasks, and utilities
 ```

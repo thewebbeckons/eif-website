@@ -1,43 +1,43 @@
 {
-  "type": "SharedSlice",
   "id": "cta_banner",
   "name": "CTA Banner",
+  "type": "SharedSlice",
   "variations": [
     {
-      "id": "default_banner",
-      "name": "Default Banner",
       "description": "Default style with heading, description, and a single CTA button.",
-      "version": "initial",
-      "imageUrl": "",
       "docURL": "...",
+      "id": "default_banner",
+      "imageUrl": "https://images.prismic.io/eif-guild/shared-slices/cta_banner/default_banner/4a7e4397513ba2a6c0de576b4959ddb4d820d056.png?auto=compress%2Cformat",
+      "items": {},
+      "name": "Default Banner",
       "primary": {
         "heading": {
-          "type": "StructuredText",
           "config": {
-            "single": "heading2,strong,em",
-            "label": "Heading"
-          }
+            "label": "Heading",
+            "single": "heading2,strong,em"
+          },
+          "type": "StructuredText"
         },
         "description": {
-          "type": "StructuredText",
           "config": {
-            "single": "paragraph,strong,em",
-            "label": "Description"
-          }
+            "label": "Description",
+            "single": "paragraph,strong,em"
+          },
+          "type": "StructuredText"
         },
         "button": {
-          "type": "Link",
           "config": {
-            "label": "Button",
-            "placeholder": "",
-            "select": null,
             "allowTargetBlank": true,
             "allowText": true,
-            "repeat": false
-          }
+            "label": "Button",
+            "placeholder": "",
+            "repeat": false,
+            "select": null
+          },
+          "type": "Link"
         }
       },
-      "items": {}
+      "version": "initial"
     }
   ]
 }

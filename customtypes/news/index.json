@@ -1,68 +1,72 @@
 {
-  "id": "news",
-  "label": "News",
-  "repeatable": true,
-  "status": true,
   "format": "page",
+  "id": "news",
   "json": {
     "Main": {
       "uid": {
-        "type": "UID",
         "config": {
           "label": "UID"
-        }
+        },
+        "type": "UID"
       },
       "title": {
-        "type": "Text",
         "config": {
           "label": "Title",
           "placeholder": ""
-        }
+        },
+        "type": "Text"
       },
       "image": {
-        "type": "Image",
         "config": {
-          "label": "Image",
           "constraint": {},
+          "label": "Image",
           "thumbnails": []
-        }
+        },
+        "type": "Image"
       },
       "category": {
-        "type": "Select",
         "config": {
           "label": "Category",
-          "placeholder": "",
-          "options": ["Raid", "News", "Event", "Announcement"]
-        }
+          "options": [
+            "Raid",
+            "News",
+            "Event",
+            "Announcement"
+          ],
+          "placeholder": ""
+        },
+        "type": "Select"
       },
       "featured": {
-        "type": "Boolean",
         "config": {
+          "default_value": false,
           "label": "Featured",
           "placeholder_false": "false",
-          "placeholder_true": "true",
-          "default_value": false
-        }
+          "placeholder_true": "true"
+        },
+        "type": "Boolean"
       },
       "description": {
-        "type": "Text",
         "config": {
           "label": "Description",
           "placeholder": "Short Description for News Feed"
-        }
+        },
+        "type": "Text"
       },
       "author": {
-        "type": "Select",
         "config": {
+          "default_value": "Mali",
           "label": "Author",
-          "placeholder": "Since we don't have users...",
-          "options": ["Mali", "Qyleth", "Lasoop"],
-          "default_value": "Mali"
-        }
+          "options": [
+            "Mali",
+            "Qyleth",
+            "Lasoop"
+          ],
+          "placeholder": "Since we don't have users..."
+        },
+        "type": "Select"
       },
       "slices": {
-        "type": "Slices",
-        "fieldset": "Slice Zone",
         "config": {
           "choices": {
             "chapter_intro": {
@@ -78,7 +82,9 @@
               "type": "SharedSlice"
             }
           }
-        }
+        },
+        "fieldset": "Slice Zone",
+        "type": "Slices"
       }
     },
     "SEO & Metadata": {
@@ -99,8 +105,8 @@
       "meta_image": {
         "config": {
           "constraint": {
-            "height": 1260,
-            "width": 2400
+            "width": 2400,
+            "height": 1260
           },
           "label": "Meta Image",
           "thumbnails": []
@@ -108,5 +114,8 @@
         "type": "Image"
       }
     }
-  }
+  },
+  "label": "News",
+  "repeatable": true,
+  "status": true
 }

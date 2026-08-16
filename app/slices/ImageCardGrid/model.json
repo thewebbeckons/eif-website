@@ -1,39 +1,39 @@
 {
-  "id": "image_card_grid",
-  "type": "SharedSlice",
-  "name": "ImageCardGrid",
   "description": "A grid layout displaying image cards with titles",
+  "id": "image_card_grid",
+  "name": "ImageCardGrid",
+  "type": "SharedSlice",
   "variations": [
     {
-      "id": "default",
-      "name": "Default",
-      "docURL": "...",
-      "version": "initial",
       "description": "Default variation with image cards",
-      "imageUrl": "",
+      "docURL": "...",
+      "id": "default",
+      "imageUrl": "https://images.prismic.io/eif-guild/shared-slices/image_card_grid/default/8f83094a57d84161f912f02eca9a1ec8f2787fbf.jpg?auto=compress%2Cformat",
+      "name": "Default",
       "primary": {
         "cards": {
-          "type": "Group",
           "config": {
-            "label": "Cards",
             "fields": {
               "image": {
-                "type": "Image",
                 "config": {
                   "label": "Image"
-                }
+                },
+                "type": "Image"
               },
               "title": {
-                "type": "StructuredText",
                 "config": {
                   "label": "Title",
                   "single": "heading2"
-                }
+                },
+                "type": "StructuredText"
               }
-            }
-          }
+            },
+            "label": "Cards"
+          },
+          "type": "Group"
         }
-      }
+      },
+      "version": "initial"
     }
   ]
 }
