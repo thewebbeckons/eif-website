@@ -2,6 +2,7 @@ import slicemachineConfig from "./slicemachine.config.json";
 
 const repositoryName = String(slicemachineConfig.repositoryName);
 const rosterRefreshCron = "*/10 * * * *";
+const isDevelopment = process.env.NODE_ENV === "development";
 const isPreviewCloudflareEnv = process.env.CLOUDFLARE_ENV === "preview";
 const apiEndpoint =
   "apiEndpoint" in slicemachineConfig &&
@@ -14,6 +15,16 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
   compatibilityDate: "2025-02-15",
+
+  icon: {
+    clientBundle: {
+      scan: {
+        globInclude: ["app/**/*.{vue,ts}"],
+        globExclude: ["node_modules", ".nuxt", ".output"],
+      },
+      icons: ["lucide:bow-arrow", "lucide:heart-pulse"],
+    },
+  },
 
   prismic: {
     endpoint: apiEndpoint || repositoryName,
@@ -29,11 +40,13 @@ export default defineNuxtConfig({
     fallback: "dark",
   },
   hub: {
-    kv: {
-      driver: "cloudflare-kv-binding",
-      namespaceId: process.env.CLOUDFLARE_KV_NAMESPACE_ID,
-      binding: "KV",
-    },
+    kv: isDevelopment
+      ? true
+      : {
+          driver: "cloudflare-kv-binding",
+          namespaceId: process.env.CLOUDFLARE_KV_NAMESPACE_ID,
+          binding: "KV",
+        },
   },
   nitro: {
     experimental: {

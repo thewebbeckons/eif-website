@@ -1,11 +1,18 @@
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - better-sqlite3
-  - esbuild
-  - vue-demi
+allowBuilds:
+  '@parcel/watcher': true
+  '@scarf/scarf': false
+  better-sqlite3: true
+  esbuild: true
+  vue-demi: true
+  workerd: true
 
 # Force a single copy of Vue. @vueuse/core@12 (pulled in by reka-ui) declares vue
 # as a hard dependency pinned to 3.5.25, which bundles a second runtime-core into
 # the Cloudflare worker build and makes currentRenderingInstance null during SSR.
 overrides:
+  # Keep the icon collection on a release old enough to pass pnpm's
+  # supply-chain minimum-release-age policy.
+  '@iconify/collections': 1.0.724
+  # fontless has not yet widened its esbuild range to the patched 0.28 line.
+  'fontless>esbuild': 0.28.2
   vue: ^3.5.40
