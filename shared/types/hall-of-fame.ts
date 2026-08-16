@@ -10,12 +10,21 @@ export interface HallOfFameMember {
   profileUrl: string | null;
 }
 
+export interface HallOfFameGuru extends HallOfFameMember {
+  score: number;
+}
+
+export interface HallOfFameTeam {
+  name: string;
+  score: number | null;
+  members: HallOfFameMember[];
+}
+
 export interface HallOfFameSeason {
   id: string;
   name: string;
-  teamName: string;
-  score: number | null;
-  members: HallOfFameMember[];
+  championTeam: HallOfFameTeam;
+  mythicPlusGuru: HallOfFameGuru | null;
 }
 
 export interface HallOfFameContent {

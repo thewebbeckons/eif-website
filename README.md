@@ -52,8 +52,8 @@ This site rejects generic templates in favor of a bold, premium **Neo-Brutalist*
 - **Live/Offline Grid**: Displays a responsive grid of Live Now streams (detailing viewers, game tags, and streams) followed by offline channels.
 
 ### 🏆 4. Hall of Fame (`/hall-of-fame`)
-- **Season Archive**: Preserves each season's top Mythic+ team in a responsive, neo-brutalist champion archive.
-- **Prismic Ready**: Reads the singleton `hall_of_fame` page and its `champion_season` slices from Prismic, with the checked-in seed data as a safe fallback until the first document is published.
+- **Season Archive**: Preserves each season's top Mythic+ team and highest-scoring player in a responsive, neo-brutalist champion archive.
+- **Repository Managed**: Reads the complete archive from `server/assets/hall-of-fame.json`, keeping seasonal updates as a straightforward code review.
 
 ### 📝 5. Discord-bound Guild Applications
 - **Global Recruitment Modal**: Triggered via `JoinModal.vue` through `useJoinModal()` composables.
@@ -135,7 +135,7 @@ pnpm prismic:types
 
 During active model work, `pnpm prismic:sync` watches the repository and continuously updates local models, generated types, and slice components.
 
-The Hall of Fame integration expects a singleton page type with API ID `hall_of_fame`, text fields named `title`, `introduction`, `active_season_name`, and `active_season_description`, plus `champion_season` slices. Each slice contains `season_id`, `season_name`, `team_name`, `score`, and a `members` group with `name`, `class_name`, `specialization`, `role`, `avatar`, and `profile_url` fields.
+The Hall of Fame is not managed in Prismic. Add completed seasons to `server/assets/hall-of-fame.json`, including the champion team and the season's highest-scoring player under `mythicPlusGuru`. A Guru uses the same player fields as a team member plus `score`; use `null` only when a legacy season's individual winner is not yet known.
 
 ### 4. Standalone AI Wisdom Generation
 To regenerate the unhinged raid quotes in `server/assets/wisdom.json`:

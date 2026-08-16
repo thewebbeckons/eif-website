@@ -2,10 +2,6 @@
   "repositoryName": "eif-guild",
   "routes": [
     {
-      "type": "hall_of_fame",
-      "path": "/hall-of-fame"
-    },
-    {
       "type": "home",
       "path": "/"
     },

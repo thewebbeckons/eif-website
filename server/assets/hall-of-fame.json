@@ -1,108 +1,126 @@
-[
-  {
-    "seasonId": "season-tww-3",
-    "seasonName": "The War Within Season 3",
-    "teamName": "Potatoad Potahtoad",
-    "score": 3264,
-    "members": [
-      {
-        "name": "Nightgrizzly",
-        "class": "Death Knight",
-        "spec": "Blood",
-        "role": "TANK",
-        "thumbnail_url": "https://render.worldofwarcraft.com/us/character/illidan/170/215706538-avatar.jpg",
-        "realm": "illidan",
-        "region": "us"
-      },
-      {
-        "name": "Eiralinn",
-        "class": "Hunter",
-        "spec": "Beast Mastery",
-        "role": "DPS",
-        "thumbnail_url": "https://render.worldofwarcraft.com/us/character/illidan/243/240213235-avatar.jpg",
-        "realm": "illidan",
-        "region": "us"
-      },
-      {
-        "name": "Lharghrarn",
-        "class": "Warlock",
-        "spec": "Destruction",
-        "role": "DPS",
-        "thumbnail_url": "https://render.worldofwarcraft.com/us/character/illidan/94/215328862-avatar.jpg",
-        "realm": "illidan",
-        "region": "us"
-      },
-      {
-        "name": "Sammfdrood",
-        "class": "Druid",
-        "spec": "Restoration",
-        "role": "HEALER",
-        "thumbnail_url": "https://render.worldofwarcraft.com/us/character/illidan/200/220211538-avatar.jpg",
-        "realm": "illidan",
-        "region": "us"
-      },
-      {
-        "name": "Coffeewizard",
-        "class": "Mage",
-        "spec": "Frost",
-        "role": "DPS",
-        "thumbnail_url": "https://render.worldofwarcraft.com/us/character/illidan/77/231123490-avatar.jpg",
-        "realm": "illidan",
-        "region": "us"
-      }
-    ]
+{
+  "title": "Hall of Fame",
+  "introduction": "Immortalizing our champion Mythic+ squads and standout players across the seasons.",
+  "metaTitle": null,
+  "metaDescription": null,
+  "metaImageUrl": null,
+  "metaImageAlt": "Exercise in Futility Hall of Fame",
+  "activeSeason": {
+    "name": "Midnight Season 1",
+    "description": "The race is underway. When the season closes, our highest-rated team and top player will join the archive below."
   },
-  {
-    "seasonId": "season-tww-2",
-    "seasonName": "The War Within Season 2",
-    "teamName": "Nerf Bear",
-    "score": 3120,
-    "members": [
-      {
-        "name": "Malitaur",
-        "class": "Druid",
-        "spec": "Guardian",
-        "role": "TANK",
-        "thumbnail_url": "https://render.worldofwarcraft.com/us/character/illidan/111/210211451-avatar.jpg",
-        "realm": "illidan",
-        "region": "us"
+  "seasons": [
+    {
+      "id": "season-tww-3",
+      "name": "The War Within Season 3",
+      "championTeam": {
+        "name": "Potatoad Potahtoad",
+        "score": 3264,
+        "members": [
+          {
+            "name": "Nightgrizzly",
+            "class": "Death Knight",
+            "spec": "Blood",
+            "role": "TANK",
+            "thumbnailUrl": "https://render.worldofwarcraft.com/us/character/illidan/170/215706538-avatar.jpg",
+            "realm": "illidan",
+            "region": "us"
+          },
+          {
+            "name": "Eiralinn",
+            "class": "Hunter",
+            "spec": "Beast Mastery",
+            "role": "DPS",
+            "thumbnailUrl": "https://render.worldofwarcraft.com/us/character/illidan/243/240213235-avatar.jpg",
+            "realm": "illidan",
+            "region": "us"
+          },
+          {
+            "name": "Lharghrarn",
+            "class": "Warlock",
+            "spec": "Destruction",
+            "role": "DPS",
+            "thumbnailUrl": "https://render.worldofwarcraft.com/us/character/illidan/94/215328862-avatar.jpg",
+            "realm": "illidan",
+            "region": "us"
+          },
+          {
+            "name": "Sammfdrood",
+            "class": "Druid",
+            "spec": "Restoration",
+            "role": "HEALER",
+            "thumbnailUrl": "https://render.worldofwarcraft.com/us/character/illidan/200/220211538-avatar.jpg",
+            "realm": "illidan",
+            "region": "us"
+          },
+          {
+            "name": "Coffeewizard",
+            "class": "Mage",
+            "spec": "Frost",
+            "role": "DPS",
+            "thumbnailUrl": "https://render.worldofwarcraft.com/us/character/illidan/77/231123490-avatar.jpg",
+            "realm": "illidan",
+            "region": "us"
+          }
+        ]
       },
-      {
-        "name": "Rozenthal",
-        "class": "Evoker",
-        "spec": "Preservation",
-        "role": "HEALER",
-        "thumbnail_url": "https://render.worldofwarcraft.com/us/character/illidan/88/215981244-avatar.jpg",
-        "realm": "illidan",
-        "region": "us"
+      "mythicPlusGuru": null
+    },
+    {
+      "id": "season-tww-2",
+      "name": "The War Within Season 2",
+      "championTeam": {
+        "name": "Nerf Bear",
+        "score": 3120,
+        "members": [
+          {
+            "name": "Malitaur",
+            "class": "Druid",
+            "spec": "Guardian",
+            "role": "TANK",
+            "thumbnailUrl": "https://render.worldofwarcraft.com/us/character/illidan/111/210211451-avatar.jpg",
+            "realm": "illidan",
+            "region": "us"
+          },
+          {
+            "name": "Rozenthal",
+            "class": "Evoker",
+            "spec": "Preservation",
+            "role": "HEALER",
+            "thumbnailUrl": "https://render.worldofwarcraft.com/us/character/illidan/88/215981244-avatar.jpg",
+            "realm": "illidan",
+            "region": "us"
+          },
+          {
+            "name": "Avoidritz",
+            "class": "Demon Hunter",
+            "spec": "Havoc",
+            "role": "DPS",
+            "thumbnailUrl": "https://render.worldofwarcraft.com/us/character/illidan/32/230123901-avatar.jpg",
+            "realm": "illidan",
+            "region": "us"
+          },
+          {
+            "name": "Azkabaar",
+            "class": "Warlock",
+            "spec": "Demonology",
+            "role": "DPS",
+            "thumbnailUrl": "https://render.worldofwarcraft.com/us/character/illidan/112/210512865-avatar.jpg",
+            "realm": "illidan",
+            "region": "us"
+          },
+          {
+            "name": "Khannot",
+            "class": "Shaman",
+            "spec": "Elemental",
+            "role": "DPS",
+            "thumbnailUrl": "https://render.worldofwarcraft.com/us/character/illidan/144/223120491-avatar.jpg",
+            "realm": "illidan",
+            "region": "us"
+          }
+        ]
       },
-      {
-        "name": "Avoidritz",
-        "class": "Demon Hunter",
-        "spec": "Havoc",
-        "role": "DPS",
-        "thumbnail_url": "https://render.worldofwarcraft.com/us/character/illidan/32/230123901-avatar.jpg",
-        "realm": "illidan",
-        "region": "us"
-      },
-      {
-        "name": "Azkabaar",
-        "class": "Warlock",
-        "spec": "Demonology",
-        "role": "DPS",
-        "thumbnail_url": "https://render.worldofwarcraft.com/us/character/illidan/112/210512865-avatar.jpg",
-        "realm": "illidan",
-        "region": "us"
-      },
-      {
-        "name": "Khannot",
-        "class": "Shaman",
-        "spec": "Elemental",
-        "role": "DPS",
-        "thumbnail_url": "https://render.worldofwarcraft.com/us/character/illidan/144/223120491-avatar.jpg",
-        "realm": "illidan",
-        "region": "us"
-      }
-    ]
-  }
-]
+      "mythicPlusGuru": null
+    }
+  ]
+}
