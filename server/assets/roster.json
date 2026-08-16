@@ -275,16 +275,6 @@
 			]
 		},
 		{
-			"id": "campbells-angels",
-			"name": "Campbell's Angels",
-			"memberIds": [
-				"lasood-illidan",
-				"cynshot-illidan",
-				"papsfears-illidan",
-				"coffeewizard-illidan"
-			]
-		},
-		{
 			"id": "silly-geese",
 			"name": "Silly Geese",
 			"memberIds": [
