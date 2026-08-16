@@ -57,7 +57,7 @@ This site rejects generic templates in favor of a bold, premium **Neo-Brutalist*
 
 ### 📝 5. Discord-bound Guild Applications
 - **Global Recruitment Modal**: Triggered via `JoinModal.vue` through `useJoinModal()` composables.
-- **Validation & Rate Limits**: Validated with **Zod** and protected by a hashed Cloudflare rate-limit binding plus expiring NuxtHub KV submission markers.
+- **Validation & Rate Limits**: Validated with **Zod** and protected by a hashed, SQLite-backed Cloudflare Durable Object rate limit.
 - **Rich Embed Deliveries**: Converts applicant logs (Character Name, Server, Discord Tag, and Message) into beautiful rich purple embeds forwarded via Discord Webhook.
 
 ### 🤖 6. Snarky Wipe Wisdom Generator
@@ -69,7 +69,7 @@ This site rejects generic templates in favor of a bold, premium **Neo-Brutalist*
 
 ## 📁 Project Structure
 
-```
+```text
 ├── app/
 │   ├── assets/css/         # Global brutalist styles & custom text strokes
 │   ├── components/
@@ -176,7 +176,7 @@ For full features to build and deploy, set these environment variables in your C
 
 ### 3. Cron Schedules
 Nitro maps production tasks inside `nuxt.config.ts`. In production builds, the roster refresh task runs every **10 minutes**:
-```
+```text
 */10 * * * *
 ```
 *(Setting `CLOUDFLARE_ENV=preview` silences cron triggers while preserving KV bindings).*

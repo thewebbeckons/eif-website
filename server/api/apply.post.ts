@@ -1,10 +1,10 @@
-import { kv } from "hub:kv";
 import type { H3Event } from "h3";
 import { z } from "zod";
 
 const RATE_LIMIT_MAX = 2;
 const RATE_LIMIT_WINDOW_SECONDS = 15 * 60;
 const DISCORD_WEBHOOK_TIMEOUT_MS = 8_000;
+const developmentAttempts = new Map<string, number[]>();
 
 const applicationSchema = z.object({
   characterInfo: z.string().trim().min(1).max(200),
@@ -31,27 +31,35 @@ const throwRateLimitError = (): never => {
 const enforceRateLimit = async (event: H3Event, identifier: string) => {
   const identifierHash = await hashIdentifier(identifier);
   const environment = getCloudflareEnvironment(event);
-  const rateLimiter = getRateLimitBinding(
-    environment,
-    "RECRUITMENT_RATE_LIMITER",
+  const coordinatorNamespace = getRequestCoordinatorNamespace(environment);
+  const now = Date.now();
+  const windowMs = RATE_LIMIT_WINDOW_SECONDS * 1_000;
+
+  if (!coordinatorNamespace) {
+    if (process.env.NODE_ENV !== "development") {
+      throw new Error("REQUEST_COORDINATOR binding is unavailable.");
+    }
+
+    const activeAttempts = (developmentAttempts.get(identifierHash) || [])
+      .filter((submittedAt) => submittedAt > now - windowMs);
+    if (activeAttempts.length >= RATE_LIMIT_MAX) throwRateLimitError();
+
+    developmentAttempts.set(identifierHash, [...activeAttempts, now]);
+    return;
+  }
+
+  const coordinator = coordinatorNamespace.getByName(
+    `recruitment:${identifierHash}`,
+  );
+  const allowed = await coordinator.consumeRecruitmentAttempt(
+    now,
+    RATE_LIMIT_MAX,
+    windowMs,
   );
 
-  if (rateLimiter) {
-    const outcome = await rateLimiter.limit({ key: identifierHash });
-    if (!outcome.success) throwRateLimitError();
-  }
-
-  const keyPrefix = `recruitment:rate:${identifierHash}:`;
-  const existingSubmissions = await kv.keys(keyPrefix);
-  if (existingSubmissions.length >= RATE_LIMIT_MAX) {
+  if (!allowed) {
     throwRateLimitError();
   }
-
-  // Unique markers avoid lost increments. The Cloudflare rate-limit binding
-  // atomically guards the minute during which new KV keys are propagating.
-  await kv.set(`${keyPrefix}${Date.now()}:${crypto.randomUUID()}`, true, {
-    ttl: RATE_LIMIT_WINDOW_SECONDS,
-  });
 };
 
 const getDiscordWebhookUrl = (event: H3Event) => {

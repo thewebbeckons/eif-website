@@ -1,15 +1,16 @@
 import type { H3Event } from "h3";
+import type { RequestCoordinator } from "../durable-objects/request-coordinator";
 
-export type CloudflareRateLimitBinding =
-  Env["RECRUITMENT_RATE_LIMITER"];
+export type RequestCoordinatorNamespace =
+  DurableObjectNamespace<RequestCoordinator>;
 
-const isCloudflareRateLimitBinding = (
+const isRequestCoordinatorNamespace = (
   value: unknown,
-): value is CloudflareRateLimitBinding =>
+): value is RequestCoordinatorNamespace =>
   typeof value === "object" &&
   value !== null &&
-  "limit" in value &&
-  typeof value.limit === "function";
+  "getByName" in value &&
+  typeof value.getByName === "function";
 
 export const getCloudflareEnvironment = (
   event: H3Event,
@@ -31,10 +32,9 @@ export const getEnvironmentString = (
   return typeof value === "string" && value.length > 0 ? value : undefined;
 };
 
-export const getRateLimitBinding = (
+export const getRequestCoordinatorNamespace = (
   environment: Record<string, unknown>,
-  key: string,
-): CloudflareRateLimitBinding | undefined => {
-  const value = environment[key];
-  return isCloudflareRateLimitBinding(value) ? value : undefined;
+): RequestCoordinatorNamespace | undefined => {
+  const value = environment.REQUEST_COORDINATOR;
+  return isRequestCoordinatorNamespace(value) ? value : undefined;
 };
