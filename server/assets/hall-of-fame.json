@@ -5,11 +5,73 @@
   "metaDescription": null,
   "metaImageUrl": null,
   "metaImageAlt": "Exercise in Futility Hall of Fame",
-  "activeSeason": {
-    "name": "Midnight Season 1",
-    "description": "The race is underway. When the season closes, our highest-rated team and top player will join the archive below."
-  },
+  "activeSeason": null,
   "seasons": [
+    {
+      "id": "season-midnight-1",
+      "name": "Midnight Season 1",
+      "championTeam": {
+        "name": "Silly Geese",
+        "score": null,
+        "members": [
+          {
+            "name": "Splint",
+            "class": "Warrior",
+            "spec": "Fury",
+            "role": "DPS",
+            "thumbnailUrl": "https://render.worldofwarcraft.com/us/character/illidan/238/230692078-avatar.jpg",
+            "realm": "illidan",
+            "region": "us"
+          },
+          {
+            "name": "Halastair",
+            "class": "Mage",
+            "spec": "Arcane",
+            "role": "DPS",
+            "thumbnailUrl": "https://render.worldofwarcraft.com/us/character/illidan/23/195171095-avatar.jpg",
+            "realm": "illidan",
+            "region": "us"
+          },
+          {
+            "name": "Cynshot",
+            "class": "Hunter",
+            "spec": "Beast Mastery",
+            "role": "DPS",
+            "thumbnailUrl": "https://render.worldofwarcraft.com/us/character/illidan/23/226725143-avatar.jpg",
+            "realm": "illidan",
+            "region": "us"
+          },
+          {
+            "name": "Tofukittykat",
+            "class": "Paladin",
+            "spec": "Protection",
+            "role": "TANK",
+            "thumbnailUrl": "https://render.worldofwarcraft.com/us/character/illidan/207/228388047-avatar.jpg",
+            "realm": "illidan",
+            "region": "us"
+          },
+          {
+            "name": "Zerawin",
+            "class": "Priest",
+            "spec": "Holy",
+            "role": "HEALER",
+            "thumbnailUrl": "https://render.worldofwarcraft.com/us/character/illidan/22/234677270-avatar.jpg",
+            "realm": "illidan",
+            "region": "us"
+          }
+        ]
+      },
+      "mythicPlusGuru": {
+        "name": "Azkabaar",
+        "class": "Warlock",
+        "spec": "Demonology",
+        "role": "DPS",
+        "thumbnailUrl": "https://render.worldofwarcraft.com/us/character/illidan/78/158213454-avatar.jpg",
+        "realm": "illidan",
+        "region": "us",
+        "score": null
+      }
+    },
     {
       "id": "season-tww-3",
       "name": "The War Within Season 3",

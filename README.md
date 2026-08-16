@@ -135,7 +135,7 @@ pnpm prismic:types
 
 During active model work, `pnpm prismic:sync` watches the repository and continuously updates local models, generated types, and slice components.
 
-The Hall of Fame is not managed in Prismic. Add completed seasons to `server/assets/hall-of-fame.json`, including the champion team and the season's highest-scoring player under `mythicPlusGuru`. A Guru uses the same player fields as a team member plus `score`; use `null` only when a legacy season's individual winner is not yet known.
+The Hall of Fame is not managed in Prismic. Add completed seasons to `server/assets/hall-of-fame.json`, including the champion team and the season's highest-scoring player under `mythicPlusGuru`. A Guru uses the same player fields as a team member plus `score`; the team or Guru score may be `null` when the final number is not known.
 
 ### 4. Standalone AI Wisdom Generation
 To regenerate the unhinged raid quotes in `server/assets/wisdom.json`:

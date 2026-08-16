@@ -157,7 +157,10 @@ defineProps<{
           {{ season.mythicPlusGuru.className }}
         </p>
 
-        <div class="relative mt-5 border-t-2 border-black/30 pt-4">
+        <div
+          v-if="season.mythicPlusGuru.score !== null"
+          class="relative mt-5 border-t-2 border-black/30 pt-4"
+        >
           <p class="text-[10px] font-black uppercase tracking-[0.2em]">
             Player score
           </p>

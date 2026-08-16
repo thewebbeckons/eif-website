@@ -238,15 +238,6 @@
 			"class": "Paladin",
 			"race": "Blood Elf",
 			"label": "Lysandris"
-		},
-		{
-			"id": "frumpleguts-illidan",
-			"name": "Frumpleguts",
-			"realm": "illidan",
-			"region": "us",
-			"class": "Druid",
-			"race": "Kul Tiran",
-			"label": "Frumpleguts"
 		}
 	],
 	"teams": [
@@ -289,7 +280,6 @@
 			"memberIds": [
 				"lasood-illidan",
 				"cynshot-illidan",
-				"frumpleguts-illidan",
 				"papsfears-illidan",
 				"coffeewizard-illidan"
 			]

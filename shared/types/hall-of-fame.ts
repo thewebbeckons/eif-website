@@ -11,7 +11,7 @@ export interface HallOfFameMember {
 }
 
 export interface HallOfFameGuru extends HallOfFameMember {
-  score: number;
+  score: number | null;
 }
 
 export interface HallOfFameTeam {

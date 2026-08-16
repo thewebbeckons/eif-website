@@ -41,7 +41,7 @@ const hallOfFameSchema = z.object({
         members: z.array(playerSchema),
       }),
       mythicPlusGuru: playerSchema
-        .extend({ score: z.number().nonnegative() })
+        .extend({ score: z.number().nonnegative().nullable() })
         .nullable(),
     }),
   ),
