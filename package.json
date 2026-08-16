@@ -54,6 +54,7 @@
     "rolldown": "~1.2.4",
     "slice-machine-ui": "^2.21.5",
     "typescript": "~5.9.3",
+    "unenv": "2.0.0-rc.24",
     "vue-tsc": "~3.2.9",
     "wrangler": "^4.123.0"
   },

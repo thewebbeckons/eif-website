@@ -49,6 +49,9 @@ export default defineNuxtConfig({
         },
   },
   nitro: {
+    alias: {
+      "node:console": "unenv/node/console",
+    },
     experimental: {
       tasks: true,
     },
@@ -59,6 +62,7 @@ export default defineNuxtConfig({
         },
     cloudflare: {
       wrangler: {
+        compatibility_flags: ["nodejs_compat"],
         triggers: {
           crons: isPreviewCloudflareEnv ? [] : [rosterRefreshCron],
         },
