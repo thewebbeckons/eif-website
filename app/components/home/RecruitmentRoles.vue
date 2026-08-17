@@ -1,6 +1,12 @@
 <script setup lang="ts">
+interface Role {
+  name?: string;
+  icon?: string;
+  active?: boolean;
+}
+
 const props = defineProps<{
-  roles?: any[];
+  roles?: Role[];
 }>();
 
 const defaultRoles = [
@@ -13,9 +19,9 @@ const defaultRoles = [
 const computedRoles = computed(() => {
   if (props.roles && props.roles.length > 0) {
     return props.roles.map((r) => ({
-      name: r.role_name || "Unknown",
+      name: r.name || "Unknown",
       icon: r.icon || "i-lucide-help-circle",
-      status: r.status ? "Active" : "Disabled",
+      status: r.active ? "Active" : "Disabled",
     }));
   }
   return defaultRoles;

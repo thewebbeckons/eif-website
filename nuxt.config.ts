@@ -1,20 +1,24 @@
-import slicemachineConfig from "./slicemachine.config.json";
-
-const repositoryName = String(slicemachineConfig.repositoryName);
 const rosterRefreshCron = "*/10 * * * *";
 const isDevelopment = process.env.NODE_ENV === "development";
 const isPreviewCloudflareEnv = process.env.CLOUDFLARE_ENV === "preview";
-const apiEndpoint =
-  "apiEndpoint" in slicemachineConfig &&
-  typeof slicemachineConfig.apiEndpoint === "string"
-    ? slicemachineConfig.apiEndpoint
-    : undefined;
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@nuxt/ui", "@nuxtjs/prismic", "@nuxthub/core", "@nuxt/scripts"],
+  modules: ["@nuxt/ui", "@nuxt/content", "@nuxthub/core", "@nuxt/scripts"],
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
   compatibilityDate: "2025-02-15",
+
+  components: [
+    // Registered globally so markdown can use them as MDC blocks (::news-quote)
+    { path: "~/components/news", global: true },
+    "~/components",
+  ],
+
+  content: {
+    experimental: {
+      nativeSqlite: true,
+    },
+  },
 
   icon: {
     clientBundle: {
@@ -23,15 +27,6 @@ export default defineNuxtConfig({
         globExclude: ["node_modules", ".nuxt", ".output"],
       },
       icons: ["lucide:bow-arrow", "lucide:heart-pulse"],
-    },
-  },
-
-  prismic: {
-    endpoint: apiEndpoint || repositoryName,
-    clientConfig: {
-      // `type` is the API ID of a page type.
-      // `path` determines the URL for a page of that type.
-      routes: [{ type: "news", path: "/news/:uid" }],
     },
   },
 
@@ -54,6 +49,15 @@ export default defineNuxtConfig({
     },
     experimental: {
       tasks: true,
+    },
+    prerender: {
+      // Content-backed routes are baked at build time so the Worker never needs
+      // a runtime content database. Crawling picks up each /news/<slug> post
+      // from the news index.
+      crawlLinks: true,
+      routes: ["/", "/news"],
+      ignore: ["/roster", "/streams", "/apply", "/api"],
+      autoSubfolderIndex: false,
     },
     scheduledTasks: isPreviewCloudflareEnv
       ? {}
