@@ -14,11 +14,9 @@ defineProps<{
     ]"
   >
     <div
-      class="prismic-rich-text"
+      class="rich-text"
       :class="[
-        variant === 'highlight'
-          ? 'prismic-rich-text-highlight text-black!'
-          : 'text-zinc-100!',
+        variant === 'highlight' ? 'rich-text-highlight text-black!' : 'text-zinc-100!',
       ]"
     >
       <slot />

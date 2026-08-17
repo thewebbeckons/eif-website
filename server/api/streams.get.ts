@@ -1,4 +1,4 @@
-import { createClient } from "@prismicio/client";
+import streamersData from "../assets/streamers.json";
 
 const getTwitchCredentials = (event: any) => {
   const config = useRuntimeConfig(event);
@@ -53,22 +53,14 @@ export default defineCachedEventHandler(
 
     if (!accessToken) return [];
 
-    // 2. Read streamers from Prismic
-    const client = createClient("eif-guild");
-    let contentStreamers: any[] = [];
-    try {
-      const streamersDoc = await client.getSingle("streamers");
-      contentStreamers = streamersDoc.data.streamers || [];
-    } catch (error) {
-      console.error("Error fetching streamers from Prismic:", error);
-      return [];
-    }
+    // 2. Read the guild's streamers
+    const contentStreamers = streamersData.streamers ?? [];
 
     if (contentStreamers.length === 0) return [];
 
     // 3. Prepare login names for Twitch API
     const logins = contentStreamers
-      .map((s) => s.twitch_user)
+      .map((s) => s.twitchUser)
       .filter(Boolean)
       .map((login) => String(login).toLowerCase());
 
@@ -120,13 +112,13 @@ export default defineCachedEventHandler(
           (c: any) => c.broadcaster_id === user?.id,
         );
         const contentData = contentStreamers.find(
-          (s) => String(s.twitch_user).toLowerCase() === login,
+          (s) => String(s.twitchUser).toLowerCase() === login,
         );
 
         return {
           id: user?.id || login,
           streamerName:
-            contentData?.display_name || user?.display_name || login,
+            contentData?.displayName || user?.display_name || login,
           twitchUrl: `https://www.twitch.tv/${user?.login || login}`,
           title: channel?.title || "Offline",
           game: channel?.game_name || "",

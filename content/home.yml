@@ -1,0 +1,14 @@
+description: Community-first raiding on Illidan. Good vibes, better loot, and zero toxicity!
+roles:
+  - name: Tank
+    icon: i-lucide-shield
+    active: false
+  - name: Healer
+    icon: i-lucide-heart-pulse
+    active: false
+  - name: Melee
+    icon: i-lucide-swords
+    active: false
+  - name: Ranged
+    icon: i-lucide-bow-arrow
+    active: false

@@ -1,39 +1,18 @@
 <script setup lang="ts">
-import { components } from "~/slices";
-
-const prismic = usePrismic();
 const route = useRoute();
 
-// Extract UID from the catch-all route
-const uid = computed(() => {
-  const parts = route.params.uid;
-  if (Array.isArray(parts)) return parts.join("/");
-  return parts || "";
-});
-
-const { data: post } = await useAsyncData(`news-${uid.value}`, () =>
-  prismic.client.getByUID("news", uid.value),
+const { data: post } = await useAsyncData(`news-${route.path}`, () =>
+  queryCollection("news").path(route.path).first(),
 );
 
 if (!post.value) {
   throw createError({ statusCode: 404, statusMessage: "Post not found" });
 }
 
-const formatDate = (date?: string | null) => {
-  if (!date) return "";
-  return new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-};
-
-const seoTitle =
-  post.value.data.meta_title || post.value.data.title || undefined;
+const seoTitle = post.value.seo?.title || post.value.title || undefined;
 const seoDescription =
-  post.value.data.meta_description || post.value.data.description || undefined;
-const seoImage =
-  post.value.data.meta_image?.url || post.value.data.image?.url || undefined;
+  post.value.seo?.description || post.value.description || undefined;
+const seoImage = post.value.seo?.image || post.value.image?.src || undefined;
 
 useSeoMeta({
   title: seoTitle,
@@ -59,17 +38,17 @@ useSeoMeta({
           </NuxtLink>
 
           <NewsHero
-            :title="post.data.title || 'Untitled'"
-            :date="formatDate(post.last_publication_date)"
-            :original-date="formatDate(post.first_publication_date)"
-            :image="post.data.image?.url || undefined"
-            :image-alt="post.data.title || ''"
-            :tag="post.data.category || undefined"
-            :author="post.data.author || undefined"
+            :title="post.title || 'Untitled'"
+            :date="formatDate(post.updatedAt || post.date)"
+            :original-date="formatDate(post.date)"
+            :image="post.image?.src || undefined"
+            :image-alt="post.image?.alt || post.title || ''"
+            :tag="post.category || undefined"
+            :author="post.author || undefined"
           />
         </div>
 
-        <SliceZone :slices="post.data.slices" :components="components" />
+        <ContentRenderer :value="post" class="flex flex-col gap-16" />
 
         <!-- Back to news -->
         <div class="mt-8 pt-8 border-t-4 border-black">

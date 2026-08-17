@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// Mock data — simulates a Prismic news post about The War Within: Midnight
+// Mock data — showcases the news components with a The War Within: Midnight post
 const mockPost = {
   title: "The War Within: Midnight — What We Know So Far",
   date: "February 24, 2026",
