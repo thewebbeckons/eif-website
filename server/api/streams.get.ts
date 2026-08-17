@@ -121,11 +121,14 @@ export default defineCachedEventHandler(
 
       const usersQuery = new URLSearchParams();
       logins.forEach((login) => usersQuery.append("login", login));
-      const { data: users } = await fetchTwitch(
-        "users",
-        usersQuery,
-        twitchUsersResponseSchema,
-      );
+
+      const streamsQuery = new URLSearchParams();
+      logins.forEach((login) => streamsQuery.append("user_login", login));
+
+      const [{ data: users }, { data: activeStreams }] = await Promise.all([
+        fetchTwitch("users", usersQuery, twitchUsersResponseSchema),
+        fetchTwitch("streams", streamsQuery, twitchStreamsResponseSchema),
+      ]);
 
       const channelsQuery = new URLSearchParams();
       users.forEach((user) =>
@@ -140,14 +143,6 @@ export default defineCachedEventHandler(
             )
           ).data
         : [];
-
-      const streamsQuery = new URLSearchParams();
-      logins.forEach((login) => streamsQuery.append("user_login", login));
-      const { data: activeStreams } = await fetchTwitch(
-        "streams",
-        streamsQuery,
-        twitchStreamsResponseSchema,
-      );
 
       return logins.map((login): GuildStream => {
         const user = users.find((candidate) => candidate.login === login);

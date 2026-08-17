@@ -98,110 +98,6 @@ interface CatsDocumentData {
  */
 export type CatsDocument<Lang extends string = string> = prismic.PrismicDocumentWithoutUID<Simplify<CatsDocumentData>, "cats", Lang>;
 
-type HallOfFameDocumentDataSlicesSlice = ChampionSeasonSlice
-
-/**
- * Content for Hall of Fame documents
- */
-interface HallOfFameDocumentData {
-	/**
-	 * Slice Zone field in *Hall of Fame*
-	 *
-	 * - **Field Type**: Slice Zone
-	 * - **Placeholder**: *None*
-	 * - **API ID Path**: hall_of_fame.slices[]
-	 * - **Tab**: Main
-	 * - **Documentation**: https://prismic.io/docs/slices
-	 */
-	slices: prismic.SliceZone<HallOfFameDocumentDataSlicesSlice>;
-
-	/**
-	 * Title field in *Hall of Fame*
-	 *
-	 * - **Field Type**: Text
-	 * - **Placeholder**: Hall of Fame
-	 * - **API ID Path**: hall_of_fame.title
-	 * - **Tab**: Main
-	 * - **Documentation**: https://prismic.io/docs/fields/text
-	 */
-	title: prismic.KeyTextField;
-
-	/**
-	 * Introduction field in *Hall of Fame*
-	 *
-	 * - **Field Type**: Text
-	 * - **Placeholder**: Immortalizing our champion teams across the seasons.
-	 * - **API ID Path**: hall_of_fame.introduction
-	 * - **Tab**: Main
-	 * - **Documentation**: https://prismic.io/docs/fields/text
-	 */
-	introduction: prismic.KeyTextField;
-
-	/**
-	 * Active season name field in *Hall of Fame*
-	 *
-	 * - **Field Type**: Text
-	 * - **Placeholder**: Midnight Season 1
-	 * - **API ID Path**: hall_of_fame.active_season_name
-	 * - **Tab**: Main
-	 * - **Documentation**: https://prismic.io/docs/fields/text
-	 */
-	active_season_name: prismic.KeyTextField;
-
-	/**
-	 * Active season description field in *Hall of Fame*
-	 *
-	 * - **Field Type**: Text
-	 * - **Placeholder**: The race is underway.
-	 * - **API ID Path**: hall_of_fame.active_season_description
-	 * - **Tab**: Main
-	 * - **Documentation**: https://prismic.io/docs/fields/text
-	 */
-	active_season_description: prismic.KeyTextField;/**
-	 * Meta Title field in *Hall of Fame*
-	 *
-	 * - **Field Type**: Text
-	 * - **Placeholder**: A title of the page used for social media and search engines
-	 * - **API ID Path**: hall_of_fame.meta_title
-	 * - **Tab**: SEO & Metadata
-	 * - **Documentation**: https://prismic.io/docs/fields/text
-	 */
-	meta_title: prismic.KeyTextField;
-
-	/**
-	 * Meta Description field in *Hall of Fame*
-	 *
-	 * - **Field Type**: Text
-	 * - **Placeholder**: A brief summary of the page
-	 * - **API ID Path**: hall_of_fame.meta_description
-	 * - **Tab**: SEO & Metadata
-	 * - **Documentation**: https://prismic.io/docs/fields/text
-	 */
-	meta_description: prismic.KeyTextField;
-
-	/**
-	 * Meta Image field in *Hall of Fame*
-	 *
-	 * - **Field Type**: Image
-	 * - **Placeholder**: *None*
-	 * - **API ID Path**: hall_of_fame.meta_image
-	 * - **Tab**: SEO & Metadata
-	 * - **Documentation**: https://prismic.io/docs/fields/image
-	 */
-	meta_image: prismic.ImageField<never>;
-}
-
-/**
- * Hall of Fame document from Prismic
- *
- * - **API ID**: `hall_of_fame`
- * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/content-modeling
- *
- * @typeParam Lang - Language API ID of the document.
- */
-export type HallOfFameDocument<Lang extends string = string> = prismic.PrismicDocumentWithoutUID<Simplify<HallOfFameDocumentData>, "hall_of_fame", Lang>;
-
 /**
  * Item in *Home → Roles*
  */
@@ -542,150 +438,7 @@ interface StreamersDocumentData {
  */
 export type StreamersDocument<Lang extends string = string> = prismic.PrismicDocumentWithoutUID<Simplify<StreamersDocumentData>, "streamers", Lang>;
 
-export type AllDocumentTypes = CatsDocument | HallOfFameDocument | HomeDocument | NewsDocument | QismsDocument | StreamersDocument;
-
-/**
- * Item in *Champion Season → Default → Primary → Team members*
- */
-export interface ChampionSeasonSliceDefaultPrimaryMembersItem {
-	/**
-	 * Character name field in *Champion Season → Default → Primary → Team members*
-	 *
-	 * - **Field Type**: Text
-	 * - **Placeholder**: Character name
-	 * - **API ID Path**: champion_season.default.primary.members[].name
-	 * - **Documentation**: https://prismic.io/docs/fields/text
-	 */
-	name: prismic.KeyTextField;
-
-	/**
-	 * Class field in *Champion Season → Default → Primary → Team members*
-	 *
-	 * - **Field Type**: Text
-	 * - **Placeholder**: Death Knight
-	 * - **API ID Path**: champion_season.default.primary.members[].class_name
-	 * - **Documentation**: https://prismic.io/docs/fields/text
-	 */
-	class_name: prismic.KeyTextField;
-
-	/**
-	 * Specialization field in *Champion Season → Default → Primary → Team members*
-	 *
-	 * - **Field Type**: Text
-	 * - **Placeholder**: Blood
-	 * - **API ID Path**: champion_season.default.primary.members[].specialization
-	 * - **Documentation**: https://prismic.io/docs/fields/text
-	 */
-	specialization: prismic.KeyTextField;
-
-	/**
-	 * Role field in *Champion Season → Default → Primary → Team members*
-	 *
-	 * - **Field Type**: Select
-	 * - **Placeholder**: *None*
-	 * - **API ID Path**: champion_season.default.primary.members[].role
-	 * - **Documentation**: https://prismic.io/docs/fields/select
-	 */
-	role: prismic.SelectField<"TANK" | "HEALER" | "DPS">;
-
-	/**
-	 * Avatar field in *Champion Season → Default → Primary → Team members*
-	 *
-	 * - **Field Type**: Image
-	 * - **Placeholder**: Square character portrait
-	 * - **API ID Path**: champion_season.default.primary.members[].avatar
-	 * - **Documentation**: https://prismic.io/docs/fields/image
-	 */
-	avatar: prismic.ImageField<never>;
-
-	/**
-	 * Raider.IO profile field in *Champion Season → Default → Primary → Team members*
-	 *
-	 * - **Field Type**: Link
-	 * - **Placeholder**: *None*
-	 * - **API ID Path**: champion_season.default.primary.members[].profile_url
-	 * - **Documentation**: https://prismic.io/docs/fields/link
-	 */
-	profile_url: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
-}
-
-/**
- * Primary content in *Champion Season → Default → Primary*
- */
-export interface ChampionSeasonSliceDefaultPrimary {
-	/**
-	 * Season ID field in *Champion Season → Default → Primary*
-	 *
-	 * - **Field Type**: Text
-	 * - **Placeholder**: midnight-season-1
-	 * - **API ID Path**: champion_season.default.primary.season_id
-	 * - **Documentation**: https://prismic.io/docs/fields/text
-	 */
-	season_id: prismic.KeyTextField;
-
-	/**
-	 * Season name field in *Champion Season → Default → Primary*
-	 *
-	 * - **Field Type**: Text
-	 * - **Placeholder**: Midnight Season 1
-	 * - **API ID Path**: champion_season.default.primary.season_name
-	 * - **Documentation**: https://prismic.io/docs/fields/text
-	 */
-	season_name: prismic.KeyTextField;
-
-	/**
-	 * Team name field in *Champion Season → Default → Primary*
-	 *
-	 * - **Field Type**: Text
-	 * - **Placeholder**: Champion team name
-	 * - **API ID Path**: champion_season.default.primary.team_name
-	 * - **Documentation**: https://prismic.io/docs/fields/text
-	 */
-	team_name: prismic.KeyTextField;
-
-	/**
-	 * Team score field in *Champion Season → Default → Primary*
-	 *
-	 * - **Field Type**: Number
-	 * - **Placeholder**: 3000
-	 * - **API ID Path**: champion_season.default.primary.score
-	 * - **Documentation**: https://prismic.io/docs/fields/number
-	 */
-	score: prismic.NumberField;
-
-	/**
-	 * Team members field in *Champion Season → Default → Primary*
-	 *
-	 * - **Field Type**: Group
-	 * - **Placeholder**: *None*
-	 * - **API ID Path**: champion_season.default.primary.members[]
-	 * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
-	 */
-	members: prismic.GroupField<Simplify<ChampionSeasonSliceDefaultPrimaryMembersItem>>;
-}
-
-/**
- * Default variation for Champion Season Slice
- *
- * - **API ID**: `default`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type ChampionSeasonSliceDefault = prismic.SharedSliceVariation<"default", Simplify<ChampionSeasonSliceDefaultPrimary>, never>;
-
-/**
- * Slice variation for *Champion Season*
- */
-type ChampionSeasonSliceVariation = ChampionSeasonSliceDefault
-
-/**
- * Champion Season Shared Slice
- *
- * - **API ID**: `champion_season`
- * - **Description**: *None*
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type ChampionSeasonSlice = prismic.SharedSlice<"champion_season", ChampionSeasonSliceVariation>;
+export type AllDocumentTypes = CatsDocument | HomeDocument | NewsDocument | QismsDocument | StreamersDocument;
 
 /**
  * Primary content in *TextCard → Default → Primary*
@@ -946,9 +699,6 @@ declare module "@prismicio/client" {
 			CatsDocument,
 			CatsDocumentData,
 			CatsDocumentDataCatsItem,
-			HallOfFameDocument,
-			HallOfFameDocumentData,
-			HallOfFameDocumentDataSlicesSlice,
 			HomeDocument,
 			HomeDocumentData,
 			HomeDocumentDataRolesItem,
@@ -963,11 +713,6 @@ declare module "@prismicio/client" {
 			StreamersDocumentData,
 			StreamersDocumentDataStreamersItem,
 			AllDocumentTypes,
-			ChampionSeasonSlice,
-			ChampionSeasonSliceDefaultPrimaryMembersItem,
-			ChampionSeasonSliceDefaultPrimary,
-			ChampionSeasonSliceVariation,
-			ChampionSeasonSliceDefault,
 			ChapterIntroSlice,
 			ChapterIntroSliceDefaultPrimary,
 			ChapterIntroSliceTextCardHighlightPrimary,
