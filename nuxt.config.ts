@@ -53,9 +53,10 @@ export default defineNuxtConfig({
     prerender: {
       // Content-backed routes are baked at build time so the Worker never needs
       // a runtime content database. Crawling picks up each /news/<slug> post
-      // from the news index.
+      // from the news index. /hall-of-fame reads a committed JSON file, so it
+      // bakes too rather than hitting the API at runtime.
       crawlLinks: true,
-      routes: ["/", "/news"],
+      routes: ["/", "/news", "/hall-of-fame"],
       ignore: ["/roster", "/streams", "/apply", "/api"],
       autoSubfolderIndex: false,
     },

@@ -8,6 +8,7 @@ Built with [Nuxt 4](https://nuxt.com), [Nuxt UI v4](https://ui.nuxt.com), and de
 
 - 🏰 **Guild Roster** - Raider.IO snapshots cached in NuxtHub KV and served instantly
 - 📰 **News & Updates** - Markdown-powered blog via Nuxt Content
+- 🏆 **Hall of Fame** - Champion team and Mythic+ Guru for each completed season
 - 🎮 **Streams** - Guild member streaming status
 - 📝 **Guild Applications** - Join request form
 
@@ -135,6 +136,19 @@ images:
 Streamer handles live in `server/assets/streamers.json` — they're read by the
 Twitch API route on the server, so they stay plain JSON rather than a content
 collection.
+
+### Hall of Fame
+
+Completed seasons live in `server/assets/hall-of-fame.json` and are served by
+`/api/hall-of-fame`. Each entry records the season's champion team and its
+highest-scoring player under `mythicPlusGuru`; a Guru uses the same fields as a
+team member plus `score`. A team or Guru `score` may be `null` when the final
+number isn't known, and `mythicPlusGuru` may be `null` for older seasons.
+
+Set `activeSeason` to `{ "name": ..., "description": ... }` while a season is
+still running, then set it back to `null` and prepend the finished season to
+`seasons` once it closes. The file is snapshot data on purpose — it keeps
+historical rosters intact when `server/assets/roster.json` changes.
 
 ### Publishing
 
