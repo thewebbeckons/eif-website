@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { TableColumn } from "@nuxt/ui";
+import type { HallOfFameContent } from "../../shared/types/hall-of-fame";
 import type {
   RosterBestRun,
   RosterPlayer,
@@ -10,6 +11,13 @@ import catsData from "~/assets/cats.json";
 
 const { data: rosterData, error, status } = await useFetch<RosterResponse>(
   "/api/roster",
+  {
+    server: true,
+  },
+);
+
+const { data: hallOfFameData } = await useFetch<HallOfFameContent>(
+  "/api/hall-of-fame",
   {
     server: true,
   },
@@ -132,7 +140,14 @@ const getScoreColor = (score?: number | null) => {
   return "text-gray-500 dark:text-stone-400";
 };
 
-const hasGuruTag = (name: string) => name.toLowerCase().includes("eir");
+const latestGuruName = computed(
+  () =>
+    hallOfFameData.value?.seasons.find((season) => season.mythicPlusGuru)
+      ?.mythicPlusGuru?.name || null,
+);
+const hasGuruTag = (name: string) =>
+  latestGuruName.value !== null &&
+  name.toLowerCase() === latestGuruName.value.toLowerCase();
 const catsByPlayerId = new Map(
   catsData.owners.map((owner) => [owner.playerId, owner.catNames] as const),
 );
@@ -303,15 +318,15 @@ const getRaiderIoUrl = (player: RosterPlayer) =>
                       >
                         <button
                           class="relative -top-px flex cursor-pointer items-center text-xl transition-transform hover:scale-110"
-                          title="M+ Guru"
+                          title="Mythic+ Guru"
                         >
-                          ✨
+                          🔑
                         </button>
                         <template #content>
                           <div
                             class="px-3 py-2 text-sm font-black uppercase tracking-wider"
                           >
-                            M+ Guru
+                            Mythic+ Guru
                           </div>
                         </template>
                       </UPopover>
@@ -421,15 +436,15 @@ const getRaiderIoUrl = (player: RosterPlayer) =>
                         >
                           <button
                             class="relative -top-px flex cursor-pointer items-center text-xl transition-transform hover:scale-110"
-                            title="M+ Guru"
+                            title="Mythic+ Guru"
                           >
-                            ✨
+                            🔑
                           </button>
                           <template #content>
                             <div
                               class="px-3 py-2 text-sm font-black uppercase tracking-wider"
                             >
-                              M+ Guru
+                              Mythic+ Guru
                             </div>
                           </template>
                         </UPopover>
@@ -585,7 +600,7 @@ const getRaiderIoUrl = (player: RosterPlayer) =>
                             class="text-sm"
                             aria-hidden="true"
                           >
-                            ✨
+                            🔑
                           </span>
                         </div>
                         <p

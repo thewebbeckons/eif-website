@@ -136,7 +136,7 @@ defineProps<{
         <p
           class="relative flex items-center gap-2 font-mono text-xs font-black uppercase tracking-[0.2em]"
         >
-          <UIcon name="i-lucide-sparkles" class="size-4" />
+          <UIcon name="i-lucide-key-round" class="size-4" />
           Mythic+ Guru
         </p>
 
