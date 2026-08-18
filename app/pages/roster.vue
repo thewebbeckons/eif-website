@@ -6,6 +6,7 @@ import type {
   RosterResponse,
   RosterTeam,
 } from "../../shared/types/roster";
+import catsData from "~/assets/cats.json";
 
 const { data: rosterData, error, status } = await useFetch<RosterResponse>(
   "/api/roster",
@@ -151,6 +152,11 @@ const getScoreColor = (score?: number | null) => {
 };
 
 const hasGuruTag = (name: string) => name.toLowerCase().includes("eir");
+const catsByPlayerId = new Map(
+  catsData.owners.map((owner) => [owner.playerId, owner.catNames] as const),
+);
+const getPlayerCats = (player: RosterPlayer) =>
+  catsByPlayerId.get(player.id) || [];
 const getLookupStatusLabel = (player: RosterPlayer) =>
   player.lookup_status === "lookup_failed" ? "Lookup failed" : "No score yet";
 const getRunKey = (run: RosterBestRun, index: number) =>
@@ -303,6 +309,10 @@ const getRaiderIoUrl = (player: RosterPlayer) =>
                       >
                         {{ getDisplayName(player) }}
                       </p>
+                      <RosterCatTooltip
+                        v-if="getPlayerCats(player).length > 0"
+                        :cat-names="getPlayerCats(player)"
+                      />
                       <UPopover
                         v-if="hasGuruTag(player.name)"
                         :ui="{
@@ -417,6 +427,10 @@ const getRaiderIoUrl = (player: RosterPlayer) =>
                         >
                           {{ getDisplayName(row.original) }}
                         </p>
+                        <RosterCatTooltip
+                          v-if="getPlayerCats(row.original).length > 0"
+                          :cat-names="getPlayerCats(row.original)"
+                        />
                         <UPopover
                           v-if="hasGuruTag(row.original.name)"
                           :ui="{
@@ -581,6 +595,10 @@ const getRaiderIoUrl = (player: RosterPlayer) =>
                           >
                             {{ getDisplayName(player) }}
                           </p>
+                          <RosterCatTooltip
+                            v-if="getPlayerCats(player).length > 0"
+                            :cat-names="getPlayerCats(player)"
+                          />
                           <span
                             v-if="hasGuruTag(player.name)"
                             class="text-sm"

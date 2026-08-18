@@ -91,6 +91,12 @@ Preview builds should set `CLOUDFLARE_ENV=preview`, which disables the cron trig
 - `pnpm dev` uses NuxtHub local storage under `.data/` for KV.
 - Remote Cloudflare bindings are optional for development and are not required for the roster page to work locally.
 
+### 6. Roster cat tooltips
+
+Cat ownership is managed in `app/assets/cats.json`, keyed by the stable player IDs
+from `server/assets/roster.json`. Each entry's `catNames` array is shown from the
+cat icon beside that player in every roster view.
+
 ## Content
 
 All editable content lives in `content/` and is read through [Nuxt Content](https://content.nuxt.com). Schemas are defined in [content.config.ts](./content.config.ts).
@@ -150,11 +156,12 @@ app/
 ├── components/
 │   ├── app/        # Global components (Header, Footer, Logo, JoinModal)
 │   ├── home/       # Homepage sections
-│   └── news/       # News post building blocks (also usable from markdown)
+│   ├── news/       # News post building blocks (also usable from markdown)
+│   └── roster/     # Roster view building blocks (CatTooltip)
 ├── composables/    # Shared state (useJoinModal)
 ├── pages/          # Route pages
 ├── utils/          # Auto-imported helpers
-└── assets/css/     # Global styles
+└── assets/         # Global styles plus checked-in site data (cats, qisms)
 content/
 ├── news/           # Markdown blog posts
 └── home.yml        # Homepage copy and recruitment roles
