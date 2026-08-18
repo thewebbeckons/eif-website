@@ -121,25 +121,6 @@ const columns: TableColumn<RosterPlayer>[] = [
   },
 ];
 
-const getClassColor = (className: string) => {
-  const colors: Record<string, string> = {
-    "Death Knight": "text-[#C41F3B]",
-    "Demon Hunter": "text-[#A330C9]",
-    Druid: "text-[#FF7D0A]",
-    Evoker: "text-[#33937F]",
-    Hunter: "text-[#ABD473]",
-    Mage: "text-[#69CCF0]",
-    Monk: "text-[#00FF96]",
-    Paladin: "text-[#F58CBA]",
-    Priest: "text-[#FFFFFF]",
-    Rogue: "text-[#FFF569]",
-    Shaman: "text-[#0070DE]",
-    Warlock: "text-[#9482C9]",
-    Warrior: "text-[#C79C6E]",
-  };
-  return colors[className] || "text-gray-500 dark:text-stone-400";
-};
-
 const getScoreColor = (score?: number | null) => {
   if (typeof score !== "number") return "text-gray-500 dark:text-stone-400";
   if (score >= 3000) return "text-orange-500";
@@ -328,7 +309,7 @@ const getRaiderIoUrl = (player: RosterPlayer) =>
                     <p
                       :class="[
                         'text-xs font-bold uppercase tracking-wider',
-                        getClassColor(player.class),
+                        getWowClassTextColor(player.class),
                       ]"
                     >
                       {{ player.class }}
@@ -442,7 +423,7 @@ const getRaiderIoUrl = (player: RosterPlayer) =>
                       <p
                         :class="[
                           'text-xs font-bold uppercase tracking-wider',
-                          getClassColor(row.original.class),
+                          getWowClassTextColor(row.original.class),
                         ]"
                       >
                         {{ row.original.class }}
@@ -592,7 +573,7 @@ const getRaiderIoUrl = (player: RosterPlayer) =>
                         <p
                           :class="[
                             'text-xs font-bold uppercase tracking-wider',
-                            getClassColor(player.class),
+                            getWowClassTextColor(player.class),
                           ]"
                         >
                           {{ player.class }}
