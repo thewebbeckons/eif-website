@@ -6,22 +6,22 @@
 	},
 	"players": [
 		{
-			"id": "nightgrizzly-illidan",
-			"name": "Nightgrizzly",
+			"id": "vyrron-illidan",
+			"name": "Vyrron",
 			"realm": "illidan",
 			"region": "us",
 			"class": "Death Knight",
 			"race": "Blood Elf",
-			"label": "Nightgrizzly"
+			"label": "Vyrron"
 		},
 		{
-			"id": "eiralinn-illidan",
-			"name": "Eiralinn",
+			"id": "eirali-illidan",
+			"name": "Eirali",
 			"realm": "illidan",
 			"region": "us",
 			"class": "Hunter",
 			"race": "Void Elf",
-			"label": "Eiralinn"
+			"label": "Eirali"
 		},
 		{
 			"id": "azkabaar-illidan",
@@ -245,8 +245,8 @@
 			"id": "potatoad-potahtoad",
 			"name": "Potatoad Potahtoad",
 			"memberIds": [
-				"nightgrizzly-illidan",
-				"eiralinn-illidan",
+				"vyrron-illidan",
+				"eirali-illidan",
 				"lharghrarn-illidan",
 				"sammfdrood-illidan",
 				"coffeewizard-illidan"
