@@ -1,8 +1,8 @@
 import type {
   RosterGuild,
   RosterPlayer,
+  RosterResponse,
 } from "../../shared/types/roster";
-import type { CachedRosterSnapshot } from "./roster-cache";
 import type { RosterConfig } from "./roster";
 
 const GUILD_PROFILE_FIELDS = "raid_progression:current-tier";
@@ -80,7 +80,7 @@ async function buildRosterPlayer(
   }
 }
 
-export async function buildRosterSnapshot(): Promise<CachedRosterSnapshot> {
+export async function buildRosterSnapshot(): Promise<RosterResponse> {
   const runtimeConfig = useRuntimeConfig();
   const rosterConfig = getRosterConfig();
   const raiderIoKey =
@@ -95,12 +95,9 @@ export async function buildRosterSnapshot(): Promise<CachedRosterSnapshot> {
     ),
   );
 
-  return {
-    generatedAt: new Date().toISOString(),
-    data: createRosterResponse({
-      guild,
-      players,
-      teams: rosterConfig.teams,
-    }),
-  };
+  return createRosterResponse({
+    guild,
+    players,
+    teams: rosterConfig.teams,
+  });
 }

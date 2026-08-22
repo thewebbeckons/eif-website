@@ -6,7 +6,7 @@ Built with [Nuxt 4](https://nuxt.com), [Nuxt UI v4](https://ui.nuxt.com), and de
 
 ## Features
 
-- 🏰 **Guild Roster** - Raider.IO snapshots cached in NuxtHub KV and served instantly
+- 🏰 **Guild Roster** - Raider.IO snapshots served with a 10-minute stale-while-revalidate cache
 - 📰 **News & Updates** - Markdown-powered blog via Nuxt Content
 - 🏆 **Hall of Fame** - Champion team and Mythic+ Guru for each completed season
 - 🎮 **Streams** - Guild member streaming status
@@ -17,7 +17,6 @@ Built with [Nuxt 4](https://nuxt.com), [Nuxt UI v4](https://ui.nuxt.com), and de
 - **Framework**: Nuxt 4
 - **Hosting**: Cloudflare Workers
 - **UI**: Nuxt UI v4 + Tailwind CSS
-- **Storage**: NuxtHub KV
 - **CMS**: Nuxt Content (markdown + YAML in `content/`)
 - **Animations**: motion-v
 - **Validation**: zod
@@ -50,49 +49,27 @@ pnpm preview
 
 ## Cloudflare Workers Deployment
 
-This project targets **Cloudflare Workers**, not Cloudflare Pages. The roster cache uses [NuxtHub KV](https://hub.nuxt.com) and a Nitro scheduled task that refreshes Raider.IO data every 10 minutes in production.
+This project targets **Cloudflare Workers**, not Cloudflare Pages. The roster route (`/api/roster`) fetches live from Raider.IO and caches its response in-process for 10 minutes with stale-while-revalidate, via Nitro's `defineCachedEventHandler` — no external storage or scheduled task required.
 
 ### 1. Create Cloudflare resources
 
-- Create one Workers KV namespace for production.
-- Create one Workers KV namespace for preview deployments.
 - Create a Cloudflare Workers project connected to this repository.
 
 ### 2. Configure environment variables
 
-Set these variables in Cloudflare Workers Builds for both environments:
-
-- `RAIDER_IO_KEY`
-- `CLOUDFLARE_KV_NAMESPACE_ID`
-
-Use the production namespace ID in the production environment and the preview namespace ID in the preview environment.
-
-NuxtHub's `hub:kv` runtime expects a Cloudflare binding named `KV`. When `CLOUDFLARE_KV_NAMESPACE_ID` is present during a worker build, Nuxt/Nitro generates that binding in `.output/server/wrangler.json`.
+Set `RAIDER_IO_KEY` in Cloudflare Workers Builds.
 
 ### 3. Build configuration
 
 - Production builds can use `pnpm build` on Cloudflare, where Nuxt/Nitro will detect the Workers target automatically.
 - For local manual Workers builds, use `pnpm build:worker`.
-- To build preview bindings locally, also set `CLOUDFLARE_ENV=preview`.
 - If you deploy with Wrangler, deploy from `.output` so it uses the generated Worker config: `pnpm deploy`.
-- If you deploy from the Cloudflare dashboard instead, confirm the deployed worker has a KV namespace bound with the exact binding name `KV`.
 
-### 4. Cron trigger
+### 4. Local development
 
-The Worker cron is generated at build time from [nuxt.config.ts](./nuxt.config.ts) and runs every 10 minutes in production:
+`pnpm dev` works without any Cloudflare bindings — the roster page fetches live from Raider.IO on each cache miss.
 
-```txt
-*/10 * * * *
-```
-
-Preview builds should set `CLOUDFLARE_ENV=preview`, which disables the cron trigger in the generated Worker config while still keeping the preview KV binding.
-
-### 5. Local development
-
-- `pnpm dev` uses NuxtHub local storage under `.data/` for KV.
-- Remote Cloudflare bindings are optional for development and are not required for the roster page to work locally.
-
-### 6. Roster cat tooltips
+### 5. Roster cat tooltips
 
 Cat ownership is managed in `app/assets/cats.json`, keyed by the stable player IDs
 from `server/assets/roster.json`. Each entry's `catNames` array is shown from the

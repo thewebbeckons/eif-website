@@ -1,9 +1,6 @@
-const rosterRefreshCron = "*/10 * * * *";
-const isDevelopment = process.env.NODE_ENV === "development";
-const isPreviewCloudflareEnv = process.env.CLOUDFLARE_ENV === "preview";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-	modules: ["@nuxt/ui", "@nuxt/content", "@nuxthub/core", "@nuxt/scripts"],
+	modules: ["@nuxt/ui", "@nuxt/content", "@nuxt/scripts"],
 	css: ["~/assets/css/main.css"],
 	devtools: { enabled: true },
 	compatibilityDate: "2025-02-15",
@@ -34,21 +31,9 @@ export default defineNuxtConfig({
 		preference: "dark",
 		fallback: "dark",
 	},
-	hub: {
-		kv: isDevelopment
-			? true
-			: {
-					driver: "cloudflare-kv-binding",
-					namespaceId: process.env.CLOUDFLARE_KV_NAMESPACE_ID,
-					binding: "KV",
-				},
-	},
 	nitro: {
 		alias: {
 			"node:console": "unenv/node/console",
-		},
-		experimental: {
-			tasks: true,
 		},
 		prerender: {
 			// Content-backed routes are baked at build time so the Worker never needs
@@ -60,13 +45,10 @@ export default defineNuxtConfig({
 			ignore: ["/roster", "/streams", "/apply", "/api"],
 			autoSubfolderIndex: false,
 		},
-		scheduledTasks: isPreviewCloudflareEnv
-			? {}
-			: {
-					[rosterRefreshCron]: ["roster:refresh"],
-				},
 		cloudflare: {
+			deployConfig: true,
 			wrangler: {
+				name: "eif-website",
 				compatibility_flags: ["nodejs_compat"],
 				observability: {
 					enabled: true,
@@ -75,9 +57,6 @@ export default defineNuxtConfig({
 						invocation_logs: true,
 						head_sampling_rate: 1,
 					},
-				},
-				triggers: {
-					crons: isPreviewCloudflareEnv ? [] : [rosterRefreshCron],
 				},
 			},
 		},
