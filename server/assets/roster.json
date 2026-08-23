@@ -19,8 +19,8 @@
 			"name": "Eirali",
 			"realm": "illidan",
 			"region": "us",
-			"class": "Hunter",
-			"race": "Void Elf",
+			"class": "Druid",
+			"race": "Night Elf",
 			"label": "Eirali"
 		},
 		{
@@ -64,18 +64,9 @@
 			"name": "Shamfjackson",
 			"realm": "illidan",
 			"region": "us",
-			"class": "Druid",
-			"race": "Haranir",
+			"class": "Shaman",
+			"race": "Mag'har Orc",
 			"label": "Shamfjackson"
-		},
-		{
-			"id": "frumplez-illidan",
-			"name": "Frumplez",
-			"realm": "illidan",
-			"region": "us",
-			"class": "Hunter",
-			"race": "Orc",
-			"label": "Frumplez"
 		},
 		{
 			"id": "splint-illidan",
@@ -105,13 +96,13 @@
 			"label": "Rozenthal"
 		},
 		{
-			"id": "avoidritz-illidan",
-			"name": "Avoidritz",
+			"id": "sickritz-illidan",
+			"name": "Sickritz",
 			"realm": "illidan",
 			"region": "us",
-			"class": "Demon Hunter",
-			"race": "Void Elf",
-			"label": "Avoidritz"
+			"class": "Priest",
+			"race": "Mechagnome",
+			"label": "Sickritz"
 		},
 		{
 			"id": "malitaur-illidan",
@@ -136,8 +127,8 @@
 			"name": "Pandacyn",
 			"realm": "illidan",
 			"region": "us",
-			"class": "Hunter",
-			"race": "Blood Elf",
+			"class": "Shaman",
+			"race": "Pandaren",
 			"label": "Pandacyn"
 		},
 		{
@@ -242,8 +233,8 @@
 	],
 	"teams": [
 		{
-			"id": "potatoad-potahtoad",
-			"name": "Potatoad Potahtoad",
+			"id": "beir-and-the-placeholders",
+			"name": "Beir and the Placeholders",
 			"memberIds": [
 				"vyrron-illidan",
 				"eirali-illidan",
@@ -260,16 +251,16 @@
 				"lysandris-illidan",
 				"qyleth-illidan",
 				"cantibor-illidan",
-				"avoidritz-illidan"
+				"sickritz-illidan"
 			]
 		},
 		{
-			"id": "nerf-bear",
-			"name": "Nerf Bear",
+			"id": "listen-to-metal",
+			"name": "Oh, I didn't know you listened to metal!",
 			"memberIds": [
 				"khannot-illidan",
 				"malitaur-illidan",
-				"avoidritz-illidan",
+				"sickritz-illidan",
 				"azkabaar-illidan",
 				"rozenthal-illidan"
 			]
