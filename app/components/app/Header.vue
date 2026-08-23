@@ -8,27 +8,6 @@ const items = computed(() => [
   { label: "Hall of Fame", to: "/hall-of-fame" },
 ]);
 
-const schittsCreekGifs = [
-  "https://media.giphy.com/media/xUA7b2zzeFPdRtBMek/giphy.gif",
-  "https://media.giphy.com/media/l0Ex6Ut39Zj7DzJn2/giphy.gif",
-  "https://media.giphy.com/media/UWJOhdyCXIGt5RcKSq/giphy.gif",
-  "https://media.giphy.com/media/fVzdH5xUnvqwpCCqdl/giphy.gif",
-  "https://media.giphy.com/media/Q8UvE3ISdNWfww5YaU/giphy.gif",
-  "https://media.giphy.com/media/SSKgkYJtpsYWCTFSng/giphy.gif",
-  "https://media.giphy.com/media/VgZzoLgZeukZRhxrpW/giphy.gif",
-  "https://media.giphy.com/media/cLw4RZHnJCIcR9uMhP/giphy.gif",
-  "https://media.giphy.com/media/hVb0lLoOLpB6TzxY6v/giphy.gif",
-  "https://media.giphy.com/media/U2KuGfM27RgLWeTF0q/giphy.gif",
-];
-
-const selectedGif = ref("");
-const onOpenGifModal = (open: boolean) => {
-  if (open) {
-    selectedGif.value =
-      schittsCreekGifs[Math.floor(Math.random() * schittsCreekGifs.length)] ||
-      "";
-  }
-};
 </script>
 
 <template>
@@ -51,28 +30,25 @@ const onOpenGifModal = (open: boolean) => {
     </template>
 
     <template #right>
-      <UModal @update:open="onOpenGifModal">
+      <UTooltip
+        text="Coming soon..."
+        :content="{ side: 'bottom' }"
+        :ui="{
+          content:
+            'rounded-none border-2 border-black bg-stone-800 font-black uppercase tracking-wider text-white shadow-[4px_4px_0_0_black] ring-0',
+        }"
+      >
         <UButton
           size="sm"
-          icon="i-lucide-sparkles"
+          label="Sign in"
+          icon="i-lucide-log-in"
           color="neutral"
           variant="ghost"
-          square
-          aria-label="Random Schitt's Creek GIF"
-          class="text-stone-300 hover:text-white bg-purple-500 hover:bg-purple-600 cursor-pointer hidden sm:block"
+          type="button"
+          aria-label="Sign in (coming soon)"
+          class="text-stone-300 hover:text-white bg-purple-500 hover:bg-purple-600 cursor-pointer hidden sm:flex"
         />
-        <template #content>
-          <div
-            class="p-1 max-w-max mx-auto border border-stone-800 rounded-xl bg-stone-900 shadow-2xl relative overflow-hidden"
-          >
-            <img
-              :src="selectedGif"
-              class="rounded-lg object-contain max-h-[80vh]"
-              alt="Schitt's Creek GIF"
-            />
-          </div>
-        </template>
-      </UModal>
+      </UTooltip>
     </template>
 
     <template #default>
