@@ -33,13 +33,13 @@
 			"label": "Azkabaar"
 		},
 		{
-			"id": "magegoburn-illidan",
-			"name": "Magegoburn",
+			"id": "mindthagap-illidan",
+			"name": "Mindthagap",
 			"realm": "illidan",
 			"region": "us",
 			"class": "Mage",
-			"race": "Nightborne",
-			"label": "Magegoburn"
+			"race": "Troll",
+			"label": "Mindthagap"
 		},
 		{
 			"id": "lharghrarn-illidan",
