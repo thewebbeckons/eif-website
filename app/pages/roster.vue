@@ -153,6 +153,7 @@ const catsByPlayerId = new Map(
 );
 const getPlayerCats = (player: RosterPlayer) =>
   catsByPlayerId.get(player.id) || [];
+const isCanadian = (player: RosterPlayer) => player.id === "lasood-illidan";
 const getLookupStatusLabel = (player: RosterPlayer) =>
   player.lookup_status === "lookup_failed" ? "Lookup failed" : "No score yet";
 const getRunKey = (run: RosterBestRun, index: number) =>
@@ -309,6 +310,7 @@ const getRaiderIoUrl = (player: RosterPlayer) =>
                         v-if="getPlayerCats(player).length > 0"
                         :cat-names="getPlayerCats(player)"
                       />
+                      <RosterCanadianTooltip v-if="isCanadian(player)" />
                       <UPopover
                         v-if="hasGuruTag(player.name)"
                         :ui="{
@@ -427,6 +429,7 @@ const getRaiderIoUrl = (player: RosterPlayer) =>
                           v-if="getPlayerCats(row.original).length > 0"
                           :cat-names="getPlayerCats(row.original)"
                         />
+                        <RosterCanadianTooltip v-if="isCanadian(row.original)" />
                         <UPopover
                           v-if="hasGuruTag(row.original.name)"
                           :ui="{
@@ -595,6 +598,7 @@ const getRaiderIoUrl = (player: RosterPlayer) =>
                             v-if="getPlayerCats(player).length > 0"
                             :cat-names="getPlayerCats(player)"
                           />
+                          <RosterCanadianTooltip v-if="isCanadian(player)" />
                           <span
                             v-if="hasGuruTag(player.name)"
                             class="text-sm"
