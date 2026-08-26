@@ -115,7 +115,9 @@ const handleCatClick = (e: MouseEvent) => {
               class="bg-blue-500 text-white px-2 py-1 text-xs font-black border-2 border-black"
               >+13</span
             >
-            <span class="text-sm font-black uppercase truncate">Skyreach</span>
+            <span class="text-sm font-black uppercase truncate"
+              >Altar of Fangs</span
+            >
           </div>
           <div
             class="bg-white border-4 border-black p-3 flex items-center gap-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] group-hover:-translate-x-2 transition-transform w-[90%] self-end"
@@ -125,7 +127,7 @@ const handleCatClick = (e: MouseEvent) => {
               >+11</span
             >
             <span class="text-sm font-black uppercase truncate"
-              >Maisara Caverns</span
+              >Murder Row</span
             >
           </div>
         </div>
