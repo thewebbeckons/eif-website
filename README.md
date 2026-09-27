@@ -6,7 +6,7 @@ Built with [Nuxt 4](https://nuxt.com), [Nuxt UI v4](https://ui.nuxt.com), and de
 
 ## Features
 
-- 🏰 **Guild Roster** - Raider.IO snapshots served with a 10-minute stale-while-revalidate cache
+- 🏰 **Guild Roster** - Daily Raider.IO membership sync, with live scores served through a 10-minute stale-while-revalidate cache
 - 📰 **News & Updates** - Markdown-powered blog via Nuxt Content
 - 🏆 **Hall of Fame** - Champion team and Mythic+ Guru for each completed season
 - 🎮 **Streams** - Guild member streaming status
@@ -49,15 +49,17 @@ pnpm preview
 
 ## Cloudflare Workers Deployment
 
-This project targets **Cloudflare Workers**, not Cloudflare Pages. The roster route (`/api/roster`) fetches live from Raider.IO and caches its response in-process for 10 minutes with stale-while-revalidate, via Nitro's `defineCachedEventHandler` — no external storage or scheduled task required.
+This project targets **Cloudflare Workers**, not Cloudflare Pages. A Cron Trigger runs at 09:00 UTC daily to fetch the guild's members from Raider.IO, check each member's current-season Mythic+ score, and store members with a score above zero in the existing `EIF_KV` namespace under `roster:active-mythic-plus:v1`. The job uses four concurrent profile requests and honors Raider.IO's `Retry-After` response. If it fails, the previous KV snapshot remains available.
 
-### 1. Create Cloudflare resources
+The roster route (`/api/roster`) reads that player list from KV, fetches their live scores and best runs from Raider.IO, and caches the response for 10 minutes with stale-while-revalidate. Until the first successful sync, or if KV cannot be read, the checked-in players in `server/assets/roster.json` act as a fallback. Team membership and optional labels remain in that file; newly active guild members do not need to be added manually.
 
-- Create a Cloudflare Workers project connected to this repository.
+### 1. Cloudflare resources
+
+- Use the existing Cloudflare Worker and `EIF_KV` namespace. The namespace ID and daily Cron Trigger are declared in `nuxt.config.ts`.
 
 ### 2. Configure environment variables
 
-Set `RAIDER_IO_KEY` in Cloudflare Workers Builds.
+Set `RAIDER_IO_KEY` as a Cloudflare Worker secret. The daily sync and live score requests use this key for Raider.IO's higher API rate limit. The existing `EIF_KV` namespace is configured in `nuxt.config.ts`.
 
 ### 3. Build configuration
 
@@ -67,13 +69,14 @@ Set `RAIDER_IO_KEY` in Cloudflare Workers Builds.
 
 ### 4. Local development
 
-`pnpm dev` works without any Cloudflare bindings — the roster page fetches live from Raider.IO on each cache miss.
+`pnpm dev` uses local Wrangler KV when its binding is available. Before the first local sync, the roster page uses the checked-in fallback players and fetches their live scores from Raider.IO on each cache miss.
 
 ### 5. Roster cat tooltips
 
-Cat ownership is managed in `app/assets/cats.json`, keyed by the stable player IDs
-from `server/assets/roster.json`. Each entry's `catNames` array is shown from the
-cat icon beside that player in every roster view.
+Cat ownership is managed in `app/assets/cats.json`, keyed by player IDs made from
+the lowercased character name and realm (for example, `vyrron-illidan`). Each
+entry's `catNames` array is shown from the cat icon beside that player in every
+roster view.
 
 ## Content
 

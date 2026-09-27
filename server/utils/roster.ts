@@ -8,7 +8,7 @@ import type {
   RosterTeam,
 } from "../../shared/types/roster";
 
-const rosterPlayerConfigSchema = z.object({
+export const rosterPlayerConfigSchema = z.object({
   id: z.string().min(1, "Player id is required."),
   name: z.string().min(1, "Player name is required."),
   label: z.string().min(1).optional(),

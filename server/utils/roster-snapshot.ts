@@ -1,9 +1,11 @@
+import type { H3Event } from "h3";
 import type {
   RosterGuild,
   RosterPlayer,
   RosterResponse,
 } from "../../shared/types/roster";
 import type { RosterConfig } from "./roster";
+import { getRosterBindings, readActiveRoster } from "./roster-sync";
 
 const GUILD_PROFILE_FIELDS = "raid_progression:current-tier";
 const CHARACTER_PROFILE_FIELDS =
@@ -80,17 +82,38 @@ async function buildRosterPlayer(
   }
 }
 
-export async function buildRosterSnapshot(): Promise<RosterResponse> {
-  const runtimeConfig = useRuntimeConfig();
+export async function buildRosterSnapshot(
+  event: H3Event,
+): Promise<RosterResponse> {
   const rosterConfig = getRosterConfig();
-  const raiderIoKey =
-    typeof runtimeConfig.raiderIoKey === "string"
-      ? runtimeConfig.raiderIoKey
-      : undefined;
+  const { kv, raiderIoKey: bindingKey } = getRosterBindings(
+    event.context._platform?.cloudflare?.env ?? event.context.cloudflare?.env,
+  );
+  const raiderIoKey = bindingKey || process.env.RAIDER_IO_KEY || undefined;
+
+  let playerConfigs = rosterConfig.players;
+  if (kv) {
+    try {
+      const synced = await readActiveRoster(kv);
+      if (synced) {
+        const labels = new Map(
+          rosterConfig.players
+            .filter((player) => player.label)
+            .map((player) => [player.id, player.label]),
+        );
+        playerConfigs = synced.players.map((player) => ({
+          ...player,
+          ...(labels.has(player.id) ? { label: labels.get(player.id) } : {}),
+        }));
+      }
+    } catch (error) {
+      console.error("Failed to read synced roster; using bundled fallback", error);
+    }
+  }
 
   const guild = await buildRosterGuild(rosterConfig.guild, raiderIoKey);
   const players = await Promise.all(
-    rosterConfig.players.map((playerConfig) =>
+    playerConfigs.map((playerConfig) =>
       buildRosterPlayer(playerConfig, raiderIoKey),
     ),
   );

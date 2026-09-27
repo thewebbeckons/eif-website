@@ -49,6 +49,15 @@ export default defineNuxtConfig({
 			deployConfig: true,
 			wrangler: {
 				name: "eif-website",
+				triggers: {
+					crons: ["0 9 * * *"],
+				},
+				kv_namespaces: [
+					{
+						binding: "EIF_KV",
+						id: "3547fd67ed2f482995666644d58d08bf",
+					},
+				],
 				compatibility_flags: ["nodejs_compat"],
 				observability: {
 					enabled: true,
@@ -62,7 +71,6 @@ export default defineNuxtConfig({
 		},
 	},
 	runtimeConfig: {
-		raiderIoKey: process.env.RAIDER_IO_KEY,
 		twitchClientId: process.env.TWITCH_CLIENT_ID,
 		twitchClientSecret: process.env.TWITCH_CLIENT_SECRET,
 	},

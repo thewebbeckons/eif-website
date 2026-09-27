@@ -1,9 +1,9 @@
 import type { RosterResponse } from "../../shared/types/roster";
 
 export default defineCachedEventHandler(
-  async (): Promise<RosterResponse> => {
+  async (event): Promise<RosterResponse> => {
     try {
-      return await buildRosterSnapshot();
+      return await buildRosterSnapshot(event);
     } catch (error) {
       console.error("Failed to build roster snapshot", error);
 
