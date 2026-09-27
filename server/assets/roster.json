@@ -150,13 +150,13 @@
 			"label": "Zerawin"
 		},
 		{
-			"id": "papsfears-illidan",
-			"name": "Papsfears",
+			"id": "jackfrost-illidan",
+			"name": "Jackfrost",
 			"realm": "illidan",
 			"region": "us",
-			"class": "Warlock",
-			"race": "Orc",
-			"label": "Papsfears"
+			"class": "Mage",
+			"race": "Night Elf",
+			"label": "Jackfrost"
 		},
 		{
 			"id": "ildarani-illidan",
