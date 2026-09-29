@@ -33,5 +33,16 @@ const rules = [
         </ul>
       </div>
     </div>
+
+    <p class="mt-12 inline-block bg-yellow-300 border-4 border-black px-5 py-3 shadow-[4px_4px_0px_0px_#ec4899] rotate-[1deg] text-lg md:text-xl font-mono font-bold text-black">
+      And not to mention... but we've beaten
+      <a
+        href="https://raider.io/guilds/us/stormreaver/Peons"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-black underline decoration-4 decoration-purple-600 underline-offset-4 hover:text-purple-700"
+      >Peons</a>
+      3/3 times to AOTC, just saying... 👀
+    </p>
   </section>
 </template>
