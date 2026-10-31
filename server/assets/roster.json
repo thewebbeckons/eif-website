@@ -123,13 +123,13 @@
 			"label": "Halastair"
 		},
 		{
-			"id": "pandacyn-illidan",
-			"name": "Pandacyn",
+			"id": "cynshot-illidan",
+			"name": "Cynshot",
 			"realm": "illidan",
 			"region": "us",
-			"class": "Shaman",
-			"race": "Pandaren",
-			"label": "Pandacyn"
+			"class": "Hunter",
+			"race": "Blood Elf",
+			"label": "Cynshot"
 		},
 		{
 			"id": "tofukittykat-illidan",
@@ -271,7 +271,7 @@
 			"memberIds": [
 				"splint-illidan",
 				"halastair-illidan",
-				"pandacyn-illidan",
+				"cynshot-illidan",
 				"tofukittykat-illidan",
 				"zerawin-illidan"
 			]
