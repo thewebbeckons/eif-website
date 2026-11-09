@@ -3,7 +3,7 @@ export default defineNuxtConfig({
 	modules: ["@nuxt/ui", "@nuxt/content", "@nuxt/scripts"],
 	css: ["~/assets/css/main.css"],
 	devtools: { enabled: true },
-	compatibilityDate: "2025-02-15",
+	compatibilityDate: "2026-11-01",
 
 	components: [
 		// Registered globally so markdown can use them as MDC blocks (::news-quote)
@@ -32,8 +32,10 @@ export default defineNuxtConfig({
 		fallback: "dark",
 	},
 	nitro: {
-		// Required: with the current compatibility date, workerd has no native
-		// node:console module and the Worker fails to boot without this alias.
+		// Required: workerd's native node:console exposes console.createTask but
+		// throws ERR_METHOD_NOT_IMPLEMENTED when it is called. Nuxt's hookable
+		// calls it whenever it exists, which 500s every SSR/API route. The unenv
+		// console omits createTask, so hookable falls back. Re-test before removing.
 		alias: {
 			"node:console": "unenv/node/console",
 		},
