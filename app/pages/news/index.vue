@@ -1,6 +1,20 @@
 <script setup lang="ts">
 const { data: posts, status } = await useAsyncData("news-posts", () =>
-  queryCollection("news").order("date", "DESC").all(),
+  // Cards only need metadata; skip the article bodies to keep the payload small.
+  queryCollection("news")
+    .select(
+      "path",
+      "title",
+      "description",
+      "image",
+      "category",
+      "author",
+      "featured",
+      "date",
+      "updatedAt",
+    )
+    .order("date", "DESC")
+    .all(),
 );
 
 const featuredPost = computed(
@@ -55,6 +69,7 @@ const remainingPosts = computed(
               v-if="featuredPost.image?.src"
               :src="featuredPost.image.src"
               :alt="featuredPost.image.alt || featuredPost.title"
+              fetchpriority="high"
               class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
             />
             <div
@@ -129,6 +144,8 @@ const remainingPosts = computed(
                 v-if="post.image?.src"
                 :src="post.image.src"
                 :alt="post.image.alt || post.title"
+                loading="lazy"
+                decoding="async"
                 class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
               />
               <div

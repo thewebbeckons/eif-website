@@ -32,8 +32,23 @@ export default defineNuxtConfig({
 		fallback: "dark",
 	},
 	nitro: {
+		// Required: with the current compatibility date, workerd has no native
+		// node:console module and the Worker fails to boot without this alias.
 		alias: {
 			"node:console": "unenv/node/console",
+		},
+		// Back Nitro's response cache (defineCachedEventHandler) with KV so the
+		// roster and streams caches survive across Worker isolates instead of
+		// living in per-isolate memory.
+		storage: {
+			cache: {
+				driver: "cloudflare-kv-binding",
+				binding: "EIF_KV",
+				base: "nitro-cache",
+			},
+		},
+		devStorage: {
+			cache: { driver: "fs", base: ".data/cache" },
 		},
 		prerender: {
 			// Content-backed routes are baked at build time so the Worker never needs
@@ -71,7 +86,10 @@ export default defineNuxtConfig({
 		},
 	},
 	runtimeConfig: {
-		twitchClientId: process.env.TWITCH_CLIENT_ID,
-		twitchClientSecret: process.env.TWITCH_CLIENT_SECRET,
+		// Filled at runtime from NUXT_TWITCH_CLIENT_ID / NUXT_TWITCH_CLIENT_SECRET
+		// (or the TWITCH_* Worker bindings read in server/api/streams.get.ts).
+		// Reading process.env here would inline build-machine values into the bundle.
+		twitchClientId: "",
+		twitchClientSecret: "",
 	},
 });

@@ -9,19 +9,14 @@ import type {
 } from "../../shared/types/roster";
 import catsData from "~/assets/cats.json";
 
-const { data: rosterData, error, status } = await useFetch<RosterResponse>(
-  "/api/roster",
-  {
-    server: true,
-  },
-);
-
-const { data: hallOfFameData } = await useFetch<HallOfFameContent>(
-  "/api/hall-of-fame",
-  {
-    server: true,
-  },
-);
+// Fetch both in parallel rather than awaiting one before starting the other.
+const [
+  { data: rosterData, error, status },
+  { data: hallOfFameData },
+] = await Promise.all([
+  useFetch<RosterResponse>("/api/roster"),
+  useFetch<HallOfFameContent>("/api/hall-of-fame"),
+]);
 
 const viewMode = ref<"list" | "teams">("list");
 

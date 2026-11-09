@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { motion } from "motion-v";
-
-const items = computed(() => [
+const items = [
   { label: "News", to: "/news" },
   { label: "Streams", to: "/streams" },
   { label: "Roster", to: "/roster" },
   { label: "Hall of Fame", to: "/hall-of-fame" },
-]);
-
+];
 </script>
 
 <template>
@@ -60,18 +57,7 @@ const items = computed(() => [
       />
     </template>
     <template #body>
-      <motion.div
-        class="flex flex-col gap-4"
-        :initial="{ opacity: 0, x: -20, filter: 'blur(4px)' }"
-        :animate="{ opacity: 1, x: 0, filter: 'blur(0px)' }"
-        :transition="{
-          duration: 0.4,
-          delay: 0.1,
-          type: 'spring',
-          stiffness: 200,
-          damping: 20,
-        }"
-      >
+      <div class="mobile-menu-enter flex flex-col gap-4">
         <UNavigationMenu
           :items="items"
           orientation="vertical"
@@ -79,7 +65,33 @@ const items = computed(() => [
             link: 'focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none rounded-md',
           }"
         />
-      </motion.div>
+      </div>
     </template>
   </UHeader>
 </template>
+
+<style scoped>
+/* Slide/blur-in for the mobile menu (replaces the motion-v spring). */
+.mobile-menu-enter {
+  animation: mobile-menu-enter 0.4s cubic-bezier(0.34, 1.3, 0.64, 1) 0.1s both;
+}
+
+@keyframes mobile-menu-enter {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu-enter {
+    animation: none;
+  }
+}
+</style>

@@ -29,7 +29,9 @@ defineProps<{
         <div class="overflow-hidden border-b-4 border-black aspect-video bg-zinc-900">
           <img 
             :src="img.url" 
-            :alt="img.alt || 'Gallery image'" 
+            :alt="img.alt || 'Gallery image'"
+            loading="lazy"
+            decoding="async"
             class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
           />
         </div>

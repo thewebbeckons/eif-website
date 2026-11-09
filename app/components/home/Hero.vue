@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import NeoButton from "~/components/home/NeoButton.vue";
 import LootCard from "~/components/home/LootCard.vue";
 import DetailsCard from "~/components/home/DetailsCard.vue";
 
@@ -9,22 +7,6 @@ const props = defineProps<{
 }>();
 
 const { open } = useJoinModal();
-
-const wipeMotivation = ref("");
-const loadingWipe = ref(false);
-
-const generateWipeWisdom = async () => {
-  loadingWipe.value = true;
-  try {
-    // Mock API call for now
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    wipeMotivation.value =
-      "Even the void is disappointed in that pull. Try pressing buttons next time?";
-  } catch (e) {
-    wipeMotivation.value = "The Void ate my response. Try again.";
-  }
-  loadingWipe.value = false;
-};
 </script>
 
 <template>
@@ -71,15 +53,3 @@ const generateWipeWisdom = async () => {
   </section>
 </template>
 
-<style scoped>
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-</style>
