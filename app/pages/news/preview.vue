@@ -103,7 +103,7 @@ const galleryImages = [
           heading="Ready to raid Midnight?"
           text="Drop an application and join EIF before launch day. Spots are limited."
           button-label="Drop an App"
-          button-link="/apply"
+          button-link="/news"
           color="bg-pink-400"
         />
 
