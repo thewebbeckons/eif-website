@@ -13,7 +13,7 @@ const rules = [
     <div class="absolute -top-12 -left-6 bg-purple-500 border-4 border-black px-6 py-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rotate-[-5deg]">
       <span class="text-3xl font-black uppercase tracking-wider text-white drop-shadow-[2px_2px_0_black]">The Vibes</span>
     </div>
-    
+
     <div class="mt-8 flex flex-col lg:flex-row gap-12">
       <div class="flex-1 space-y-6">
         <h3 class="text-4xl lg:text-5xl font-black uppercase leading-none text-white drop-shadow-[2px_2px_0_black]">
@@ -23,7 +23,7 @@ const rules = [
           WoW is better with friends. We bring the flasks and the cosmic laughs. Get ready to have a great time! Just don't tell the healers I told you to stand in the void.
         </p>
       </div>
-      
+
       <div class="flex-1">
         <ul class="space-y-4">
           <li v-for="(item, i) in rules" :key="i" class="flex items-center gap-4 bg-purple-700 border-4 border-black p-4 shadow-[4px_4px_0px_0px_#ec4399] hover:scale-[1.02] transition-transform">
@@ -34,7 +34,7 @@ const rules = [
       </div>
     </div>
 
-    <p class="mt-12 inline-block bg-yellow-300 border-4 border-black px-5 py-3 shadow-[4px_4px_0px_0px_#ec4899] rotate-[1deg] text-lg md:text-xl font-mono font-bold text-black">
+    <p class="mt-12 inline-block bg-yellow-300 border-4 border-black px-5 py-3 shadow-[4px_4px_0px_0px_#ec4899] rotate-1 text-lg md:text-xl font-mono font-bold text-black">
       And not to mention... but we've beaten
       <a
         href="https://raider.io/guilds/us/stormreaver/Peons"
@@ -42,7 +42,7 @@ const rules = [
         rel="noopener noreferrer"
         class="font-black underline decoration-4 decoration-purple-600 underline-offset-4 hover:text-purple-700"
       >Peons</a>
-      3/3 times to AOTC, just saying... 👀
+      3/4 times to AOTC, just saying... 👀
     </p>
   </section>
 </template>
