@@ -5,8 +5,6 @@ import DetailsCard from "~/components/home/DetailsCard.vue";
 const props = defineProps<{
   description?: string;
 }>();
-
-const { open } = useJoinModal();
 </script>
 
 <template>
@@ -48,7 +46,7 @@ const { open } = useJoinModal();
       <LootCard />
 
       <!-- Details Card -->
-      <DetailsCard @drop-app="open" />
+      <DetailsCard />
     </div>
   </section>
 </template>

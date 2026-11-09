@@ -57,7 +57,7 @@ export default defineNuxtConfig({
 			// bakes too rather than hitting the API at runtime.
 			crawlLinks: true,
 			routes: ["/", "/news", "/hall-of-fame"],
-			ignore: ["/roster", "/streams", "/apply", "/api"],
+			ignore: ["/roster", "/streams", "/api"],
 			autoSubfolderIndex: false,
 		},
 		cloudflare: {

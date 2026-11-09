@@ -38,7 +38,6 @@ useSeoMeta({
         <NuxtPage />
       </UMain>
       <AppFooter />
-      <AppJoinModal />
     </div>
   </UApp>
 </template>
