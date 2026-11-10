@@ -10,7 +10,8 @@ Built with [Nuxt 4](https://nuxt.com), [Nuxt UI v4](https://ui.nuxt.com), and de
 - 📰 **News & Updates** - Markdown-powered blog via Nuxt Content
 - 🏆 **Hall of Fame** - Champion team and Mythic+ Guru for each completed season
 - 🎮 **Streams** - Guild member streaming status
-- 📝 **Guild Applications** - Join request form
+- 🔐 **Member Area** - Discord sign-in (server members only), display names and characters
+- 🤝 **Mythic+ Recruitment** - Members create teams, invite each other and post what roles they need
 
 ## Tech Stack
 
@@ -55,11 +56,11 @@ The roster route (`/api/roster`) reads that player list from KV, fetches their l
 
 ### 1. Cloudflare resources
 
-- Use the existing Cloudflare Worker and `EIF_KV` namespace. The namespace ID and daily Cron Trigger are declared in `nuxt.config.ts`.
+- Use the existing Cloudflare Worker and `EIF_KV` namespace. The KV and D1 bindings are declared in `wrangler.jsonc`; the daily Cron Trigger and the rest of the Worker config are in `nuxt.config.ts`.
 
 ### 2. Configure environment variables
 
-Set `RAIDER_IO_KEY` as a Cloudflare Worker secret. The daily sync and live score requests use this key for Raider.IO's higher API rate limit. The existing `EIF_KV` namespace is configured in `nuxt.config.ts`.
+Set `RAIDER_IO_KEY` as a Cloudflare Worker secret. The daily sync and live score requests use this key for Raider.IO's higher API rate limit. The existing `EIF_KV` namespace is configured in `wrangler.jsonc`.
 
 ### 3. Build configuration
 
@@ -69,9 +70,45 @@ Set `RAIDER_IO_KEY` as a Cloudflare Worker secret. The daily sync and live score
 
 ### 4. Local development
 
-`pnpm dev` uses local Wrangler KV when its binding is available. Before the first local sync, the roster page uses the checked-in fallback players and fetches their live scores from Raider.IO on each cache miss.
+`pnpm dev` uses a local Wrangler KV. Before the first local sync, the roster page uses the checked-in fallback players and fetches their live scores from Raider.IO on each cache miss.
 
-### 5. Roster cat tooltips
+### 5. Member sign-in and database
+
+Members sign in with Discord, and only accounts that are in the guild's Discord
+server get a session. Membership is checked at sign-in and re-checked hourly;
+sessions last 7 days.
+
+1. Create an application in the [Discord Developer Portal](https://discord.com/developers/applications).
+   Under **OAuth2**, add a redirect for each origin the site runs on:
+   `https://<your-domain>/api/auth/discord` and, for local testing against real
+   Discord, `http://localhost:3000/api/auth/discord`.
+2. Set these as Worker secrets (`wrangler secret put <NAME>`), or in `.env` with
+   a `NUXT_` prefix for local development:
+
+   | Secret | Value |
+   | --- | --- |
+   | `DISCORD_CLIENT_ID` | The application's client ID |
+   | `DISCORD_CLIENT_SECRET` | The application's client secret |
+   | `DISCORD_GUILD_ID` | The Discord server ID (right-click the server with Developer Mode on) |
+   | `SESSION_PASSWORD` | A random string of 32+ characters, e.g. `openssl rand -base64 32` |
+
+3. Accounts, characters and teams are stored in a D1 database bound as `EIF_DB`
+   (declared in `wrangler.jsonc`). Wrangler creates it on the first deploy; to
+   use an existing database instead, add its `database_id` to that entry. The
+   tables are created by the app on first use (`server/utils/db.ts`), so there
+   is no migration step.
+
+Locally, `pnpm dev` emulates KV and D1 from `wrangler.jsonc` (state is kept in
+`.wrangler/`). When no Discord client ID is configured, the dev server signs you
+in as a stand-in member instead: open `/api/auth/discord`, or
+`/api/auth/discord?as=Bob` to switch to another test member. That shortcut is
+compiled out of production builds.
+
+Characters a member marks **Show on roster** are added to the roster alongside
+the synced guild list. Each one costs a Raider.IO request whenever the roster
+cache refreshes.
+
+### 6. Roster cat tooltips
 
 Cat ownership is managed in `app/assets/cats.json`, keyed by player IDs made from
 the lowercased character name and realm (for example, `vyrron-illidan`). Each
@@ -151,6 +188,8 @@ app/
 │   ├── app/        # Global components (Header, Footer, Logo)
 │   ├── home/       # Homepage sections
 │   ├── news/       # News post building blocks (also usable from markdown)
+│   ├── members/    # Member area building blocks (sign-in gate, panels)
+│   ├── recruitment/ # Mythic+ team cards and forms
 │   └── roster/     # Roster view building blocks (CatTooltip)
 ├── pages/          # Route pages
 ├── utils/          # Auto-imported helpers
@@ -166,6 +205,7 @@ server/             # Server routes, tasks, and utilities
 
 - **Raider.io** - Guild roster and Mythic+ data
 - **Twitch** - Streaming status (planned)
+- **Discord** - Member sign-in and server membership checks
 
 ## License
 

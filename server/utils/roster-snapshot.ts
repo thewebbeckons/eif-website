@@ -86,9 +86,8 @@ export async function buildRosterSnapshot(
   event: H3Event,
 ): Promise<RosterResponse> {
   const rosterConfig = getRosterConfig();
-  const { kv, raiderIoKey: bindingKey } = getRosterBindings(
-    event.context._platform?.cloudflare?.env ?? event.context.cloudflare?.env,
-  );
+  const env = getCloudflareEnv(event);
+  const { kv, raiderIoKey: bindingKey } = getRosterBindings(env);
   const raiderIoKey = bindingKey || process.env.RAIDER_IO_KEY || undefined;
 
   let playerConfigs = rosterConfig.players;
@@ -109,6 +108,21 @@ export async function buildRosterSnapshot(
     } catch (error) {
       console.error("Failed to read synced roster; using bundled fallback", error);
     }
+  }
+
+  // Characters members opted in to showing, on top of the synced guild list.
+  try {
+    const db = await getDb(env);
+    if (db) {
+      const listed = new Set(playerConfigs.map((player) => player.id));
+      const optIns = await listRosterOptIns(db);
+      playerConfigs = [
+        ...playerConfigs,
+        ...optIns.filter((player) => !listed.has(player.id)),
+      ];
+    }
+  } catch (error) {
+    console.error("Failed to read member roster opt-ins", error);
   }
 
   const [guild, players] = await Promise.all([

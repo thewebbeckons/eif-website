@@ -4,7 +4,25 @@ const items = [
   { label: "Streams", to: "/streams" },
   { label: "Roster", to: "/roster" },
   { label: "Hall of Fame", to: "/hall-of-fame" },
+  { label: "Recruitment", to: "/recruitment" },
 ];
+
+const { user, ready, signOut, signInUrl } = useAuth();
+
+const memberItems = [
+  [
+    { label: "Your account", icon: "i-lucide-user", to: "/account" },
+    { label: "Recruitment", icon: "i-lucide-users", to: "/recruitment" },
+  ],
+  [{ label: "Sign out", icon: "i-lucide-log-out", onSelect: signOut }],
+];
+
+// The header button is hidden on small screens, so the mobile menu carries
+// the same account links.
+const mobileItems = computed(() => [
+  ...items,
+  ...(user.value ? [{ label: "Your account", to: "/account" }] : []),
+]);
 </script>
 
 <template>
@@ -27,25 +45,45 @@ const items = [
     </template>
 
     <template #right>
-      <UTooltip
-        text="Coming soon..."
-        :content="{ side: 'bottom' }"
-        :ui="{
-          content:
-            'rounded-none border-2 border-black bg-stone-800 font-black uppercase tracking-wider text-white shadow-[4px_4px_0_0_black] ring-0',
-        }"
-      >
+      <!-- Signed-in state is only known in the browser, so nothing renders
+           here until the session check has finished. -->
+      <template v-if="ready">
+        <UDropdownMenu
+          v-if="user"
+          :items="memberItems"
+          :content="{ align: 'end' }"
+          :ui="{
+            content:
+              'rounded-none border-2 border-black bg-stone-800 shadow-[4px_4px_0_0_black] ring-0',
+            item: 'font-black uppercase tracking-wider text-white',
+          }"
+        >
+          <UButton
+            size="sm"
+            :label="user.displayName"
+            :avatar="{
+              src: user.avatarUrl || undefined,
+              alt: user.displayName,
+            }"
+            trailing-icon="i-lucide-chevron-down"
+            color="neutral"
+            variant="ghost"
+            class="hidden max-w-48 bg-purple-500 text-white hover:bg-purple-600 sm:flex"
+            :ui="{ label: 'truncate' }"
+          />
+        </UDropdownMenu>
         <UButton
+          v-else
+          :to="signInUrl"
+          external
           size="sm"
           label="Sign in"
           icon="i-lucide-log-in"
           color="neutral"
           variant="ghost"
-          type="button"
-          aria-label="Sign in (coming soon)"
-          class="text-stone-300 hover:text-white bg-purple-500 hover:bg-purple-600 cursor-pointer hidden sm:flex"
+          class="hidden bg-purple-500 text-stone-100 hover:bg-purple-600 hover:text-white sm:flex"
         />
-      </UTooltip>
+      </template>
     </template>
 
     <template #default>
@@ -59,12 +97,30 @@ const items = [
     <template #body>
       <div class="mobile-menu-enter flex flex-col gap-4">
         <UNavigationMenu
-          :items="items"
+          :items="mobileItems"
           orientation="vertical"
           :ui="{
             link: 'focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none rounded-md',
           }"
         />
+        <template v-if="ready">
+          <UButton
+            v-if="user"
+            label="Sign out"
+            icon="i-lucide-log-out"
+            color="neutral"
+            class="justify-center bg-stone-800 text-white hover:bg-stone-700 sm:hidden"
+            @click="signOut"
+          />
+          <UButton
+            v-else
+            :to="signInUrl"
+            external
+            label="Sign in"
+            icon="i-lucide-log-in"
+            class="justify-center bg-purple-500 text-white hover:bg-purple-600 sm:hidden"
+          />
+        </template>
       </div>
     </template>
   </UHeader>

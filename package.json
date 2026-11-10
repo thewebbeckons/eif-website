@@ -22,7 +22,7 @@
   "scripts": {
     "build": "nuxt build",
     "build:worker": "NITRO_PRESET=cloudflare_module nuxt build",
-    "dev": "nuxt dev",
+    "dev": "NITRO_PRESET=cloudflare_module nuxt dev",
     "deploy": "pnpm build:worker && wrangler deploy --cwd .output",
     "generate": "nuxt generate",
     "preview": "nuxt preview",

@@ -1,0 +1,19 @@
+// Bindings only. Nitro merges this file with nitro.cloudflare.wrangler in
+// nuxt.config.ts to generate the deployed config, and `pnpm dev` reads it to
+// emulate the same bindings locally (state lives in .wrangler/).
+{
+	"kv_namespaces": [
+		{
+			"binding": "EIF_KV",
+			"id": "3547fd67ed2f482995666644d58d08bf"
+		}
+	],
+	"d1_databases": [
+		{
+			// Member accounts, characters and Mythic+ teams. The schema is applied
+			// by the app on first use (server/utils/db.ts).
+			"binding": "EIF_DB",
+			"database_name": "eif-website"
+		}
+	]
+}

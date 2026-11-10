@@ -69,7 +69,7 @@ export function getRosterBindings(value: unknown): {
   };
 }
 
-function playerId(name: string, realm: string): string {
+export function playerId(name: string, realm: string): string {
   return `${name.toLowerCase().trim().replace(/\s+/g, "-")}-${realm.toLowerCase().trim().replace(/\s+/g, "-")}`;
 }
 
