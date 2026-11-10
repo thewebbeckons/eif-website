@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from "vue";
-
 const COLORS = ["#d8b4fe", "#a855f7", "#3b82f6", "#ec4899", "#6366f1"];
 const ICONS = [
   "i-lucide-swords",
@@ -12,73 +10,87 @@ const ICONS = [
 
 interface Element {
   id: number;
+  size: number;
+  color: string;
+  icon: string;
+  revealDelay: number;
+}
+
+interface Motion {
   x: number;
   y: number;
   vx: number;
   vy: number;
-  size: number;
-  color: string;
-  icon: string;
   rotation: number;
   rv: number;
-  revealDelay: number;
 }
 
-const elements = ref<Element[]>([]);
+// Static per-icon data drives the render once. Positions live in a plain,
+// non-reactive array and are written straight to the DOM each frame, so the
+// animation loop never triggers a Vue re-render.
+const elements = shallowRef<Element[]>([]);
+// Indexed by element id (Vue does not guarantee v-for ref array order).
+const elementRefs: (HTMLElement | null)[] = [];
+const setElementRef = (id: number, node: unknown) => {
+  elementRefs[id] = node instanceof HTMLElement ? node : null;
+};
 const iconsVisible = ref(false);
-const prefersReducedMotion = ref(false);
 
+let motions: Motion[] = [];
 let requestRef: number | null = null;
-let initTimeout: ReturnType<typeof setTimeout> | number | null = null;
-let revealTimeout: ReturnType<typeof setTimeout> | number | null = null;
-let nextId = 0;
+let initTimeout: ReturnType<typeof setTimeout> | null = null;
+let revealTimeout: ReturnType<typeof setTimeout> | null = null;
+const ELEMENT_COUNT = 22;
 const BACKGROUND_BOOT_DELAY_MS = 800;
 const BACKGROUND_REVEAL_DELAY_MS = 120;
 
-onMounted(() => {
-  prefersReducedMotion.value = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
+const applyTransforms = () => {
+  for (let i = 0; i < motions.length; i++) {
+    const m = motions[i]!;
+    const node = elementRefs[i];
+    if (node) {
+      node.style.transform = `translate(${m.x}px, ${m.y}px) rotate(${m.rotation}deg)`;
+    }
+  }
+};
 
-  if (prefersReducedMotion.value) return;
+onMounted(() => {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
   const update = () => {
-    elements.value = elements.value.map((el) => {
-      let nx = el.x + el.vx;
-      let ny = el.y + el.vy;
-      let nvx = el.vx;
-      let nvy = el.vy;
-      if (nx < -50 || nx > window.innerWidth + 50) nvx *= -1;
-      if (ny < -50 || ny > window.innerHeight + 50) nvy *= -1;
-      return {
-        ...el,
-        x: nx,
-        y: ny,
-        vx: nvx,
-        vy: nvy,
-        rotation: el.rotation + el.rv,
-      };
-    });
-
+    const maxX = window.innerWidth + 50;
+    const maxY = window.innerHeight + 50;
+    for (const m of motions) {
+      m.x += m.vx;
+      m.y += m.vy;
+      if (m.x < -50 || m.x > maxX) m.vx *= -1;
+      if (m.y < -50 || m.y > maxY) m.vy *= -1;
+      m.rotation += m.rv;
+    }
+    applyTransforms();
     requestRef = requestAnimationFrame(update);
   };
 
   initTimeout = setTimeout(() => {
-    elements.value = Array.from({ length: 22 }).map(() => ({
-      id: nextId++,
+    motions = Array.from({ length: ELEMENT_COUNT }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
       vx: (Math.random() - 0.5) * 1.0,
       vy: (Math.random() - 0.5) * 1.0,
+      rotation: Math.random() * 360,
+      rv: (Math.random() - 0.5) * 1.2,
+    }));
+    elements.value = motions.map((_, id) => ({
+      id,
       size: 24 + Math.random() * 32,
       color: COLORS[Math.floor(Math.random() * COLORS.length)] as string,
       icon: ICONS[Math.floor(Math.random() * ICONS.length)] as string,
-      rotation: Math.random() * 360,
-      rv: (Math.random() - 0.5) * 1.2,
       revealDelay: 200 + Math.random() * 2000,
     }));
 
     revealTimeout = setTimeout(() => {
+      // Refs are populated after the render above; place icons before fading in.
+      applyTransforms();
       iconsVisible.value = true;
       requestRef = requestAnimationFrame(update);
     }, BACKGROUND_REVEAL_DELAY_MS);
@@ -102,10 +114,10 @@ onBeforeUnmount(() => {
     <div
       v-for="el in elements"
       :key="'el-' + el.id"
+      :ref="(node: unknown) => setElementRef(el.id, node)"
       class="absolute transition-opacity duration-3000 ease-out blur-[0.5px] will-change-transform"
       :class="iconsVisible ? 'opacity-40' : 'opacity-0'"
       :style="{
-        transform: `translate(${el.x}px, ${el.y}px) rotate(${el.rotation}deg)`,
         color: el.color,
         filter: `drop-shadow(0 0 8px ${el.color})`,
         transitionDelay: `${el.revealDelay}ms`,

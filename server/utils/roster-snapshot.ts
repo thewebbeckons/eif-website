@@ -111,12 +111,14 @@ export async function buildRosterSnapshot(
     }
   }
 
-  const guild = await buildRosterGuild(rosterConfig.guild, raiderIoKey);
-  const players = await Promise.all(
-    playerConfigs.map((playerConfig) =>
-      buildRosterPlayer(playerConfig, raiderIoKey),
+  const [guild, players] = await Promise.all([
+    buildRosterGuild(rosterConfig.guild, raiderIoKey),
+    Promise.all(
+      playerConfigs.map((playerConfig) =>
+        buildRosterPlayer(playerConfig, raiderIoKey),
+      ),
     ),
-  );
+  ]);
 
   return createRosterResponse({
     guild,

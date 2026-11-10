@@ -21,6 +21,35 @@ const getTwitchCredentials = (event: any) => {
   };
 };
 
+// App access tokens last ~60 days, so reuse one for as long as this isolate
+// lives instead of requesting a new token on every cache refresh.
+let cachedToken: { value: string; expiresAt: number } | null = null;
+
+const getAppAccessToken = async (clientId: string, clientSecret: string) => {
+  if (cachedToken && cachedToken.expiresAt > Date.now()) {
+    return cachedToken.value;
+  }
+
+  const { access_token, expires_in } = await $fetch<{
+    access_token: string;
+    expires_in: number;
+  }>("https://id.twitch.tv/oauth2/token", {
+    method: "POST",
+    body: new URLSearchParams({
+      client_id: clientId,
+      client_secret: clientSecret,
+      grant_type: "client_credentials",
+    }),
+  });
+
+  // Refresh a minute early so a token never expires mid-request.
+  cachedToken = {
+    value: access_token,
+    expiresAt: Date.now() + Math.max(expires_in - 60, 0) * 1000,
+  };
+  return access_token;
+};
+
 export default defineCachedEventHandler(
   async (event) => {
     const { clientId: twitchClientId, clientSecret: twitchClientSecret } =
@@ -31,21 +60,10 @@ export default defineCachedEventHandler(
       return [];
     }
 
-    // 1. Get Twitch OAuth App Access Token
+    // 1. Get (or reuse) a Twitch OAuth app access token
     let accessToken = "";
     try {
-      const tokenResponse = await $fetch<{ access_token: string }>(
-        "https://id.twitch.tv/oauth2/token",
-        {
-          method: "POST",
-          body: new URLSearchParams({
-            client_id: twitchClientId,
-            client_secret: twitchClientSecret,
-            grant_type: "client_credentials",
-          }),
-        },
-      );
-      accessToken = tokenResponse.access_token;
+      accessToken = await getAppAccessToken(twitchClientId, twitchClientSecret);
     } catch (error) {
       console.error("Error fetching Twitch access token:", error);
       return [];
@@ -83,12 +101,19 @@ export default defineCachedEventHandler(
     };
 
     try {
-      // 4. Get Twitch Users (for profile images)
+      // 4. Get Twitch users (profile images) and active streams in parallel;
+      // neither depends on the other.
       const usersQuery = new URLSearchParams();
       logins.forEach((login) => usersQuery.append("login", login));
+      const streamsQuery = new URLSearchParams();
+      logins.forEach((login) => streamsQuery.append("user_login", login));
 
-      const usersResponse: any = await fetchTwitch("users", usersQuery);
+      const [usersResponse, streamsResponse]: any[] = await Promise.all([
+        fetchTwitch("users", usersQuery),
+        fetchTwitch("streams", streamsQuery),
+      ]);
       const usersData = usersResponse?.data || [];
+      const activeStreams = streamsResponse?.data || [];
 
       // 4.5 Get Channels info (for offline title/game)
       const userIds = usersData.map((u: any) => u.id);
@@ -131,13 +156,6 @@ export default defineCachedEventHandler(
         };
       });
 
-      // 5. Get Active Streams
-      const streamsQuery = new URLSearchParams();
-      logins.forEach((login) => streamsQuery.append("user_login", login));
-
-      const streamsResponse: any = await fetchTwitch("streams", streamsQuery);
-      const activeStreams = streamsResponse?.data || [];
-
       // 6. Merge Live Stream Data
       const results = mappedStreams.map((stream) => {
         const liveData = activeStreams.find(
@@ -162,7 +180,9 @@ export default defineCachedEventHandler(
       });
 
       return results;
-    } catch (error) {
+    } catch (error: any) {
+      // A revoked or expired token: drop it so the next refresh gets a new one.
+      if (error?.statusCode === 401) cachedToken = null;
       console.error("Error fetching data from Twitch API:", error);
       return [];
     }

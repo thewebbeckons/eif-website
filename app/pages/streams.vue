@@ -13,9 +13,9 @@ export interface Stream {
   isLive: boolean;
 }
 
-const { data: streams, status } = await useFetch<Stream[]>("/api/streams", {
-  getCachedData: () => undefined,
-});
+// Default getCachedData reuses the SSR payload on hydration and refetches on
+// client-side navigation, so live status stays fresh without a double fetch.
+const { data: streams, status } = await useFetch<Stream[]>("/api/streams");
 
 const liveStreams = computed(
   () => streams.value?.filter((s) => s.isLive) || [],

@@ -99,7 +99,7 @@ Regular **markdown** inside a highlighted card.
 ::news-quote{quote="We are NOT ready for this raid tier." author="Qbeans" role="Guild Master"}
 ::
 
-::news-call-to-action{heading="Ready to raid?" button-label="Drop an App" button-link="/apply"}
+::news-call-to-action{heading="Ready to raid?" button-label="Join our Discord" button-link="https://discord.gg/your-invite"}
 ::
 
 ::news-image-gallery
@@ -148,11 +148,10 @@ existing bindings in `nitro.cloudflare.wrangler`.
 ```
 app/
 ├── components/
-│   ├── app/        # Global components (Header, Footer, Logo, JoinModal)
+│   ├── app/        # Global components (Header, Footer, Logo)
 │   ├── home/       # Homepage sections
 │   ├── news/       # News post building blocks (also usable from markdown)
 │   └── roster/     # Roster view building blocks (CatTooltip)
-├── composables/    # Shared state (useJoinModal)
 ├── pages/          # Route pages
 ├── utils/          # Auto-imported helpers
 └── assets/         # Global styles plus checked-in site data (cats, qisms)

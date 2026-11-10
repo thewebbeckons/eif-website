@@ -3,7 +3,7 @@ export default defineNuxtConfig({
 	modules: ["@nuxt/ui", "@nuxt/content", "@nuxt/scripts"],
 	css: ["~/assets/css/main.css"],
 	devtools: { enabled: true },
-	compatibilityDate: "2025-02-15",
+	compatibilityDate: "2026-11-01",
 
 	components: [
 		// Registered globally so markdown can use them as MDC blocks (::news-quote)
@@ -32,8 +32,25 @@ export default defineNuxtConfig({
 		fallback: "dark",
 	},
 	nitro: {
+		// Required: workerd's native node:console exposes console.createTask but
+		// throws ERR_METHOD_NOT_IMPLEMENTED when it is called. Nuxt's hookable
+		// calls it whenever it exists, which 500s every SSR/API route. The unenv
+		// console omits createTask, so hookable falls back. Re-test before removing.
 		alias: {
 			"node:console": "unenv/node/console",
+		},
+		// Back Nitro's response cache (defineCachedEventHandler) with KV so the
+		// roster and streams caches survive across Worker isolates instead of
+		// living in per-isolate memory.
+		storage: {
+			cache: {
+				driver: "cloudflare-kv-binding",
+				binding: "EIF_KV",
+				base: "nitro-cache",
+			},
+		},
+		devStorage: {
+			cache: { driver: "fs", base: ".data/cache" },
 		},
 		prerender: {
 			// Content-backed routes are baked at build time so the Worker never needs
@@ -42,7 +59,7 @@ export default defineNuxtConfig({
 			// bakes too rather than hitting the API at runtime.
 			crawlLinks: true,
 			routes: ["/", "/news", "/hall-of-fame"],
-			ignore: ["/roster", "/streams", "/apply", "/api"],
+			ignore: ["/roster", "/streams", "/api"],
 			autoSubfolderIndex: false,
 		},
 		cloudflare: {
@@ -71,7 +88,10 @@ export default defineNuxtConfig({
 		},
 	},
 	runtimeConfig: {
-		twitchClientId: process.env.TWITCH_CLIENT_ID,
-		twitchClientSecret: process.env.TWITCH_CLIENT_SECRET,
+		// Filled at runtime from NUXT_TWITCH_CLIENT_ID / NUXT_TWITCH_CLIENT_SECRET
+		// (or the TWITCH_* Worker bindings read in server/api/streams.get.ts).
+		// Reading process.env here would inline build-machine values into the bundle.
+		twitchClientId: "",
+		twitchClientSecret: "",
 	},
 });
