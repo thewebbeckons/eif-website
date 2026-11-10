@@ -25,6 +25,30 @@ export default defineAppConfig({
         variant: 'none',
       }
     },
+    select: {
+      slots: {
+        base: 'border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] !ring-0 rounded-none bg-stone-900',
+        content: 'rounded-none border-2 border-black bg-stone-900 ring-0 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]',
+      },
+      defaultVariants: {
+        variant: 'none',
+      }
+    },
+    switch: {
+      slots: {
+        // The site theme turns shadow-lg into a hard offset shadow, which
+        // looks broken on the small round thumb.
+        thumb: 'shadow-none',
+      }
+    },
+    modal: {
+      slots: {
+        overlay: 'bg-black/70',
+        content: 'rounded-none border-4 border-black bg-stone-900 ring-0 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] divide-y-4 divide-black',
+        title: 'font-heading text-xl font-black uppercase text-white',
+        description: 'font-medium text-stone-300',
+      }
+    },
     navigationMenu: {
       slots: {
         list: 'gap-3',

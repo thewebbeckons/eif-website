@@ -59,7 +59,7 @@ export default defineNuxtConfig({
 			// bakes too rather than hitting the API at runtime.
 			crawlLinks: true,
 			routes: ["/", "/news", "/hall-of-fame"],
-			ignore: ["/roster", "/streams", "/api"],
+			ignore: ["/roster", "/streams", "/api", "/account", "/recruitment"],
 			autoSubfolderIndex: false,
 		},
 		cloudflare: {
@@ -69,12 +69,9 @@ export default defineNuxtConfig({
 				triggers: {
 					crons: ["0 9 * * *"],
 				},
-				kv_namespaces: [
-					{
-						binding: "EIF_KV",
-						id: "3547fd67ed2f482995666644d58d08bf",
-					},
-				],
+				// The KV and D1 bindings live in wrangler.jsonc, which Nitro merges
+				// into this config at build time and `nuxt dev` reads for local
+				// emulation. Declaring a binding in both places would duplicate it.
 				compatibility_flags: ["nodejs_compat"],
 				observability: {
 					enabled: true,
@@ -93,5 +90,12 @@ export default defineNuxtConfig({
 		// Reading process.env here would inline build-machine values into the bundle.
 		twitchClientId: "",
 		twitchClientSecret: "",
+		// Discord sign-in: NUXT_DISCORD_CLIENT_ID, NUXT_DISCORD_CLIENT_SECRET,
+		// NUXT_DISCORD_GUILD_ID and NUXT_SESSION_PASSWORD (32+ characters), or the
+		// same names without the NUXT_ prefix as Worker secrets.
+		discordClientId: "",
+		discordClientSecret: "",
+		discordGuildId: "",
+		sessionPassword: "",
 	},
 });
